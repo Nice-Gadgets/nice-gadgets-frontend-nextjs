@@ -10,14 +10,24 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground hover:bg-primary/80',
         outline:
-          'border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
+          'border-border bg-background hover:bg-muted hover:text-foreground',
         secondary:
-          'bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground',
-        ghost:
-          'hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50',
-        destructive:
-          'bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40',
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        ghost: 'hover:bg-muted hover:text-foreground',
+        destructive: 'bg-red/10 text-red hover:bg-red/20',
         link: 'text-primary underline-offset-4 hover:underline',
+
+        /* ---------button-pagination----------- */
+        pagination:
+          'rounded-none bg-pagination-default text-white hover:bg-pagination-hover text-sm font-semibold aria-[current=page]:bg-pagination-selected',
+
+        /* ---------button-control----------- */
+        control:
+          'rounded-none bg-chevron-default text-white hover:bg-chevron-hover',
+
+        /* ---------button-favorite----------- */
+        favorite:
+          'rounded-none bg-favorite-default text-white hover:bg-favorite-hover aria-pressed:bg-favorite-selected aria-pressed:border aria-pressed:border-favorite-border aria-pressed:text-[#EB5757]',
       },
       size: {
         default:
@@ -31,8 +41,17 @@ const buttonVariants = cva(
         'icon-sm':
           'size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg',
         'icon-lg': 'size-9',
+
+        /* ---------buttons sizes: pagination, control(chevron, minus, plus), favorite, picker----------- */
+        'sq-8': 'size-8',
+        'sq-10': 'size-10',
       },
     },
+    compoundVariants: [
+      { variant: 'pagination', class: 'size-8' },
+      { variant: 'control', class: 'size-8' },
+      { variant: 'favorite', class: 'size-10' },
+    ],
     defaultVariants: {
       variant: 'default',
       size: 'default',

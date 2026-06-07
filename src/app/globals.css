@@ -1,38 +1,90 @@
 @import 'tailwindcss';
 
-@theme {
-  --color-brand-primary: var(--color-accent);
-  --color-surface1: var(--color-surface-1);
-  --color-surface2: var(--color-surface-2);
+@theme extend {
+  --color-brand-accent: var(--color-accent);
+  --color-brand-surface-1: var(--color-surface-1);
+  --color-brand-surface-2: var(--color-surface-2);
+  --color-brand-elements: var(--color-elements);
+  --color-brand-icons: var(--color-icons);
+  --color-brand-secondary: var(--color-secondary);
+  --color-brand-white: var(--color-white);
+  --color-brand-black: var(--color-design-black-700);
+  --color-brand-green: var(--color-green);
+  --color-brand-red: var(--color-red);
+
+  --color-product-space-gray: var(--color-spacegray);
+  --color-product-silver: var(--color-silver);
+  --color-product-gold: var(--color-gold);
+  --color-product-blue: var(--color-blue);
+  --color-product-red: var(--color-red);
+  --color-product-black: var(--color-design-black-500);
+  --color-product-green: var(--color-green);
+  --color-product-yellow: var(--color-yellow);
+  --color-product-white: var(--color-white);
+  --color-product-purple: var(--color-accent);
+
+  --font-sans: var(--font-custom), sans-serif;
+
+  /* ---------button-pagination----------- */
+  --color-pagination-default: #161827;
+  --color-pagination-hover: #3b3e4a;
+  --color-pagination-selected: #905bff;
+
+  /* ---------button-chevron----------- */
+  --color-chevron-default: #323542;
+  --color-chevron-hover: #4a4d58;
+  --color-chevron-disabled: #0f1121;
+  --color-chevron-border: #3b3e4a;
+  --color-chevron-icon-disabled: #4a4d58;
+
+  /* ---------button-favorite----------- */
+  --color-favorite-default: #323542;
+  --color-favorite-hover: #4a4d58;
+  --color-favorite-selected: #0f1121;
+  --color-favorite-border: #3b3e4a;
 }
 
 :root {
-  --color-secondary: #75767f;
-  --color-secondary-2: #4a4d58;
-  --color-surface-1: #0f1121;
-  --color-surface-2: #161827;
   --color-white: #f1f2f9;
+  --color-design-black-700: #0f1121;
   --color-accent: #905bff;
+  --color-secondary: #75767f;
+  --color-icons: #4a4d58;
+  --color-elements: #3b3e4a;
+  --color-surface-1: #161827;
+  --color-surface-2: #323542;
+  --color-green: #27ae60;
+  --color-red: #eb5757;
 
-  --background: var(--color-surface-1);
-  --foreground: var(--color-white);
-  --card: var(--color-surface-2);
-  --card-foreground: var(--color-white);
-  --primary: var(--color-accent);
-  --primary-foreground: var(--color-white);
-  --secondary: var(--color-secondary);
-  --secondary-foreground: var(--color-white);
-  --muted: var(--color-secondary-2);
-  --muted-foreground: var(--color-secondary);
+  --color-silver: #e3e4e5;
+  --color-spacegray: #54585a;
+  --color-gold: #f9e5c9;
+  --color-blue: #215273;
+  --color-design-black-500: #1d1d1f;
+  --color-green: #27ae60;
+  --color-yellow: #ffe066;
+  --color-midnightgreen: #4e5b55;
+
+  --background: var(--color-brand-black);
+  --foreground: var(--color-brand-white);
+  --card: var(--color-brand-surface-2);
+  --card-foreground: var(--color-brand-white);
+  --primary: var(--color-brand-accent);
+  --primary-foreground: var(--color-brand-white);
+  --secondary: var(--color-brand-secondary);
+  --secondary-foreground: var(--color-brand-white);
+  --muted: var(--color-brand-elements);
+  --muted-foreground: var(--color-brand-secondary);
+
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.08);
-  --ring: var(--color-accent);
+  --ring: var(--color-brand-accent);
 
   --radius: 0.75rem;
 }
 
 * {
-  border-color: hsl(var(--border));
+  border-color: var(--border);
 }
 
 html,
@@ -41,8 +93,8 @@ body {
 }
 
 body {
-  background: var(--color-surface-1);
-  color: var(--color-white);
+  background: var(--color-brand-black);
+  color: var(--color-brand-white);
   font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -50,11 +102,11 @@ body {
 
 ::selection {
   background: rgba(144, 91, 255, 0.35);
-  color: var(--color-white);
+  color: var(--color-brand-white);
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-brand-accent);
 }
 
 button {
@@ -67,6 +119,6 @@ textarea {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-brand-accent);
   outline-offset: 2px;
 }
