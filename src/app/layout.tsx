@@ -10,7 +10,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={cn(myCustomFont.variable)}>
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
+      <body className="min-h-screen bg-brand-black text-brand-white antialiased">
         {children}
       </body>
     </html>
