@@ -4,6 +4,7 @@
   --color-brand-primary: var(--color-accent);
   --color-surface1: var(--color-surface-1);
   --color-surface2: var(--color-surface-2);
+  --font-sans: var(--font-custom), sans-serif;
 }
 
 :root {
