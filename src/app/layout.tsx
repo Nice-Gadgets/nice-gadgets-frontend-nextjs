@@ -1,7 +1,6 @@
 import './globals.css';
 
-import { myCustomFont } from '@/shared/config/fonts';
-import { cn } from '@/shared/lib/utils';
+import { mont } from '@/shared/config/fonts';
 
 export default function RootLayout({
   children,
@@ -9,10 +8,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(myCustomFont.variable)}>
-      <body className="min-h-screen bg-brand-black text-brand-white antialiased">
-        {children}
-      </body>
+    <html lang="en" className={mont.variable}>
+      <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
 }
