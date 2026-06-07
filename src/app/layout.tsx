@@ -1,15 +1,7 @@
 import './globals.css';
 
-import { Geist, Geist_Mono } from 'next/font/google';
-
+import { myCustomFont } from '@/shared/config/fonts';
 import { cn } from '@/shared/lib/utils';
-
-const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
-
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-});
 
 export default function RootLayout({
   children,
@@ -17,7 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(geist.variable, geistMono.variable)}>
+    <html lang="en" className={cn(myCustomFont.variable, 'font-custom')}>
       <body>{children}</body>
     </html>
   );
