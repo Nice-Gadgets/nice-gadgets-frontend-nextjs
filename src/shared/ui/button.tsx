@@ -28,6 +28,25 @@ const buttonVariants = cva(
         /* ---------button-favorite----------- */
         favorite:
           'rounded-none bg-favorite-default text-white hover:bg-favorite-hover aria-pressed:bg-favorite-selected aria-pressed:border aria-pressed:border-favorite-border aria-pressed:text-[#EB5757]',
+
+        /* ---------Primary----------- */
+        primary: 'bg-[#905BFF] text-white hover:bg-[#7F4FE6]',
+
+        /* ---------Selected----------- */
+        selected: 'bg-[#323542] text-white hover:bg-gray-400',
+
+        /* ---------Hover----------- */
+
+        hover: 'bg-[#A378FF] text-white hover:bg-[#7F4FE6]',
+
+        /* ---------default >----------- */
+
+        defaultTransparentSmall:
+          'bg-transparent text-[#323542] hover:text-[#323542]',
+
+        /* ---------hover >----------- */
+
+        hoverTransparentSmall: 'bg-transparent text-[#323542]',
       },
       size: {
         default:
@@ -45,6 +64,18 @@ const buttonVariants = cva(
         /* ---------buttons sizes: pagination, control(chevron, minus, plus), favorite, picker----------- */
         'sq-8': 'size-8',
         'sq-10': 'size-10',
+
+        /* ---------твій Primary----------- */
+        primary: 'h-10 w-[176px] text-sm font-medium rounded-none',
+
+        selected: 'h-10 w-[176px] text-sm font-medium rounded-none',
+
+        hover: 'h-10 w-[176px] text-sm font-medium rounded-none',
+
+        defaultTransparentSmall:
+          'h-[16px] w-[56px] text-xs font-medium rounded-none',
+        hoverTransparentSmall:
+          'h-[16px] w-[56px] text-xs font-medium rounded-none',
       },
     },
     compoundVariants: [
