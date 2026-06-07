@@ -1,6 +1,6 @@
 import localFont from 'next/font/local';
 
-export const myCustomFont = localFont({
+export const mont = localFont({
   src: [
     {
       path: '../assets/fonts/Mont-Regular.otf',
@@ -8,15 +8,16 @@ export const myCustomFont = localFont({
       style: 'normal',
     },
     {
-      path: '../assets/fonts/Mont-Bold.otf',
-      weight: '800',
-      style: 'normal',
-    },
-    {
       path: '../assets/fonts/Mont-SemiBold.otf',
       weight: '700',
       style: 'normal',
     },
+    {
+      path: '../assets/fonts/Mont-Bold.otf',
+      weight: '800',
+      style: 'normal',
+    },
   ],
   variable: '--font-custom',
+  display: 'swap',
 });
