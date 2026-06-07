@@ -17,7 +17,7 @@ export default function ButtonsDemo() {
       <div>
         <h2 className="text-white mb-4">Buttons Pagination</h2>
         <div className="flex gap-2">
-          <Button variant="pagination" aria-selected={true}>
+          <Button variant="pagination" aria-current="page">
             1
           </Button>
           <Button variant="pagination">2</Button>

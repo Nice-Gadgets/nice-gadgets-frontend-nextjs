@@ -19,7 +19,7 @@ const buttonVariants = cva(
 
         /* ---------button-pagination----------- */
         pagination:
-          'rounded-none bg-pagination-default text-white hover:bg-pagination-hover text-sm font-semibold aria-selected:bg-pagination-selected',
+          'rounded-none bg-pagination-default text-white hover:bg-pagination-hover text-sm font-semibold aria-[current=page]:bg-pagination-selected',
 
         /* ---------button-control----------- */
         control:
