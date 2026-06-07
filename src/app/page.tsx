@@ -1,3 +1,3 @@
 export default function Home() {
-  return <main className="bg-brand-primary">Hello World</main>;
+  return <main className="bg-brand-accent">Hello World</main>;
 }

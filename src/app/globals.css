@@ -1,21 +1,33 @@
 @import 'tailwindcss';
 
-@theme {
-  --color-brand-primary: var(--color-accent);
-  --color-surface1: var(--color-surface-1);
-  --color-surface2: var(--color-surface-2);
+@theme extend {
+  --color-brand-accent: var(--color-accent);
+  --color-brand-surface-1: var(--color-surface-1);
+  --color-brand-surface-2: var(--color-surface-2);
+  --color-brand-elements: var(--color-elements);
+  --color-brand-icons: var(--color-icons);
+  --color-brand-secondary: var(--color-secondary);
+  --color-brand-white: var(--color-white);
+  --color-brand-black: var(--color-black);
+  --color-brand-green: var(--color-green);
+  --color-brand-red: var(--color-red);
+
   --font-sans: var(--font-custom), sans-serif;
 }
 
 :root {
-  --color-secondary: #75767f;
-  --color-secondary-2: #4a4d58;
-  --color-surface-1: #0f1121;
-  --color-surface-2: #161827;
   --color-white: #f1f2f9;
+  --color-black: #0f1121;
   --color-accent: #905bff;
+  --color-secondary: #75767f;
+  --color-icons: #4a4d58;
+  --color-elements: #3b3e4a;
+  --color-surface-1: #161827;
+  --color-surface-2: #323542;
+  --color-green: #27ae60;
+  --color-red: #eb5757;
 
-  --background: var(--color-surface-1);
+  --background: var(--color-black);
   --foreground: var(--color-white);
   --card: var(--color-surface-2);
   --card-foreground: var(--color-white);
@@ -23,8 +35,9 @@
   --primary-foreground: var(--color-white);
   --secondary: var(--color-secondary);
   --secondary-foreground: var(--color-white);
-  --muted: var(--color-secondary-2);
+  --muted: var(--color-elements);
   --muted-foreground: var(--color-secondary);
+
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.08);
   --ring: var(--color-accent);
@@ -33,7 +46,7 @@
 }
 
 * {
-  border-color: hsl(var(--border));
+  border-color: var(--border);
 }
 
 html,
@@ -42,7 +55,7 @@ body {
 }
 
 body {
-  background: var(--color-surface-1);
+  background: var(--color-black);
   color: var(--color-white);
   font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
   -webkit-font-smoothing: antialiased;
