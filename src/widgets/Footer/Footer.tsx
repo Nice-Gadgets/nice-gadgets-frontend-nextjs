@@ -1,13 +1,12 @@
-import { Button } from "@/shared/ui/button";
-import { ChevronUpIcon } from "@/shared/ui/icons";
-import { Logo } from "@/shared/ui/Logo";
-import { SmallText, UppercaseText } from "@/shared/ui/Typography";
+import { Button } from '@/shared/ui/button';
+import { ChevronUpIcon } from '@/shared/ui/icons';
+import { Logo } from '@/shared/ui/Logo';
+import { SmallText, UppercaseText } from '@/shared/ui/Typography';
 
 export const Footer = () => {
   return (
     <footer className="bg-brand-surface border-t border-brand-elements px-6 py-5">
       <div className="hidden md:flex items-center justify-between">
-
         <Logo />
 
         <nav className="flex items-center gap-10">
