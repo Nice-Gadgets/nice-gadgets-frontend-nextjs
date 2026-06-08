@@ -51,14 +51,6 @@
   /* ---------button-transparent----------- */
   --color-brand-transparent-text: #323542;
   --color-brand-transparent-hover: #7f4fe6;
-<<<<<<< HEAD
-=======
-
-  /* ---------button-sizes----------- */
-  --size-button-sm: 100px;
-  --size-button-md: 125px;
-  --size-button-lg: 160px;
->>>>>>> 7d42c17ba6ad56331d0a12ed260dc37c05f05614
 }
 
 :root {
