@@ -19,15 +19,14 @@ const buttonVariants = cva(
 
         /* ---------button-pagination----------- */
         pagination:
-          'rounded-none bg-pagination-default text-white hover:bg-pagination-hover text-sm font-semibold aria-[current=page]:bg-pagination-selected',
+          'rounded-none bg-brand-surface-1 text-white hover:bg-brand-elements text-sm font-semibold aria-[current=page]:bg-brand-accent',
 
         /* ---------button-control----------- */
         control:
-          'rounded-none bg-chevron-default text-white hover:bg-chevron-hover',
-
+          'rounded-none bg-brand-surface-2 text-white hover:bg-brand-icons disabled:bg-brand-black disabled:border disabled:border-brand-elements disabled:!opacity-100 disabled:[&_svg]:text-[var(--color-brand-icons)]',
         /* ---------button-favorite----------- */
         favorite:
-          'rounded-none bg-favorite-default text-white hover:bg-favorite-hover aria-pressed:bg-favorite-selected aria-pressed:border aria-pressed:border-favorite-border aria-pressed:text-[#EB5757]',
+          'rounded-none bg-brand-surface-2 text-white hover:bg-brand-icons aria-pressed:bg-brand-black aria-pressed:border aria-pressed:border-brand-elements aria-pressed:text-brand-red',
       },
       size: {
         default:
