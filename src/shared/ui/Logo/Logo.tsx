@@ -7,9 +7,9 @@ export const Logo = () => {
       <Image
         src="/Logo.png"
         alt="Logo"
-        width={96}
-        height={48}
-        className="w-24 h-12 lg:w-32 lg:h-16"
+        width={64}
+        height={22}
+        className="w-16 h-5.5 lg:w-20 lg:h-7"
         priority
       />
     </Link>
