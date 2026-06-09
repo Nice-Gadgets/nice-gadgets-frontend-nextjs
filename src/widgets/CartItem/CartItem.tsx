@@ -46,7 +46,7 @@ export const CartItem = ({
               className="w-full h-full object-contain"
             />
           </div>
-          <BodyText className="text-brand-white group-hover:text-product-purple">
+          <BodyText className="text-brand-white group-hover:text-brand-accent">
             {name}
           </BodyText>
         </Link>
