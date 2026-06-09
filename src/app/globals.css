@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @theme extend {
-  --color-brand-accent: var(--color-accent);
+  --color-brand-accent: var(--color-accent-800);
   --color-brand-surface-1: var(--color-surface-1);
   --color-brand-surface-2: var(--color-surface-2);
   --color-brand-elements: var(--color-elements);
@@ -11,6 +11,7 @@
   --color-brand-black: var(--color-design-black-700);
   --color-brand-green: var(--color-green);
   --color-brand-red: var(--color-red);
+  --color-brand-accent-600: var(--color-accent-600);
 
   --color-product-space-gray: var(--color-spacegray);
   --color-product-silver: var(--color-silver);
@@ -29,7 +30,8 @@
 :root {
   --color-white: #f1f2f9;
   --color-design-black-700: #0f1121;
-  --color-accent: #905bff;
+  --color-accent-800: #905bff;
+  --color-accent-600: #a378ff;
   --color-secondary: #75767f;
   --color-icons: #4a4d58;
   --color-elements: #3b3e4a;
