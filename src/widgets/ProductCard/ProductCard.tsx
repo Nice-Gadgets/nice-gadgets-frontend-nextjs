@@ -10,7 +10,7 @@ interface ProductCardProps {
   product: ProductInterface;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="relative box-border w-full h-full max-w-[288px] max-h-110 bg-brand-surface-1 p-8 flex flex-col justify-between select-none gap-2 min-[1200px]:max-w-68 min-[1200px]:h-126.5 min-[1200px]:max-h-126.5 transition-transform duration-300 ease-in-out hover:scale-102">
       <Link
@@ -85,4 +85,4 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
     </div>
   );
-}
+};
