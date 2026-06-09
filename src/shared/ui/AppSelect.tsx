@@ -21,8 +21,6 @@ interface SelectOption {
 interface AppSelectProps {
   options: SelectOption[];
   label?: string;
-  placeholder?: string;
-  defaultValue?: string;
   value?: string;
   onChange?: (value: string) => void;
   className?: string;
