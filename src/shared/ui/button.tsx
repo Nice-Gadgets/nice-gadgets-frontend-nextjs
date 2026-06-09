@@ -27,6 +27,9 @@ const buttonVariants = cva(
         /* ---------button-favorite----------- */
         favorite:
           'rounded-none bg-brand-surface-2 text-white hover:bg-brand-icons aria-pressed:bg-brand-black aria-pressed:border aria-pressed:border-brand-elements aria-pressed:text-brand-red',
+        /* ---------button-close----------- */
+        close:
+          'rounded-none !border-none text-brand-secondary hover:text-brand-white',
       },
       size: {
         default:
@@ -50,6 +53,7 @@ const buttonVariants = cva(
       { variant: 'pagination', class: 'size-8' },
       { variant: 'control', class: 'size-8' },
       { variant: 'favorite', class: 'size-10' },
+      { variant: 'close', class: 'size-4' },
     ],
     defaultVariants: {
       variant: 'default',
