@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @theme extend {
-  --color-brand-accent: var(--color-accent);
+  --color-brand-accent: var(--color-accent-800);
   --color-brand-surface-1: var(--color-surface-1);
   --color-brand-surface-2: var(--color-surface-2);
   --color-brand-elements: var(--color-elements);
@@ -11,6 +11,7 @@
   --color-brand-black: var(--color-design-black-700);
   --color-brand-green: var(--color-green);
   --color-brand-red: var(--color-red);
+  --color-brand-accent-600: var(--color-accent-600);
 
   --color-product-space-gray: var(--color-spacegray);
   --color-product-silver: var(--color-silver);
@@ -29,7 +30,8 @@
 :root {
   --color-white: #f1f2f9;
   --color-design-black-700: #0f1121;
-  --color-accent: #905bff;
+  --color-accent-800: #905bff;
+  --color-accent-600: #a378ff;
   --color-secondary: #75767f;
   --color-icons: #4a4d58;
   --color-elements: #3b3e4a;
@@ -46,27 +48,6 @@
   --color-green: #27ae60;
   --color-yellow: #ffe066;
   --color-midnightgreen: #4e5b55;
-
-  --background: var(--color-brand-black);
-  --foreground: var(--color-brand-white);
-  --card: var(--color-brand-surface-2);
-  --card-foreground: var(--color-brand-white);
-  --primary: var(--color-brand-accent);
-  --primary-foreground: var(--color-brand-white);
-  --secondary: var(--color-brand-secondary);
-  --secondary-foreground: var(--color-brand-white);
-  --muted: var(--color-brand-elements);
-  --muted-foreground: var(--color-brand-secondary);
-
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.08);
-  --ring: var(--color-brand-accent);
-
-  --radius: 0.75rem;
-}
-
-* {
-  border-color: var(--border);
 }
 
 html,
@@ -77,30 +58,4 @@ body {
 body {
   background: var(--color-brand-black);
   color: var(--color-brand-white);
-  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-::selection {
-  background: rgba(144, 91, 255, 0.35);
-  color: var(--color-brand-white);
-}
-
-a {
-  color: var(--color-brand-accent);
-}
-
-button {
-  font: inherit;
-}
-
-input,
-textarea {
-  color: inherit;
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-brand-accent);
-  outline-offset: 2px;
 }
