@@ -19,21 +19,19 @@ const buttonVariants = cva(
 
         /* ---------button-pagination----------- */
         pagination:
-          'rounded-none bg-pagination-default text-white hover:bg-pagination-hover text-sm font-semibold aria-[current=page]:bg-pagination-selected',
+          'rounded-none bg-brand-surface-1 text-white hover:bg-brand-elements text-sm font-semibold aria-[current=page]:bg-brand-accent',
 
         /* ---------button-control----------- */
         control:
-          'rounded-none bg-chevron-default text-white hover:bg-chevron-hover',
-
+          'rounded-none bg-brand-surface-2 text-white hover:bg-brand-icons disabled:bg-brand-black disabled:border disabled:border-brand-elements disabled:!opacity-100 disabled:[&_svg]:text-[var(--color-brand-icons)]',
         /* ---------button-favorite----------- */
         favorite:
-          'rounded-none bg-favorite-default text-white hover:bg-favorite-hover aria-pressed:bg-favorite-selected aria-pressed:border aria-pressed:border-favorite-border aria-pressed:text-[#EB5757]',
-
+          'rounded-none bg-brand-surface-2 text-white hover:bg-brand-icons aria-pressed:bg-brand-black aria-pressed:border aria-pressed:border-brand-elements aria-pressed:text-brand-red',
         primary:
-          'bg-brand-accent text-brand-white hover:bg-brand-primary-hover data-[state=selected]:bg-brand-surface-2',
+          'bg-brand-accent text-brand-white hover:bg-brand-accent-600 data-[state=selected]:bg-brand-surface-2',
 
         /* ---------Transparent----------- */
-        transparent: 'bg-transparent text-neutral-800 hover:text-brand-primary',
+        transparent: 'bg-transparent text-brand-white hover:text-brand-accent',
       },
       size: {
         default:
@@ -41,7 +39,6 @@ const buttonVariants = cva(
         xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
         lg: 'h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2',
-        xl: 'h-10 w-[176px] text-sm font-medium rounded-none',
         icon: 'size-8',
         'icon-xs':
           "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
@@ -49,13 +46,9 @@ const buttonVariants = cva(
           'size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg',
         'icon-lg': 'size-9',
 
-        /* ---------buttons sizes: pagination, control, favorite----------- */
+        /* ---------buttons sizes: pagination, control(chevron, minus, plus), favorite, picker----------- */
         'sq-8': 'size-8',
         'sq-10': 'size-10',
-
-        /* ---------Responsive Primary----------- */
-        responsive:
-          'h-10 text-sm font-medium rounded-none w-[100px] sm:w-[125px] lg:w-[160px]',
       },
     },
     compoundVariants: [
