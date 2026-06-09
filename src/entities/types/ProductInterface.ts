@@ -9,6 +9,6 @@ export interface ProductInterface {
   capacity: string;
   color: string;
   ram: string;
-  yers: number;
+  year: number;
   image: string;
 }
