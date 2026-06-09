@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { Button } from '@/shared/ui/button';
 import { ChevronUpIcon } from '@/shared/ui/icons';
 import { Logo } from '@/shared/ui/Logo';
@@ -10,9 +12,15 @@ export const Footer = () => {
         <Logo />
 
         <nav className="flex items-center gap-10">
-          <UppercaseText>Github</UppercaseText>
-          <UppercaseText>Contacts</UppercaseText>
-          <UppercaseText>Rights</UppercaseText>
+          <Link href="https://github.com/Nice-Gadgets/nice-gadgets-frontend-nextjs" target="_blank" >
+            <UppercaseText>Github</UppercaseText>
+          </Link>
+          <Link href="https://github.com/Nice-Gadgets" target="_blank" >
+            <UppercaseText>Contacts</UppercaseText>
+          </Link>
+          <Link href="/">
+            <UppercaseText>Rights</UppercaseText>
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -27,9 +35,15 @@ export const Footer = () => {
         <Logo />
 
         <nav className="flex flex-col gap-3">
-          <UppercaseText>Github</UppercaseText>
-          <UppercaseText>Contacts</UppercaseText>
-          <UppercaseText>Rights</UppercaseText>
+          <Link href="https://github.com/Nice-Gadgets/nice-gadgets-frontend-nextjs" target="_blank" >
+            <UppercaseText>Github</UppercaseText>
+          </Link>
+          <Link href="https://github.com/Nice-Gadgets" target="_blank" >
+            <UppercaseText>Contacts</UppercaseText>
+          </Link>
+          <Link href="/">
+            <UppercaseText>Rights</UppercaseText>
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">
