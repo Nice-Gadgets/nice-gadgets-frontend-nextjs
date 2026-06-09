@@ -12,10 +12,13 @@ export const Footer = () => {
         <Logo />
 
         <nav className="flex items-center gap-10">
-          <Link href="https://github.com/Nice-Gadgets/nice-gadgets-frontend-nextjs" target="_blank" >
+          <Link
+            href="https://github.com/Nice-Gadgets/nice-gadgets-frontend-nextjs"
+            target="_blank"
+          >
             <UppercaseText>Github</UppercaseText>
           </Link>
-          <Link href="https://github.com/Nice-Gadgets" target="_blank" >
+          <Link href="https://github.com/Nice-Gadgets" target="_blank">
             <UppercaseText>Contacts</UppercaseText>
           </Link>
           <Link href="/">
@@ -35,10 +38,13 @@ export const Footer = () => {
         <Logo />
 
         <nav className="flex flex-col gap-3">
-          <Link href="https://github.com/Nice-Gadgets/nice-gadgets-frontend-nextjs" target="_blank" >
+          <Link
+            href="https://github.com/Nice-Gadgets/nice-gadgets-frontend-nextjs"
+            target="_blank"
+          >
             <UppercaseText>Github</UppercaseText>
           </Link>
-          <Link href="https://github.com/Nice-Gadgets" target="_blank" >
+          <Link href="https://github.com/Nice-Gadgets" target="_blank">
             <UppercaseText>Contacts</UppercaseText>
           </Link>
           <Link href="/">
