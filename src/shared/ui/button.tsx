@@ -28,8 +28,7 @@ const buttonVariants = cva(
         favorite:
           'rounded-none bg-brand-surface-2 text-white hover:bg-brand-icons aria-pressed:bg-brand-black aria-pressed:border aria-pressed:border-brand-elements aria-pressed:text-brand-red',
         /* ---------button-close----------- */
-        close:
-          'rounded-none !border-none text-brand-secondary hover:text-brand-white',
+        close: 'rounded-none text-brand-secondary hover:text-brand-white',
         primary:
           'rounded-none bg-brand-accent text-brand-white hover:bg-brand-accent-600 data-[state=selected]:bg-brand-surface-2 text-sm font-semibold',
 

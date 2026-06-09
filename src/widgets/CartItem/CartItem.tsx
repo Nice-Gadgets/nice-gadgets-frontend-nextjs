@@ -1,20 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { ProductInterface } from '@/entities/types/ProductInterface';
 import { Button } from '@/shared/ui/button';
 import { CloseIcon, MinusIcon, PlusIcon } from '@/shared/ui/icons';
 import { BodyText, H3 } from '@/shared/ui/Typography';
 
-interface CartItemProduct {
-  id: string;
-  category: string;
-  image: string;
-  name: string;
-  price: number;
-}
-
 interface CartItemProps {
-  item: CartItemProduct;
+  item: ProductInterface;
   quantity: number;
   onRemove?: () => void;
   onIncrease?: () => void;
@@ -35,7 +28,7 @@ export const CartItem = ({
           <CloseIcon />
         </Button>
         <Link
-          href={`/${item.category}/${item.id}`}
+          href={`/${item.category}/${item.itemId}`}
           className="flex items-center gap-4 sm:gap-6 group"
         >
           <div className="size-20 shrink-0">
@@ -67,7 +60,9 @@ export const CartItem = ({
             <PlusIcon />
           </Button>
         </div>
-        <H3 className="font-extrabold shrink-0">${item.price.toFixed(2)}</H3>
+        <H3 className="font-extrabold shrink-0">
+          ${(item.price * quantity).toFixed(2)}
+        </H3>
       </div>
     </div>
   );
