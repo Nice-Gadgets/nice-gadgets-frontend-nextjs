@@ -11,12 +11,12 @@ interface ProductCardProps {
 }
 
 const cardClassname =
-  'relative box-border w-full h-full max-w-[288px] max-h-110 bg-brand-surface-1 p-8 flex flex-col justify-between select-none gap-2 min-[1200px]:max-w-68 min-[640px]:h-126.5 min-[640px]:max-h-126.5 transition-transform duration-300 ease-in-out hover:scale-102';
+  'relative box-border w-full min-h-126.5 flex flex-col justify-between p-8 bg-brand-surface-1 select-none gap-1 transition-transform duration-300 ease-in-out hover:scale-102 h-full min-[508px]:h-126.5 min-[1200px]:w-68';
 const imageContainer =
-  'w-full h-49 flex items-center justify-center m-0 overflow-hidden';
-const imageClassname = 'max-h-full object-contain';
+  'w-full h-50 flex items-center justify-center m-0 overflow-hidden';
+const imageClassname = 'h-50 object-contain w-full';
 const nameClassname =
-  'text-brand-white mt-2 line-clamp-2 min-h-10.5 group-hover:text-brand-accent transition-colors duration-300 ease-in-out';
+  'text-brand-white line-clamp-2 pt-4 h-13 group-hover:text-brand-accent transition-colors duration-300 ease-in-out';
 const priceContainer = 'flex items-center gap-2 mt-1';
 const colorWhite = 'text-brand-white';
 const colorSecondary = 'text-brand-secondary';
@@ -52,9 +52,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <H3 className={colorWhite}>{`${price}$`}</H3>
         {fullPrice > price && <H3 className={oldPrice}>{`${fullPrice}$`}</H3>}
       </div>
-
       <div className={divider} />
-
       <div className={descriptionContainer}>
         <div className={descriptionWrapper}>
           <SmallText className={colorSecondary}>Screen</SmallText>
