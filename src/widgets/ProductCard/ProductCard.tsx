@@ -16,7 +16,7 @@ const imageContainer =
   'w-full h-49 flex items-center justify-center m-0 overflow-hidden';
 const imageClassname = 'max-h-full object-contain';
 const nameClassname =
-  'text-brand-white mt-2 line-clamp-2 min-h-10.5 hover:text-brand-accent transition-transform duration-300 ease-in-out';
+  'text-brand-white mt-2 line-clamp-2 min-h-10.5 group-hover:text-brand-accent group-transition-transform duration-300 ease-in-out';
 const priceContainer = 'flex items-center gap-2 mt-1';
 const colorWhite = 'text-brand-white';
 const colorSecondary = 'text-brand-secondary';
@@ -24,7 +24,7 @@ const oldPrice = 'text-brand-secondary line-through';
 const divider = 'w-full h-px bg-brand-elements';
 const descriptionContainer = 'flex flex-col gap-2';
 const descriptionWrapper = 'flex justify-between';
-const buttonsContainer = 'flex gap-2 h-12 relative z-20';
+const buttonsContainer = 'flex gap-2 h-12';
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { itemId, name, image, price, fullPrice, screen, capacity, ram } =
@@ -32,6 +32,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className={cardClassname}>
       <Link
+        className="group"
         href={`/products/${itemId}`}
         aria-label={`View details for ${name}`}
       >
@@ -44,12 +45,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             height={200}
           />
         </div>
-      </Link>
-      <Link
-        href={`/products/${itemId}`}
-        aria-label={`View details for ${name}`}
-      >
-        <BodyText className={nameClassname}>{product.name}</BodyText>
+        <BodyText className={nameClassname}>{name}</BodyText>
       </Link>
 
       <div className={priceContainer}>
