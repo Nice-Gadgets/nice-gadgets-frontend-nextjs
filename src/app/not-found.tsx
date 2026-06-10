@@ -7,14 +7,6 @@ import { useRouter } from 'next/navigation';
 export default function NotFoundPage() {
   const router = useRouter();
 
-  const handleGoBack = () => {
-    if (window.history.length > 1) {
-      router.back();
-    } else {
-      router.replace('/');
-    }
-  };
-
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-[#0f1014] p-6 text-center">
       <Link
@@ -52,7 +44,7 @@ export default function NotFoundPage() {
 
         <button
           type="button"
-          onClick={handleGoBack}
+          onClick={() => router.replace('/')}
           className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded text-base font-medium text-white border border-[#4a4b50] hover:border-[#8a46ff] hover:bg-[#8a46ff]/10 transition-all duration-200"
         >
           Go Back
