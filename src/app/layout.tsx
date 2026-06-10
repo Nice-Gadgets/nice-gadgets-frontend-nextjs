@@ -1,6 +1,7 @@
 import './globals.css';
 
 import { mont } from '@/shared/config/fonts';
+import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/Header';
 
 export default function RootLayout({
@@ -13,6 +14,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
