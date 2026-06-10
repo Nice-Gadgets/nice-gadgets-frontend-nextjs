@@ -16,7 +16,7 @@ const imageContainer =
   'w-full h-49 flex items-center justify-center m-0 overflow-hidden';
 const imageClassname = 'max-h-full object-contain';
 const nameClassname =
-  'text-brand-white mt-2 line-clamp-2 min-h-10.5 group-hover:text-brand-accent group-transition-transform duration-300 ease-in-out';
+  'text-brand-white mt-2 line-clamp-2 min-h-10.5 group-hover:text-brand-accent group-transition-colors duration-300 ease-in-out';
 const priceContainer = 'flex items-center gap-2 mt-1';
 const colorWhite = 'text-brand-white';
 const colorSecondary = 'text-brand-secondary';
