@@ -3,7 +3,10 @@ import Link from 'next/link';
 
 export const Logo = () => {
   return (
-    <Link href="/" className="inline-block">
+    <Link
+      href="/"
+      className="inline-block transition-transform duration-300 hover:scale-110"
+    >
       <Image
         src="/Logo.png"
         alt="Logo"
