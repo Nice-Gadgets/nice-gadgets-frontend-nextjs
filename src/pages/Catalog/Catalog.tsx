@@ -9,12 +9,12 @@ import { ProductCard } from '@/widgets/ProductCard';
 const sortOptions = ['Newest', 'Popular', 'Price_asc', 'Price_desc'];
 const pagination = ['20', '30', '40', '50', '60'];
 
-interface MainComponentProps {
+interface CatalogProps {
   products: ProductInterface[];
   categoryName: string;
 }
 
-export const Catalog = ({ products, categoryName }: MainComponentProps) => {
+export const Catalog = ({ products, categoryName }: CatalogProps) => {
   const [sortBy, setSortBy] = useState<string>('Newest');
   const [itemsOnPage, setItemsOnPage] = useState<string>('20');
 
