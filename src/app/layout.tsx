@@ -1,6 +1,7 @@
 import './globals.css';
 
 import { mont } from '@/shared/config/fonts';
+import { Header } from '@/widgets/Header';
 
 export default function RootLayout({
   children,
@@ -9,7 +10,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={mont.variable}>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
