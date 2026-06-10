@@ -1,5 +1,5 @@
-import { MainComponent } from '@/entities/components/MainComponent';
 import { ProductInterface } from '@/entities/types/ProductInterface';
+import { MainComponent } from '@/pages/Catalog';
 
 import productsData from '../../../public/api/products.json';
 

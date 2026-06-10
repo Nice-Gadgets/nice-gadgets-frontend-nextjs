@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { ProductInterface } from '@/entities/types/ProductInterface';
 import { AppSelect } from '@/shared/ui/AppSelect';
-import { BodyText, H2 } from '@/shared/ui/Typography';
+import { BodyText, H1 } from '@/shared/ui/Typography';
 import { ProductCard } from '@/widgets/ProductCard';
 
 const sortOptions = ['Newest', 'Popular', 'Price_asc', 'Price_desc'];
@@ -27,7 +27,7 @@ export const MainComponent = ({
   return (
     <main className="bg-brand-black px-6 min-[508px]:px-6 lg:px-8 max-w-300 mx-auto">
       <div className="flex items-center pt-6">
-        <H2 className="text-[32px]">{categoryName}</H2>
+        <H1>{categoryName}</H1>
       </div>
       <div className="flex items-center pt-2">
         <BodyText className="text-brand-secondary">{`${productsByCategory.length} models`}</BodyText>

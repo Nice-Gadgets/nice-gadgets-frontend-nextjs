@@ -1,8 +1,6 @@
-import { Category } from './Category';
-
 export interface ProductInterface {
   id: number;
-  category: Category;
+  category: string;
   itemId: string;
   name: string;
   fullPrice: number;
