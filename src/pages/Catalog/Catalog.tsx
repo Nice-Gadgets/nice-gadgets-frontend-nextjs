@@ -14,10 +14,7 @@ interface MainComponentProps {
   categoryName: string;
 }
 
-export const MainComponent = ({
-  products,
-  categoryName,
-}: MainComponentProps) => {
+export const Catalog = ({ products, categoryName }: MainComponentProps) => {
   const [sortBy, setSortBy] = useState<string>('Newest');
   const [itemsOnPage, setItemsOnPage] = useState<string>('20');
 
