@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, MenuIcon } from '@/shared/ui/icons';
 import { Logo } from '@/shared/ui/Logo';
+import { UppercaseText } from '@/shared/ui/Typography';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -16,11 +17,7 @@ const navItems = [
 ];
 
 const navLinkClassName =
-  'relative text-[12px] leading-2.75 font-bold tracking-[0.04em] text-brand-secondary uppercase transition-colors hover:text-brand-white';
-
-const activeNavLinkClassName = 'text-brand-white';
-
-const activeUnderlineClassName = 'bg-brand-white';
+  'relative text-brand-secondary transition-colors hover:text-brand-white';
 
 const headerIconLinkClassName =
   'hidden h-full w-16 items-center justify-center border-l border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1 md:flex lg:w-22';
@@ -40,32 +37,7 @@ export const Header = () => {
           </div>
 
           <nav className="hidden h-full md:flex">
-            {navItems.map(({ label, href }) => {
-              const isActive = pathname === href;
-
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={cn(
-                    navLinkClassName,
-                    'flex h-full items-center px-4 lg:px-8',
-                    isActive && activeNavLinkClassName,
-                  )}
-                >
-                  {label}
-
-                  {isActive && (
-                    <span
-                      className={cn(
-                        'absolute right-4 bottom-0 left-4 h-0.75 lg:right-8 lg:left-8',
-                        activeUnderlineClassName,
-                      )}
-                    />
-                  )}
-                </Link>
-              );
-            })}
+            <NavLinks pathname={pathname} variant="desktop" />
           </nav>
         </div>
 
@@ -115,30 +87,7 @@ function MobileMenu({ pathname }: { pathname: string }) {
           </div>
 
           <nav className="flex flex-1 flex-col items-center gap-8 pt-16">
-            {navItems.map(({ label, href }) => {
-              const isActive = pathname === href;
-
-              return (
-                <Dialog.Close
-                  key={href}
-                  nativeButton={false}
-                  render={<Link href={href} />}
-                >
-                  <span
-                    className={cn(
-                      'relative block text-[12px] leading-2.75 font-bold tracking-[0.04em] text-brand-secondary uppercase transition-colors hover:text-brand-white',
-                      isActive && 'text-brand-white',
-                    )}
-                  >
-                    {label}
-
-                    {isActive && (
-                      <span className="absolute -bottom-2 left-0 h-0.75 w-full bg-brand-white" />
-                    )}
-                  </span>
-                </Dialog.Close>
-              );
-            })}
+            <NavLinks pathname={pathname} variant="mobile" />
           </nav>
 
           <div className="grid h-16 grid-cols-2 border-t border-brand-elements">
@@ -160,5 +109,74 @@ function MobileMenu({ pathname }: { pathname: string }) {
         </Dialog.Popup>
       </Dialog.Portal>
     </Dialog.Root>
+  );
+}
+
+function NavLinks({
+  pathname,
+  variant,
+}: {
+  pathname: string;
+  variant: 'desktop' | 'mobile';
+}) {
+  return (
+    <>
+      {navItems.map(({ label, href }) => {
+        const isActive =
+          href === '/' ? pathname === href : pathname.startsWith(href);
+
+        const linkContent = (
+          <>
+            <UppercaseText>{label}</UppercaseText>
+
+            {isActive && (
+              <span
+                className={cn(
+                  'absolute h-0.75 bg-brand-white',
+                  variant === 'desktop'
+                    ? 'right-4 bottom-0 left-4 lg:right-8 lg:left-8'
+                    : '-bottom-2 left-0 w-full',
+                )}
+              />
+            )}
+          </>
+        );
+
+        if (variant === 'mobile') {
+          return (
+            <Dialog.Close
+              key={href}
+              nativeButton={false}
+              render={
+                <Link
+                  href={href}
+                  className={cn(
+                    navLinkClassName,
+                    'block',
+                    isActive && 'text-brand-white',
+                  )}
+                />
+              }
+            >
+              {linkContent}
+            </Dialog.Close>
+          );
+        }
+
+        return (
+          <Link
+            key={href}
+            href={href}
+            className={cn(
+              navLinkClassName,
+              'flex h-full items-center px-4 lg:px-8',
+              isActive && 'text-brand-white',
+            )}
+          >
+            {linkContent}
+          </Link>
+        );
+      })}
+    </>
   );
 }
