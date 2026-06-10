@@ -10,76 +10,75 @@ interface ProductCardProps {
   product: ProductInterface;
 }
 
+const cardClassname =
+  'relative box-border w-full h-full max-w-[288px] max-h-110 bg-brand-surface-1 p-8 flex flex-col justify-between select-none gap-2 min-[1200px]:max-w-68 min-[640px]:h-126.5 min-[640px]:max-h-126.5 transition-transform duration-300 ease-in-out hover:scale-102';
+const imageContainer =
+  'w-full h-49 flex items-center justify-center m-0 overflow-hidden';
+const imageClassname = 'max-h-full object-contain';
+const nameClassname =
+  'text-brand-white mt-2 line-clamp-2 min-h-10.5 hover:text-brand-accent transition-transform duration-300 ease-in-out';
+const priceContainer = 'flex items-center gap-2 mt-1';
+const colorWhite = 'text-brand-white';
+const colorSecondary = 'text-brand-secondary';
+const oldPrice = 'text-brand-secondary line-through';
+const divider = 'w-full h-px bg-brand-elements';
+const descriptionContainer = 'flex flex-col gap-2';
+const descriptionWrapper = 'flex justify-between';
+const buttonsContainer = 'flex gap-2 h-12 relative z-20';
+
 export const ProductCard = ({ product }: ProductCardProps) => {
+  const { itemId, name, image, price, fullPrice, screen, capacity, ram } =
+    product;
   return (
-    <div className="relative box-border w-full h-full max-w-[288px] max-h-110 bg-brand-surface-1 p-8 flex flex-col justify-between select-none gap-2 min-[1200px]:max-w-68 min-[1200px]:h-126.5 min-[1200px]:max-h-126.5 transition-transform duration-300 ease-in-out hover:scale-102">
+    <div className={cardClassname}>
       <Link
-        href={`/products/${product.itemId}`}
-        className="absolute inset-0 z-10 cursor-pointer"
-        aria-label={`View details for ${product.name}`}
-      />
+        href={`/products/${itemId}`}
+        aria-label={`View details for ${name}`}
+      >
+        <div className={imageContainer}>
+          <Image
+            className={imageClassname}
+            src={`/${image}`}
+            alt={name}
+            width={200}
+            height={200}
+          />
+        </div>
+      </Link>
+      <Link
+        href={`/products/${itemId}`}
+        aria-label={`View details for ${name}`}
+      >
+        <BodyText className={nameClassname}>{product.name}</BodyText>
+      </Link>
 
-      <div className="w-full h-49 flex items-center justify-center m-0 overflow-hidden">
-        <Image
-          className="max-h-full object-contain transition-transform duration-300 ease-in-out"
-          src={`/${product.image}`}
-          alt={product.name}
-          width={200}
-          height={200}
-        />
+      <div className={priceContainer}>
+        <H3 className={colorWhite}>{`${price}$`}</H3>
+        {fullPrice > price && <H3 className={oldPrice}>{`${fullPrice}$`}</H3>}
       </div>
 
-      <BodyText className="text-brand-white mt-2 line-clamp-2 min-h-10.5">
-        {product.name}
-      </BodyText>
+      <div className={divider} />
 
-      <div className="flex items-center gap-2 mt-1">
-        <H3 className="text-brand-white">{`${product.price}$`}</H3>
-        {product.fullPrice > product.price && (
-          <H3 className="text-brand-secondary line-through">{`${product.fullPrice}$`}</H3>
-        )}
-      </div>
-
-      <div className="w-full h-px bg-brand-elements" />
-
-      <div className="flex flex-col gap-2">
-        <div className="flex justify-between">
-          <SmallText className="text-brand-secondary">Screen</SmallText>
-          <UppercaseText className="text-brand-white">
-            {product.screen}
-          </UppercaseText>
+      <div className={descriptionContainer}>
+        <div className={descriptionWrapper}>
+          <SmallText className={colorSecondary}>Screen</SmallText>
+          <UppercaseText className={colorWhite}>{screen}</UppercaseText>
         </div>
-        <div className="flex justify-between">
-          <SmallText className="text-brand-secondary">Capacity</SmallText>
-          <UppercaseText className="text-brand-white">
-            {product.capacity}
-          </UppercaseText>
+        <div className={descriptionWrapper}>
+          <SmallText className={colorSecondary}>Capacity</SmallText>
+          <UppercaseText className={colorWhite}>{capacity}</UppercaseText>
         </div>
-        <div className="flex justify-between">
-          <SmallText className="text-brand-secondary">RAM</SmallText>
-          <UppercaseText className="text-brand-white">
-            {product.ram}
-          </UppercaseText>
+        <div className={descriptionWrapper}>
+          <SmallText className={colorSecondary}>RAM</SmallText>
+          <UppercaseText className={colorWhite}>{ram}</UppercaseText>
         </div>
       </div>
 
-      <div className="flex gap-2 h-12 relative z-20">
-        <Button
-          variant="primary"
-          className="h-10 grow cursor-pointer"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
+      <div className={buttonsContainer}>
+        <Button variant="primary" className="h-10 grow cursor-pointer">
           Add to cart
         </Button>
-        <Button
-          variant="favorite"
-          className="cursor-pointer"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
+        <Button variant="favorite" className="cursor-pointer">
           <HeartIcon />
         </Button>
       </div>
