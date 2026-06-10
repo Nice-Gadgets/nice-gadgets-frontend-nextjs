@@ -25,6 +25,13 @@
   --color-product-purple: var(--color-accent);
 
   --font-sans: var(--font-custom), sans-serif;
+
+  .swiper-pagination-bullet {
+    @apply bg-[#905BFF] opacity-50 w-[10px] h-[10px] mx-[6px] rounded-full transition duration-300;
+  }
+  .swiper-pagination-bullet-active {
+    @apply opacity-100 bg-[#323542] scale-110;
+  }
 }
 
 :root {
