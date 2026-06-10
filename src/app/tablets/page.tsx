@@ -1,4 +1,4 @@
-import { Catalog } from '@/pages/Catalog';
+import { Catalog } from '@/widgets/Catalog';
 
 import productsData from '../../../public/api/products.json';
 
