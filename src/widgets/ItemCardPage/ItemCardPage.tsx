@@ -7,7 +7,7 @@ import { ButtonColorPicker } from '@/shared/ui/ButtonColorPicker';
 import { CapacityButton } from '@/shared/ui/CapacityButton';
 import { ChevronLeftIcon, HeartIcon } from '@/shared/ui/icons';
 import { ProductGallery } from '@/shared/ui/ProductGallery';
-import { BodyText, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
+import { BodyText, H1, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
 
 function buildProductUrl(
   category: string,
@@ -72,9 +72,8 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
           Back
         </Link>
 
-        <h1 className="mb-8 text-2xl leading-tight font-extrabold text-brand-white sm:text-3xl">
-          {product.name}
-        </h1>
+        {/* Product name */}
+        <H1 className="text-brand-white mb-8">{product.name}</H1>
 
         <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-16">
           <ProductGallery images={product.images} name={product.name} />
