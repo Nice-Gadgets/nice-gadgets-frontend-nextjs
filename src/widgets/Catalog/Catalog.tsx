@@ -1,15 +1,16 @@
 'use client';
-
-import { useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { ProductInterface } from '@/entities/Product/types/ProductInterface';
+import { paginateProducts, sortProducts } from '@/shared/lib/utils';
 import { AppSelect } from '@/shared/ui/AppSelect';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
+import { Pagination } from '@/shared/ui/Pagination';
 import { BodyText, H1 } from '@/shared/ui/Typography';
 import { ProductCard } from '@/widgets/ProductCard';
 
-const sortOptions = ['Newest', 'Popular', 'Price_asc', 'Price_desc'];
-const pagination = ['20', '30', '40', '50', '60'];
+const sortOptions = ['Name', 'Price_asc', 'Price_desc', 'Newest'];
+const paginationOptions = ['20', '30', '40', '50', '60'];
 
 interface CatalogProps {
   products: ProductInterface[];
@@ -22,19 +23,45 @@ export const Catalog = ({
   categoryName,
   withSort = true,
 }: CatalogProps) => {
-  const [sortBy, setSortBy] = useState<string>('Newest');
-  const [itemsOnPage, setItemsOnPage] = useState<string>('20');
-
   const productsByCategory =
     categoryName.toLowerCase() === 'favourites'
       ? products
       : products.filter((item) => item.category === categoryName.toLowerCase());
 
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const sortBy = searchParams.get('sort') || 'Name';
+  const currentPage = Number(searchParams.get('page')) || 1;
+  const itemsPerPage = Number(searchParams.get('limit')) || 20;
+
+  const updateParams = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(key, value);
+
+    if (key !== 'page') {
+      params.set('page', '1');
+    }
+
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const sortedProducts = sortProducts(productsByCategory, sortBy);
+  const paginatedProducts = paginateProducts(
+    sortedProducts,
+    currentPage,
+    itemsPerPage,
+  );
+
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+  const isShowPagination = totalPages > 1;
+
   return (
-    <main className="mx-auto max-w-300 bg-brand-black px-6 min-[508px]:px-6 lg:px-8">
+    <main className="mx-auto max-w-300 pb-20 bg-brand-black px-6 min-[508px]:px-6 lg:px-8">
       <Breadcrumbs items={[{ label: categoryName }]} />
 
-      <div className="flex items-center">
+      <div className="flex items-center pt-6">
         <H1>{categoryName}</H1>
       </div>
 
@@ -50,25 +77,31 @@ export const Catalog = ({
             label="Sort by"
             options={sortOptions}
             value={sortBy}
-            onChange={(newValue) => setSortBy(newValue)}
+            onChange={(newValue) => updateParams('sort', newValue)}
             className="min-w-34 flex-1 max-w-47"
           />
 
           <AppSelect
             label="Items on page"
-            options={pagination}
-            value={itemsOnPage}
-            onChange={(newValue) => setItemsOnPage(newValue)}
+            options={paginationOptions}
+            value={String(itemsPerPage)}
+            onChange={(newValue) => updateParams('limit', newValue)}
             className="min-w-34"
           />
         </div>
       )}
-
-      <div className="grid grid-cols-1 gap-x-4 gap-y-10 pt-6 min-[508px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {productsByCategory.map((item) => (
+      <div className="grid grid-cols-1 pb-10 pt-6 min-[508px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-4">
+        {paginatedProducts.map((item) => (
           <ProductCard key={item.id} product={item as ProductInterface} />
         ))}
       </div>
+      {isShowPagination && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page) => updateParams('page', String(page))}
+        />
+      )}
     </main>
   );
 };
