@@ -67,7 +67,7 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
         />
 
         <div
-          className="absolute inset-y-0 right-0 flex w-full max-w-xs flex-col bg-brand-black transition-transform duration-300 ease-in-out"
+          className="absolute inset-y-0 right-0 flex w-full sm:max-w-xs flex-col bg-brand-black transition-transform duration-300 ease-in-out"
           style={{ transform: open ? 'translateX(0)' : 'translateX(100%)' }}
           onTransitionEnd={handleTransitionEnd}
         >
