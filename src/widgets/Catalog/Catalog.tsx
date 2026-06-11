@@ -1,8 +1,10 @@
 'use client';
+
 import { useState } from 'react';
 
 import { ProductInterface } from '@/entities/Product/types/ProductInterface';
 import { AppSelect } from '@/shared/ui/AppSelect';
+import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { BodyText, H1 } from '@/shared/ui/Typography';
 import { ProductCard } from '@/widgets/ProductCard';
 
@@ -29,15 +31,21 @@ export const Catalog = ({
       : products.filter((item) => item.category === categoryName.toLowerCase());
 
   return (
-    <main className="bg-brand-black px-6 min-[508px]:px-6 lg:px-8 max-w-300 mx-auto">
-      <div className="flex items-center pt-6">
+    <main className="mx-auto max-w-300 bg-brand-black px-6 min-[508px]:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: categoryName }]} />
+
+      <div className="flex items-center">
         <H1>{categoryName}</H1>
       </div>
+
       <div className="flex items-center pt-2">
-        <BodyText className="text-brand-secondary">{`${productsByCategory.length} models`}</BodyText>
+        <BodyText className="text-brand-secondary">
+          {`${productsByCategory.length} models`}
+        </BodyText>
       </div>
+
       {withSort && (
-        <div className="flex pt-8 gap-4">
+        <div className="flex gap-4 pt-8">
           <AppSelect
             label="Sort by"
             options={sortOptions}
@@ -45,6 +53,7 @@ export const Catalog = ({
             onChange={(newValue) => setSortBy(newValue)}
             className="min-w-34 flex-1 max-w-47"
           />
+
           <AppSelect
             label="Items on page"
             options={pagination}
@@ -54,7 +63,8 @@ export const Catalog = ({
           />
         </div>
       )}
-      <div className="grid grid-cols-1 gap-4 pt-6 min-[508px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-4">
+
+      <div className="grid grid-cols-1 gap-x-4 gap-y-10 pt-6 min-[508px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {productsByCategory.map((item) => (
           <ProductCard key={item.id} product={item as ProductInterface} />
         ))}
