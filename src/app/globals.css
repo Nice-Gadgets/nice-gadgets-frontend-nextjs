@@ -13,17 +13,6 @@
   --color-brand-red: var(--color-red);
   --color-brand-accent-600: var(--color-accent-600);
 
-  --color-product-space-gray: var(--color-spacegray);
-  --color-product-silver: var(--color-silver);
-  --color-product-gold: var(--color-gold);
-  --color-product-blue: var(--color-blue);
-  --color-product-red: var(--color-red);
-  --color-product-black: var(--color-design-black-500);
-  --color-product-green: var(--color-green);
-  --color-product-yellow: var(--color-yellow);
-  --color-product-white: var(--color-white);
-  --color-product-purple: var(--color-accent);
-
   --font-sans: var(--font-custom), sans-serif;
 }
 
@@ -40,14 +29,25 @@
   --color-green: #27ae60;
   --color-red: #eb5757;
 
-  --color-silver: #e3e4e5;
-  --color-spacegray: #54585a;
-  --color-gold: #f9e5c9;
-  --color-blue: #215273;
-  --color-design-black-500: #1d1d1f;
-  --color-green: #27ae60;
-  --color-yellow: #ffe066;
-  --color-midnightgreen: #4e5b55;
+  --color-product-black: #1d1d1f;
+  --color-product-white: #f1f2f9;
+  --color-product-silver: #e3e4e5;
+  --color-product-gold: #f9e5c9;
+  --color-product-spacegray: #54585a;
+  --color-product-spaceblack: #1c1c1e;
+  --color-product-graphite: #41424a;
+  --color-product-midnight: #1c1c2e;
+  --color-product-midnightgreen: #4e5b55;
+  --color-product-sierrablue: #a8c5da;
+  --color-product-blue: #215273;
+  --color-product-green: #27ae60;
+  --color-product-yellow: #ffe066;
+  --color-product-red: #eb5757;
+  --color-product-purple: #905bff;
+  --color-product-pink: #f4a7b9;
+  --color-product-coral: #f4694a;
+  --color-product-rosegold: #f7c5b0;
+  --color-product-starlight: #faf5eb;
 }
 
 html,

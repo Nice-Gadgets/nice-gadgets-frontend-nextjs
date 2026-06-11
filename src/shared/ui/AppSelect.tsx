@@ -40,7 +40,7 @@ export function AppSelect({
       {label && (
         <label
           htmlFor={selectId}
-          className="text-xs font-bold text-brand-secondary select-none tracking-wide text-left block"
+          className="text-xs font-bold text-brand-secondary tracking-wide text-left block cursor-pointer"
         >
           <SmallText>{label}</SmallText>
         </label>

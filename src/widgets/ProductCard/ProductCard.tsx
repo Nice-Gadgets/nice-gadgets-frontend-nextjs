@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ProductInterface } from '@/entities/types/ProductInterface';
+import { ProductInterface } from '@/entities/Product/types/ProductInterface';
 import { Button } from '@/shared/ui/button';
 import { HeartIcon } from '@/shared/ui/icons';
 import { BodyText, H3, SmallText, UppercaseText } from '@/shared/ui/Typography';
@@ -11,7 +11,7 @@ interface ProductCardProps {
 }
 
 const cardClassname =
-  'relative box-border w-full min-h-126.5 flex flex-col justify-between p-8 bg-brand-surface-1 select-none gap-1 transition-transform duration-300 ease-in-out hover:scale-102 h-full min-[508px]:h-126.5 min-[1200px]:w-68';
+  'relative box-border w-full min-h-126.5 flex flex-col justify-between p-8 bg-brand-surface-1 gap-1 transition-transform duration-300 ease-in-out hover:scale-102 h-full min-[508px]:h-126.5 min-[1200px]:w-68';
 const imageContainer =
   'w-full h-50 flex items-center justify-center m-0 overflow-hidden';
 const imageClassname = 'h-50 object-contain w-full';
@@ -27,13 +27,22 @@ const descriptionWrapper = 'flex justify-between';
 const buttonsContainer = 'flex gap-2 h-12';
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-  const { itemId, name, image, price, fullPrice, screen, capacity, ram } =
-    product;
+  const {
+    itemId,
+    name,
+    category,
+    image,
+    price,
+    fullPrice,
+    screen,
+    capacity,
+    ram,
+  } = product;
   return (
     <div className={cardClassname}>
       <Link
         className="group"
-        href={`/products/${itemId}`}
+        href={`/${category}/${itemId}`}
         aria-label={`View details for ${name}`}
       >
         <div className={imageContainer}>

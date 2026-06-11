@@ -43,7 +43,7 @@ export const Header = () => {
 
         <div className="flex h-full items-center">
           <Link
-            href="/favorites"
+            href="/favourites"
             aria-label="Favorites"
             className={headerIconLinkClassName}
           >
@@ -65,7 +65,7 @@ export const Header = () => {
   );
 };
 
-function MobileMenu({ pathname }: { pathname: string }) {
+function MobileMenu({ pathname }: { pathname: string | null }) {
   return (
     <Dialog.Root>
       <Dialog.Trigger className={cn(mobileIconButtonClassName, 'md:hidden')}>
@@ -93,7 +93,7 @@ function MobileMenu({ pathname }: { pathname: string }) {
           <div className="grid h-16 grid-cols-2 border-t border-brand-elements">
             <Dialog.Close
               nativeButton={false}
-              render={<Link href="/favorites" />}
+              render={<Link href="/favourites" />}
             >
               <span className="flex h-full items-center justify-center border-r border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1">
                 <HeartIcon className="size-4" />
@@ -116,14 +116,14 @@ function NavLinks({
   pathname,
   variant,
 }: {
-  pathname: string;
+  pathname: string | null;
   variant: 'desktop' | 'mobile';
 }) {
   return (
     <>
       {navItems.map(({ label, href }) => {
         const isActive =
-          href === '/' ? pathname === href : pathname.startsWith(href);
+          href === '/' ? pathname === href : pathname?.startsWith(href);
 
         const linkContent = (
           <>
