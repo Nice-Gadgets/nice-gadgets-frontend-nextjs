@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { BodyText, H1 } from '@/shared/ui/Typography/';
+
 export default function NotFoundPage() {
   const router = useRouter();
 
@@ -25,30 +27,20 @@ export default function NotFoundPage() {
         />
       </Link>
 
-      <h1 className="text-white text-[40px] md:text-[56px] font-extrabold leading-none tracking-tight mb-4">
-        404
-      </h1>
+      <H1 className="text-brand-white mb-4">404</H1>
 
-      <p className="text-[#898a8d] text-base md:text-lg max-w-[400px] mb-2 leading-relaxed">
+      <BodyText className="text-brand-secondary max-w-[400px] mb-8">
         Page not found. The page you are looking for doesn&apos;t exist or has
         been moved.
-      </p>
+      </BodyText>
 
       <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xs sm:max-w-none justify-center">
         <Link
           href="/"
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded text-base font-medium text-white bg-[#8a46ff] hover:bg-[#a36eff] transition-colors duration-200"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded text-base font-medium text-brand-white bg-brand-accent hover:bg-brand-accent-600 transition-colors duration-300"
         >
           Return to Home
         </Link>
-
-        <button
-          type="button"
-          onClick={() => router.replace('/')}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded text-base font-medium text-white border border-[#4a4b50] hover:border-[#8a46ff] hover:bg-[#8a46ff]/10 transition-all duration-200"
-        >
-          Go Back
-        </button>
       </div>
     </main>
   );
