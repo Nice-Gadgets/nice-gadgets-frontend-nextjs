@@ -100,7 +100,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           aria-pressed={isInCart}
           onClick={() => addItem(product)}
         >
-          {isInCart ? 'Added' : 'Add to cart'}
+          {isInCart ? 'Added to cart' : 'Add to cart'}
         </Button>
         <Button
           variant="favorite"

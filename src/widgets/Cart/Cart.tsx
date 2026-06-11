@@ -1,11 +1,8 @@
 'use client';
 
-import Link from 'next/link';
-
 import { useCartStore } from '@/entities/Product/store/useCartStore';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { Button } from '@/shared/ui/button';
-import { ChevronLeftIcon } from '@/shared/ui/icons';
 import { H1 } from '@/shared/ui/Typography';
 import { CartItem } from '@/widgets/CartItem';
 
@@ -26,14 +23,6 @@ export const Cart = () => {
     <main className="px-4 pt-6 pb-14 sm:px-6 sm:pt-10 sm:pb-16 lg:px-8 lg:pb-20">
       <div className="xl:mx-auto xl:max-w-300">
         <Breadcrumbs items={[{ label: 'Cart' }]} className="mb-10 py-0" />
-
-        <Link
-          href="/"
-          className="group mb-4 inline-flex items-center gap-1 text-sm text-brand-white transition-colors hover:text-brand-accent"
-        >
-          <ChevronLeftIcon className="transition-transform" />
-          Back
-        </Link>
 
         <H1 className="mb-8 font-extrabold">Cart</H1>
 
