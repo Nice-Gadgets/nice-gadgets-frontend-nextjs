@@ -31,23 +31,23 @@ export const CartItem = ({
           href={`/${item.category}/${item.itemId}`}
           className="flex items-center gap-4 sm:gap-6 group"
         >
-          <div className="size-20 shrink-0">
+          <div className="size-20 shrink-0 flex items-center justify-center">
             <Image
               src={`/${item.image}`}
               alt={item.name}
-              width={80}
-              height={80}
+              width={66}
+              height={66}
               loading="eager"
-              className="w-full h-full object-contain"
+              className="object-contain w-[66px] h-[66px]"
             />
           </div>
-          <BodyText className="text-brand-white group-hover:text-brand-accent">
+          <BodyText className="text-brand-white group-hover:text-brand-accent transition-colors duration-400">
             {item.name}
           </BodyText>
         </Link>
       </div>
       <div className="flex items-center justify-between sm:justify-end sm:gap-6">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center">
           <Button
             variant="control"
             disabled={quantity <= 1}
@@ -55,13 +55,13 @@ export const CartItem = ({
           >
             <MinusIcon />
           </Button>
-          <BodyText>{quantity}</BodyText>
+          <BodyText className="w-8 text-center">{quantity}</BodyText>
           <Button variant="control" onClick={onIncrease}>
             <PlusIcon />
           </Button>
         </div>
-        <H3 className="font-extrabold shrink-0">
-          ${(item.price * quantity).toFixed(2)}
+        <H3 className="font-extrabold shrink-0 w-20 text-right">
+          ${(item.price * quantity).toFixed()}
         </H3>
       </div>
     </div>
