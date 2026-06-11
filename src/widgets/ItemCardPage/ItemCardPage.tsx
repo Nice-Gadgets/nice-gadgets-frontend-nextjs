@@ -1,16 +1,13 @@
 import Link from 'next/link';
 
 import { FullProduct } from '@/entities/Product/types/FullProduct';
+import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { Button } from '@/shared/ui/button';
 import { ButtonColorPicker } from '@/shared/ui/ButtonColorPicker';
 import { CapacityButton } from '@/shared/ui/CapacityButton';
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  HeartIcon,
-} from '@/shared/ui/icons';
+import { ChevronLeftIcon, HeartIcon } from '@/shared/ui/icons';
 import { ProductGallery } from '@/shared/ui/ProductGallery';
-import { BodyText, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
+import { BodyText, H1, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
 
 function buildProductUrl(
   category: string,
@@ -20,6 +17,7 @@ function buildProductUrl(
 ): string {
   const cap = capacity.toLowerCase().replace(/\s+/g, '');
   const col = color.toLowerCase().replace(/\s+/g, '-');
+
   return `/${category}/${namespaceId}-${cap}-${col}`;
 }
 
@@ -27,20 +25,16 @@ function formatPrice(price: number): string {
   return `$${price.toLocaleString('en-US')}`;
 }
 
+function getCategoryLabel(category: string): string {
+  return category.charAt(0).toUpperCase() + category.slice(1);
+}
+
 interface ItemCardPageProps {
   product: FullProduct;
 }
 
 export const ItemCardPage = ({ product }: ItemCardPageProps) => {
-  const breadcrumbs = [
-    { label: 'Home', href: '/' },
-    {
-      label:
-        product.category.charAt(0).toUpperCase() + product.category.slice(1),
-      href: `/${product.category}`,
-    },
-    { label: product.name, href: '#' },
-  ];
+  const categoryLabel = getCategoryLabel(product.category);
 
   const quickSpecs = [
     { label: 'Screen', value: product.screen },
@@ -60,63 +54,42 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
   ];
 
   return (
-    <div className="bg-brand-black min-h-screen text-brand-white">
-      <main className="max-w-300 mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <nav aria-label="Breadcrumb" className="mb-10">
-          <ol className="flex flex-wrap items-center gap-1">
-            {breadcrumbs.map((crumb, i) => (
-              <li key={crumb.href} className="flex items-center gap-1">
-                {i > 0 && (
-                  <ChevronRightIcon className="size-3 text-brand-icons shrink-0" />
-                )}
-                {i === breadcrumbs.length - 1 ? (
-                  <SmallText className="text-brand-secondary sm:whitespace-normal truncate max-w-30 sm:max-w-none">
-                    {crumb.label}
-                  </SmallText>
-                ) : (
-                  <Link
-                    href={crumb.href}
-                    className="text-brand-white hover:text-brand-accent transition-colors"
-                  >
-                    <SmallText>{crumb.label}</SmallText>
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ol>
-        </nav>
+    <div className="min-h-screen bg-brand-black text-brand-white">
+      <main className="mx-auto max-w-300 px-4 py-6 sm:px-6 lg:px-8">
+        <Breadcrumbs
+          items={[
+            { label: categoryLabel, href: `/${product.category}` },
+            { label: product.name },
+          ]}
+          className="mb-10 py-0"
+        />
 
-        {/* Back link */}
         <Link
           href={`/${product.category}`}
-          className="inline-flex items-center gap-1 text-sm text-brand-white hover:text-brand-accent transition-colors mb-4 group"
+          className="group mb-4 inline-flex items-center gap-1 text-sm text-brand-white transition-colors hover:text-brand-accent"
         >
           <ChevronLeftIcon className="transition-transform" />
           Back
         </Link>
 
         {/* Product name */}
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-brand-white mb-8 leading-tight">
-          {product.name}
-        </h1>
+        <H1 className="text-brand-white mb-8">{product.name}</H1>
 
-        {/* ── Top: gallery + configurator ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 mb-16">
+        <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-16">
           <ProductGallery images={product.images} name={product.name} />
 
-          {/* Configurator */}
-          <div className="flex flex-col gap-6 max-w-sm">
+          <div className="flex max-w-sm flex-col gap-6">
             <div>
               <div className="flex justify-between">
-                {/* Colors */}
-                <SmallText className="text-brand-secondary mb-3">
+                <SmallText className="mb-3 text-brand-secondary">
                   Available colors
                 </SmallText>
-                {/* Short ID */}
-                <SmallText className="text-brand-icons text-right">
+
+                <SmallText className="text-right text-brand-icons">
                   ID: {product.id.split('-').slice(-3).join('-').toUpperCase()}
                 </SmallText>
               </div>
+
               <div className="flex items-center gap-3">
                 {product.colorsAvailable.map((c) => (
                   <ButtonColorPicker
@@ -136,11 +109,11 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
 
             <div className="h-px bg-brand-elements" />
 
-            {/* Capacity */}
             <div>
-              <SmallText className="text-brand-secondary block mb-3">
+              <SmallText className="mb-3 block text-brand-secondary">
                 Select capacity
               </SmallText>
+
               <div className="flex flex-wrap gap-2">
                 {product.capacityAvailable.map((cap) => (
                   <CapacityButton
@@ -160,11 +133,11 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
 
             <div className="h-px bg-brand-elements" />
 
-            {/* Price */}
             <div className="flex items-baseline gap-3">
               <H2 className="text-brand-white">
                 {formatPrice(product.priceDiscount)}
               </H2>
+
               {product.priceRegular !== product.priceDiscount && (
                 <H3 className="text-brand-secondary line-through">
                   {formatPrice(product.priceRegular)}
@@ -172,36 +145,36 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
               )}
             </div>
 
-            {/* Cart + Favorite */}
             <div className="flex gap-2">
               <Button
                 variant="primary"
                 type="button"
-                className="cursor-pointer flex-1 h-12"
+                className="h-12 flex-1 cursor-pointer"
               >
                 Add to cart
               </Button>
+
               <Button
                 variant="favorite"
                 type="button"
                 aria-label="Add to favorites"
-                className="cursor-pointer size-12 flex items-center justify-center border border-brand-icons bg-brand-surface-2 text-brand-secondary hover:border-brand-white hover:text-brand-white transition-colors duration-300"
+                className="flex size-12 cursor-pointer items-center justify-center border border-brand-icons bg-brand-surface-2 text-brand-secondary transition-colors duration-300 hover:border-brand-white hover:text-brand-white"
               >
                 <HeartIcon />
               </Button>
             </div>
 
-            {/* Quick specs */}
             <div className="space-y-2">
               {quickSpecs.map(({ label, value }) => (
                 <div
                   key={label}
-                  className="flex justify-between items-baseline gap-4"
+                  className="flex items-baseline justify-between gap-4"
                 >
                   <SmallText className="text-brand-secondary">
                     {label}
                   </SmallText>
-                  <SmallText className="text-brand-white text-right">
+
+                  <SmallText className="text-right text-brand-white">
                     {value}
                   </SmallText>
                 </div>
@@ -210,16 +183,17 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
           </div>
         </div>
 
-        {/* ── Bottom: description + tech specs ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-          {/* About */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
           <section aria-label="About this product">
-            <H3 className="text-brand-white mb-4">About</H3>
-            <div className="h-px bg-brand-elements mb-8" />
+            <H3 className="mb-4 text-brand-white">About</H3>
+
+            <div className="mb-8 h-px bg-brand-elements" />
+
             <div className="space-y-8">
               {product.description.map((section) => (
                 <div key={section.title}>
-                  <H4 className="text-brand-white mb-4">{section.title}</H4>
+                  <H4 className="mb-4 text-brand-white">{section.title}</H4>
+
                   <div className="space-y-3">
                     {section.text.map((paragraph, i) => (
                       <BodyText key={i} className="text-brand-secondary">
@@ -232,10 +206,11 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
             </div>
           </section>
 
-          {/* Tech specs */}
           <section aria-label="Technical specifications">
-            <H3 className="text-brand-white mb-4">Tech specs</H3>
-            <div className="h-px bg-brand-elements mb-8" />
+            <H3 className="mb-4 text-brand-white">Tech specs</H3>
+
+            <div className="mb-8 h-px bg-brand-elements" />
+
             <div className="space-y-3">
               {allSpecs.map(({ label, value }) => (
                 <div
@@ -243,7 +218,8 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
                   className="flex items-baseline justify-between gap-4"
                 >
                   <BodyText className="text-brand-secondary">{label}</BodyText>
-                  <BodyText className="text-brand-white text-right">
+
+                  <BodyText className="text-right text-brand-white">
                     {value}
                   </BodyText>
                 </div>

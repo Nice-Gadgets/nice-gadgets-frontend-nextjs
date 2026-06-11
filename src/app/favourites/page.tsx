@@ -1,5 +1,7 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import { useFavouritesStore } from '@/entities/Product/store/useFavouritesStore';
 import { Catalog } from '@/widgets/Catalog';
 
@@ -8,6 +10,8 @@ export default function FavouritesPage() {
   const products = itemsFavourites.map((elem) => elem.item);
 
   return (
-    <Catalog products={products} categoryName="Favourites" withSort={false} />
+    <Suspense>
+      <Catalog products={products} categoryName="Favourites" withSort={false} />
+    </Suspense>
   );
 }
