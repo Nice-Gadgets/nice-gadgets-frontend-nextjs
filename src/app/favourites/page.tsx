@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { Catalog } from '@/widgets/Catalog';
 
 const favourites = [
@@ -103,6 +105,12 @@ const favourites = [
 
 export default function FavouritesPage() {
   return (
-    <Catalog products={favourites} categoryName="Favourites" withSort={false} />
+    <Suspense>
+      <Catalog
+        products={favourites}
+        categoryName="Favourites"
+        withSort={false}
+      />
+    </Suspense>
   );
 }
