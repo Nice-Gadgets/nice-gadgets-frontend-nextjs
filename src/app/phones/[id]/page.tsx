@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { getProduct, getProducts } from '@/entities/Product/api/Products';
-import { ItemCardPage } from '@/pages/product-detail/ui/ItemCardPage';
+import { ItemCardPage } from '@/widgets/ItemCardPage';
 
 interface PageProps {
   params: Promise<{ id: string }>;
