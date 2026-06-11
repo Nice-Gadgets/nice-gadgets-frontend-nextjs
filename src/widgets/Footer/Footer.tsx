@@ -1,50 +1,37 @@
 import Link from 'next/link';
 
-import { ChevronUpIcon } from '@/shared/ui/icons';
 import { Logo } from '@/shared/ui/Logo';
-import { SmallText, UppercaseText } from '@/shared/ui/Typography';
+import { UppercaseText } from '@/shared/ui/Typography';
+import { BackToTop } from '@/widgets/Footer/BackToTop';
 
 const navLinks = [
   {
     href: 'https://github.com/Nice-Gadgets/nice-gadgets-frontend-nextjs',
     label: 'Github',
-    external: true,
   },
   {
     href: 'https://github.com/Nice-Gadgets',
     label: 'Contacts',
-    external: true,
   },
-  { href: '/', label: 'Rights', external: false },
+  {
+    href: 'https://github.com/Nice-Gadgets/nice-gadgets-frontend-nextjs/blob/main/LICENSE',
+    label: 'Rights',
+  },
 ];
 
 const NavLinks = () => (
   <>
-    {navLinks.map(({ href, label, external }) => (
+    {navLinks.map(({ href, label }) => (
       <Link
         key={label}
         href={href}
-        target={external ? '_blank' : undefined}
+        target="_blank"
         className="text-brand-secondary hover:text-brand-white transition-transform duration-300 hover:scale-110"
       >
         <UppercaseText>{label}</UppercaseText>
       </Link>
     ))}
   </>
-);
-
-const BackToTop = () => (
-  <Link
-    href="/"
-    className="group flex items-center gap-4 transition-transform duration-300 hover:scale-110"
-  >
-    <SmallText className="text-brand-secondary group-hover:text-brand-white transition-colors">
-      Back to top
-    </SmallText>
-    <div className="border border-brand-elements p-2 aspect-square cursor-pointer">
-      <ChevronUpIcon className="text-brand-secondary group-hover:text-brand-white" />
-    </div>
-  </Link>
 );
 
 export const Footer = () => {
