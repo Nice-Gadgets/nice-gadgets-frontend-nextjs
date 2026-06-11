@@ -1,20 +1,15 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { BodyText, H1 } from '@/shared/ui/Typography/';
 
 export default function NotFoundPage() {
-  const router = useRouter();
-
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-[#0f1014] p-6 text-center">
+    <main className="min-h-screen flex flex-col items-center justify-center bg-brand-black p-6 text-center">
       <Link
         href="/"
         aria-label="Go to homepage"
-        className="mb-8 w-full max-w-[400px] transition-all duration-500 ease-in-out hover:-translate-y-2 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#8a46ff]"
+        className="mb-8 w-full max-w-[400px] transition-all duration-500 ease-in-out hover:-translate-y-2 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-accent"
       >
         <Image
           src="/img/page-not-found.png"
@@ -34,7 +29,7 @@ export default function NotFoundPage() {
         been moved.
       </BodyText>
 
-      <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xs sm:max-w-none justify-center">
+      <div className="flex justify-center">
         <Link
           href="/"
           className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded text-base font-medium text-brand-white bg-brand-accent hover:bg-brand-accent-600 transition-colors duration-300"
