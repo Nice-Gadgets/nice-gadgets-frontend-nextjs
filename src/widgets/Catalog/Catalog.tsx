@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { ProductInterface } from '@/entities/Product/types/ProductInterface';
 import { paginateProducts, sortProducts } from '@/shared/lib/utils';
 import { AppSelect } from '@/shared/ui/AppSelect';
+import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { Pagination } from '@/shared/ui/Pagination';
 import { BodyText, H1 } from '@/shared/ui/Typography';
 import { ProductCard } from '@/widgets/ProductCard';
@@ -57,15 +58,21 @@ export const Catalog = ({
   const isShowPagination = totalPages > 1;
 
   return (
-    <main className="bg-brand-black pb-20 px-6 min-[508px]:px-6 lg:px-8 max-w-300 mx-auto">
+    <main className="mx-auto max-w-300 pb-20 bg-brand-black px-6 min-[508px]:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: categoryName }]} />
+
       <div className="flex items-center pt-6">
         <H1>{categoryName}</H1>
       </div>
+
       <div className="flex items-center pt-2">
-        <BodyText className="text-brand-secondary">{`${productsByCategory.length} models`}</BodyText>
+        <BodyText className="text-brand-secondary">
+          {`${productsByCategory.length} models`}
+        </BodyText>
       </div>
+
       {withSort && (
-        <div className="flex pt-8 gap-4">
+        <div className="flex gap-4 pt-8">
           <AppSelect
             label="Sort by"
             options={sortOptions}
@@ -73,6 +80,7 @@ export const Catalog = ({
             onChange={(newValue) => updateParams('sort', newValue)}
             className="min-w-34 flex-1 max-w-47"
           />
+
           <AppSelect
             label="Items on page"
             options={paginationOptions}
