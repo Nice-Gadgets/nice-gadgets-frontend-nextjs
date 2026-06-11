@@ -11,15 +11,11 @@ import {
   SelectValue,
 } from '@/shared/ui/select';
 
+import { cn } from '../lib/utils';
 import { SmallText } from './Typography';
 
-interface SelectOption {
-  value: string;
-  label: string;
-}
-
 interface AppSelectProps {
-  options: SelectOption[];
+  options: string[];
   label?: string;
   value?: string;
   onChange?: (value: string) => void;
@@ -40,11 +36,11 @@ export function AppSelect({
   };
   const selectId = React.useId(); // Генеруємо унікальний id для зв'язування label та select
   return (
-    <div className="flex flex-col gap-1.5 items-start">
+    <div className={cn('flex flex-col gap-1.5 items-stretch', className)}>
       {label && (
         <label
           htmlFor={selectId}
-          className="text-xs font-bold text-brand-secondary select-none tracking-wide text-left block"
+          className="text-xs font-bold text-brand-secondary tracking-wide text-left block cursor-pointer"
         >
           <SmallText>{label}</SmallText>
         </label>
@@ -52,15 +48,15 @@ export function AppSelect({
 
       {/* Передаємо id у Select, якщо бібліотека його підтримує, або безпосередньо в тригер */}
       <Select value={value} onValueChange={handleValueChange}>
-        <SelectTrigger id={selectId} className={className}>
+        <SelectTrigger id={selectId} className={cn('w-full', className)}>
           <SelectValue />
         </SelectTrigger>
 
         <SelectContent>
           <SelectGroup>
             {options.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
+              <SelectItem key={option} value={option}>
+                {option}
               </SelectItem>
             ))}
           </SelectGroup>
