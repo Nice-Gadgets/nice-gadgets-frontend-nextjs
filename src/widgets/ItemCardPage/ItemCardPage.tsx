@@ -10,7 +10,7 @@ import {
   HeartIcon,
 } from '@/shared/ui/icons';
 import { ProductGallery } from '@/shared/ui/ProductGallery';
-import { BodyText, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
+import { BodyText, H1, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
 
 function buildProductUrl(
   category: string,
@@ -96,9 +96,7 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
         </Link>
 
         {/* Product name */}
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-brand-white mb-8 leading-tight">
-          {product.name}
-        </h1>
+        <H1 className="text-brand-white mb-8">{product.name}</H1>
 
         {/* ── Top: gallery + configurator ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 mb-16">
