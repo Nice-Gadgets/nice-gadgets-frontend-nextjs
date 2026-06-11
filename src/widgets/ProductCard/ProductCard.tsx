@@ -1,9 +1,13 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { useCartStore } from '@/entities/Product/store/useCartStore';
+import { useFavouritesStore } from '@/entities/Product/store/useFavouritesStore';
 import { ProductInterface } from '@/entities/Product/types/ProductInterface';
 import { Button } from '@/shared/ui/button';
-import { HeartIcon } from '@/shared/ui/icons';
+import { HeartIcon, HeartIconSelected } from '@/shared/ui/icons';
 import { BodyText, H3, SmallText, UppercaseText } from '@/shared/ui/Typography';
 
 interface ProductCardProps {
@@ -38,6 +42,18 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     capacity,
     ram,
   } = product;
+
+  const items = useCartStore((state) => state.items);
+  const addItem = useCartStore((state) => state.addItem);
+  const isInCart = items.some((elem) => elem.item.itemId === product.itemId);
+
+  const addFavourite = useFavouritesStore((state) => state.addItem);
+  const removeFavourite = useFavouritesStore((state) => state.removeItem);
+  const favourites = useFavouritesStore((state) => state.items);
+  const isFavourite = favourites.some(
+    (elem) => elem.item.itemId === product.itemId,
+  );
+
   return (
     <div className={cardClassname}>
       <Link
@@ -78,11 +94,25 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </div>
 
       <div className={buttonsContainer}>
-        <Button variant="primary" className="h-10 grow cursor-pointer">
-          Add to cart
+        <Button
+          variant="primary"
+          className="h-10 grow cursor-pointer"
+          aria-pressed={isInCart}
+          onClick={() => addItem(product)}
+        >
+          {isInCart ? 'Added' : 'Add to cart'}
         </Button>
-        <Button variant="favorite" className="cursor-pointer">
-          <HeartIcon />
+        <Button
+          variant="favorite"
+          className="cursor-pointer"
+          aria-pressed={isFavourite}
+          onClick={() =>
+            isFavourite
+              ? removeFavourite(product.itemId)
+              : addFavourite(product)
+          }
+        >
+          {isFavourite ? <HeartIconSelected /> : <HeartIcon />}
         </Button>
       </div>
     </div>

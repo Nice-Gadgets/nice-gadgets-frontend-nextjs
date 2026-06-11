@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { useCartStore } from '@/entities/Product/store/useCartStore';
 import { ProductInterface } from '@/entities/Product/types/ProductInterface';
 import { Button } from '@/shared/ui/button';
 import { CloseIcon, MinusIcon, PlusIcon } from '@/shared/ui/icons';
@@ -9,22 +12,17 @@ import { BodyText, H3 } from '@/shared/ui/Typography';
 interface CartItemProps {
   item: ProductInterface;
   quantity: number;
-  onRemove?: () => void;
-  onIncrease?: () => void;
-  onDecrease?: () => void;
 }
 
-export const CartItem = ({
-  item,
-  quantity,
-  onRemove,
-  onIncrease,
-  onDecrease,
-}: CartItemProps) => {
+export const CartItem = ({ item, quantity }: CartItemProps) => {
+  const removeItem = useCartStore((state) => state.removeItem);
+  const increaseQuantity = useCartStore((state) => state.increaseQuantity);
+  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
+
   return (
     <div className="min-w-[288px] p-4 sm:p-6 bg-brand-surface-1 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
       <div className="flex items-center gap-4 sm:gap-6 sm:flex-1">
-        <Button variant="close" onClick={onRemove}>
+        <Button variant="close" onClick={() => removeItem(item.itemId)}>
           <CloseIcon />
         </Button>
         <Link
@@ -51,12 +49,15 @@ export const CartItem = ({
           <Button
             variant="control"
             disabled={quantity <= 1}
-            onClick={onDecrease}
+            onClick={() => decreaseQuantity(item.itemId)}
           >
             <MinusIcon />
           </Button>
           <BodyText className="w-8 text-center">{quantity}</BodyText>
-          <Button variant="control" onClick={onIncrease}>
+          <Button
+            variant="control"
+            onClick={() => increaseQuantity(item.itemId)}
+          >
             <PlusIcon />
           </Button>
         </div>

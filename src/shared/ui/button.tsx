@@ -30,7 +30,7 @@ const buttonVariants = cva(
         /* ---------button-close----------- */
         close: 'rounded-none text-brand-secondary hover:text-brand-white',
         primary:
-          'rounded-none bg-brand-accent text-brand-white hover:bg-brand-accent-600 data-[state=selected]:bg-brand-surface-2 text-sm font-semibold',
+          'rounded-none bg-brand-accent text-brand-white hover:bg-brand-accent-600 aria-pressed:bg-brand-surface-2 text-sm font-semibold',
 
         /* ---------Transparent----------- */
         transparent:
