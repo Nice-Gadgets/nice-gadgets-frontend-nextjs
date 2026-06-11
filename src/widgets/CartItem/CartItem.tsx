@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ProductInterface } from '@/entities/types/ProductInterface';
+import { ProductInterface } from '@/entities/Product/types/ProductInterface';
 import { Button } from '@/shared/ui/button';
 import { CloseIcon, MinusIcon, PlusIcon } from '@/shared/ui/icons';
 import { BodyText, H3 } from '@/shared/ui/Typography';
@@ -38,7 +38,7 @@ export const CartItem = ({
               width={66}
               height={66}
               loading="eager"
-              className="object-contain w-[66px] h-[66px]"
+              className="object-contain w-16.5 h-16.5"
             />
           </div>
           <BodyText className="text-brand-white group-hover:text-brand-accent transition-colors duration-400">
