@@ -1,28 +1,20 @@
-import Link from 'next/link';
+'use client';
 
-import { ProductInterface } from '@/entities/Product/types/ProductInterface';
+import { useCartStore } from '@/entities/Product/store/useCartStore';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { Button } from '@/shared/ui/button';
-import { ChevronLeftIcon } from '@/shared/ui/icons';
 import { H1 } from '@/shared/ui/Typography';
 import { CartItem } from '@/widgets/CartItem';
 
-interface CartItemType {
-  item: ProductInterface;
-  quantity: number;
-}
+export const Cart = () => {
+  const items = useCartStore((state) => state.items);
 
-interface CartProps {
-  cartItems: CartItemType[];
-}
-
-export const Cart = ({ cartItems }: CartProps) => {
-  const totalPrice = cartItems.reduce(
+  const totalPrice = items.reduce(
     (acc, cartItem) => acc + cartItem.item.price * cartItem.quantity,
     0,
   );
 
-  const totalItems = cartItems.reduce(
+  const totalItems = items.reduce(
     (acc, cartItem) => acc + cartItem.quantity,
     0,
   );
@@ -32,19 +24,11 @@ export const Cart = ({ cartItems }: CartProps) => {
       <div className="xl:mx-auto xl:max-w-300">
         <Breadcrumbs items={[{ label: 'Cart' }]} className="mb-10 py-0" />
 
-        <Link
-          href="/"
-          className="group mb-4 inline-flex items-center gap-1 text-sm text-brand-white transition-colors hover:text-brand-accent"
-        >
-          <ChevronLeftIcon className="transition-transform" />
-          Back
-        </Link>
-
         <H1 className="mb-8 font-extrabold">Cart</H1>
 
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-4">
           <div className="flex flex-col gap-4 lg:flex-1">
-            {cartItems.map((cartItem) => (
+            {items.map((cartItem) => (
               <CartItem
                 key={cartItem.item.itemId}
                 item={cartItem.item}

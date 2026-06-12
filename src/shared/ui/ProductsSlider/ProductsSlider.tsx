@@ -1,11 +1,9 @@
 'use client';
 
 import 'swiper/css';
-import 'swiper/css/navigation';
 
-import React, { useCallback, useId, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
-import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ProductInterface } from '@/entities/Product/types/ProductInterface';
@@ -20,40 +18,58 @@ type Props = {
 };
 
 export const ProductsSlider: React.FC<Props> = ({ title, products }) => {
-  const id = useId();
+  const swiperRef = useRef<SwiperType | null>(null);
 
-  const [navigation, setNavigation] = useState({
-    isBeginning: true,
-    isEnd: false,
-  });
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
   const updateNavigation = useCallback((swiper: SwiperType) => {
-    setNavigation({
-      isBeginning: swiper.isBeginning,
-      isEnd: swiper.isEnd,
-    });
+    setIsBeginning(swiper.isBeginning);
+    setIsEnd(swiper.isEnd);
   }, []);
 
-  return (
-    <section className="w-full max-w-300 mx-auto px-4 md:px-8 relative">
-      <div className="flex items-end justify-between mb-6">
-        <H2 className="text-brand-white text-2xl font-bold">{title}</H2>
+  const handlePrevClick = () => {
+    const swiper = swiperRef.current;
 
-        <div className="flex gap-3 z-10">
+    if (!swiper) return;
+
+    swiper.slidePrev();
+    updateNavigation(swiper);
+  };
+
+  const handleNextClick = () => {
+    const swiper = swiperRef.current;
+
+    if (!swiper) return;
+
+    swiper.slideNext();
+    updateNavigation(swiper);
+  };
+
+  return (
+    <section className="mx-auto w-full max-w-300 px-4 md:px-8">
+      <div className="mb-6 flex items-end justify-between">
+        <H2 className="text-brand-white">{title}</H2>
+
+        <div className="z-10 flex gap-3">
           <Button
             variant="control"
-            className={`w-8 h-8 flex items-center justify-center custom-prev-${id}`}
-            disabled={navigation.isBeginning}
+            type="button"
+            className="flex h-8 w-8 items-center justify-center"
+            disabled={isBeginning}
             aria-label="Previous products"
+            onClick={handlePrevClick}
           >
             <ChevronLeftIcon />
           </Button>
 
           <Button
             variant="control"
-            className={`w-8 h-8 flex items-center justify-center custom-next-${id}`}
-            disabled={navigation.isEnd}
+            type="button"
+            className="flex h-8 w-8 items-center justify-center"
+            disabled={isEnd}
             aria-label="Next products"
+            onClick={handleNextClick}
           >
             <ChevronRightIcon />
           </Button>
@@ -61,36 +77,39 @@ export const ProductsSlider: React.FC<Props> = ({ title, products }) => {
       </div>
 
       <Swiper
-        modules={[Navigation]}
-        slidesPerView={1.2}
+        slidesPerView="auto"
+        slidesPerGroup={1}
         spaceBetween={16}
         breakpoints={{
-          480: {
-            slidesPerView: 2,
-            spaceBetween: 16,
-          },
           768: {
-            slidesPerView: 3,
-            spaceBetween: 24,
-          },
-          1024: {
-            slidesPerView: 4,
             spaceBetween: 24,
           },
         }}
         loop={false}
-        navigation={{
-          prevEl: `.custom-prev-${id}`,
-          nextEl: `.custom-next-${id}`,
+        watchOverflow={false}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+
+          requestAnimationFrame(() => {
+            swiper.update();
+            updateNavigation(swiper);
+          });
         }}
-        onSwiper={updateNavigation}
+        onAfterInit={(swiper) => {
+          swiper.update();
+          updateNavigation(swiper);
+        }}
         onSlideChange={updateNavigation}
-        className="w-full overflow-hidden"
+        onResize={(swiper) => {
+          swiper.update();
+          updateNavigation(swiper);
+        }}
+        className="w-full"
       >
         {products.map((product) => (
           <SwiperSlide
             key={`${product.itemId}-${product.id}`}
-            className="w-full"
+            className="w-53! md:w-59.25! lg:w-68!"
           >
             <ProductCard product={product} />
           </SwiperSlide>
