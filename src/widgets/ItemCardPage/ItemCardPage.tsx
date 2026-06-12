@@ -7,8 +7,11 @@ import { ButtonColorPicker } from '@/shared/ui/ButtonColorPicker';
 import { CapacityButton } from '@/shared/ui/CapacityButton';
 import { ChevronLeftIcon } from '@/shared/ui/icons';
 import { ProductGallery } from '@/shared/ui/ProductGallery';
+import { ProductsSlider } from '@/shared/ui/ProductsSlider';
 import { BodyText, H1, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
 import { ProductActions } from '@/widgets/ItemCardPage/ProductActions';
+
+import productsData from '../../../public/api/products.json';
 
 function buildProductUrl(
   category: string,
@@ -35,6 +38,8 @@ interface ItemCardPageProps {
 }
 
 export const ItemCardPage = ({ product }: ItemCardPageProps) => {
+  const products = productsData.filter((p) => p.category === product.category);
+
   const categoryLabel = getCategoryLabel(product.category);
 
   const quickSpecs = [
@@ -57,8 +62,8 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
   const productForCart = fullProductToProductInterface(product);
 
   return (
-    <div className="min-h-screen bg-brand-black text-brand-white">
-      <main className="mx-auto max-w-300 px-4 py-6 sm:px-6 lg:px-8">
+    <main className="w-full pt-6">
+      <div className="mx-auto max-w-300 px-4 sm:px-6 lg:px-8">
         <Breadcrumbs
           items={[
             { label: categoryLabel, href: `/${product.category}` },
@@ -75,7 +80,6 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
           Back
         </Link>
 
-        {/* Product name */}
         <H1 className="text-brand-white mb-8">{product.name}</H1>
 
         <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-16">
@@ -213,7 +217,10 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
             </div>
           </section>
         </div>
-      </main>
-    </div>
+      </div>
+      <div className="my-20 w-full overflow-hidden">
+        <ProductsSlider products={products} title="You may also like" />
+      </div>
+    </main>
   );
 };
