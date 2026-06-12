@@ -25,8 +25,8 @@ export const ProductGallery = ({
   };
 
   return (
-    <div className="flex flex-col-reverse gap-4 sm:flex-row sm:items-start w-full">
-      <div className="flex flex-row gap-2 overflow-x-auto sm:flex-col sm:gap-2">
+    <div className="flex flex-col-reverse gap-4 sm:flex-row sm:items-start w-full min-w-0">
+      <div className="flex flex-row gap-2 overflow-x-auto sm:flex-col sm:gap-2 sm:shrink-0">
         {images.map((src, i) => (
           <button
             key={src}
@@ -50,7 +50,7 @@ export const ProductGallery = ({
         ))}
       </div>
 
-      <div className="relative flex-1 aspect-square max-w-100 w-full mx-auto sm:mx-0">
+      <div className="relative w-full aspect-square min-w-0">
         <Swiper
           className="h-full w-full"
           slidesPerView={1}
@@ -65,7 +65,7 @@ export const ProductGallery = ({
                 fill
                 priority={i === 0}
                 className="object-contain"
-                sizes="(max-width: 640px) 90vw, 400px"
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 400px"
               />
             </SwiperSlide>
           ))}
