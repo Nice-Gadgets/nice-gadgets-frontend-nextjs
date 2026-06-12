@@ -1,13 +1,14 @@
 import Link from 'next/link';
 
 import { FullProduct } from '@/entities/Product/types/FullProduct';
+import { fullProductToProductInterface } from '@/entities/Product/utils/transformProduct';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
-import { Button } from '@/shared/ui/button';
 import { ButtonColorPicker } from '@/shared/ui/ButtonColorPicker';
 import { CapacityButton } from '@/shared/ui/CapacityButton';
-import { ChevronLeftIcon, HeartIcon } from '@/shared/ui/icons';
+import { ChevronLeftIcon } from '@/shared/ui/icons';
 import { ProductGallery } from '@/shared/ui/ProductGallery';
 import { BodyText, H1, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
+import { ProductActions } from '@/widgets/ItemCardPage/ProductActions';
 
 function buildProductUrl(
   category: string,
@@ -52,6 +53,8 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
     ...(product.zoom ? [{ label: 'Zoom', value: product.zoom }] : []),
     { label: 'Cell', value: product.cell.join(', ') },
   ];
+
+  const productForCart = fullProductToProductInterface(product);
 
   return (
     <div className="min-h-screen bg-brand-black text-brand-white">
@@ -145,24 +148,7 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
               )}
             </div>
 
-            <div className="flex gap-2">
-              <Button
-                variant="primary"
-                type="button"
-                className="h-12 flex-1 cursor-pointer"
-              >
-                Add to cart
-              </Button>
-
-              <Button
-                variant="favorite"
-                type="button"
-                aria-label="Add to favorites"
-                className="flex size-12 cursor-pointer items-center justify-center border border-brand-icons bg-brand-surface-2 text-brand-secondary transition-colors duration-300 hover:border-brand-white hover:text-brand-white"
-              >
-                <HeartIcon />
-              </Button>
-            </div>
+            <ProductActions product={productForCart} />
 
             <div className="space-y-2">
               {quickSpecs.map(({ label, value }) => (

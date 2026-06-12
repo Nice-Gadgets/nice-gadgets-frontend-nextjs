@@ -45,6 +45,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   const items = useCartStore((state) => state.items);
   const addItem = useCartStore((state) => state.addItem);
+  const removeItem = useCartStore((state) => state.removeItem);
   const isInCart = items.some((elem) => elem.item.itemId === product.itemId);
 
   const addFavourite = useFavouritesStore((state) => state.addItem);
@@ -98,9 +99,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           variant="primary"
           className="h-10 grow cursor-pointer"
           aria-pressed={isInCart}
-          onClick={() => addItem(product)}
+          onClick={() =>
+            isInCart ? removeItem(product.itemId) : addItem(product)
+          }
         >
-          {isInCart ? 'Added to cart' : 'Add to cart'}
+          {isInCart ? 'Added' : 'Add to cart'}
         </Button>
         <Button
           variant="favorite"
