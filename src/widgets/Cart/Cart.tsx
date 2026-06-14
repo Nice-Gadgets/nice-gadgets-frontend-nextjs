@@ -30,7 +30,7 @@ export const Cart = () => {
         <H1 className="mb-8 font-extrabold">Cart</H1>
 
         {items.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center px-6 text-center">
+          <div className="flex flex-col items-center justify-center px-6 text-center">
             <Image
               src="/img/cart-is-empty.png"
               alt="Cart is empty"

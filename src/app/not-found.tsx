@@ -5,7 +5,7 @@ import { BodyText, H1 } from '@/shared/ui/Typography/';
 
 export default function NotFoundPage() {
   return (
-    <main className="h-full flex flex-col items-center justify-center bg-brand-black px-6 text-center">
+    <main className="h-full flex flex-col items-center justify-center bg-brand-black px-6 p-8 text-center">
       <Link
         href="/"
         aria-label="Go to homepage"

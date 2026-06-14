@@ -16,7 +16,7 @@ export default function FavouritesPage() {
   return (
     <Suspense>
       {products.length === 0 ? (
-        <main className="h-full flex flex-col items-center justify-center px-6 text-center">
+        <main className="h-full flex flex-col items-center justify-center px-6 pb-8 text-center">
           <div>
             <Image
               src="/img/empty-favorites.png"
