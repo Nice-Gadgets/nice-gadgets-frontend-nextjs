@@ -3,32 +3,21 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useCartStore } from '@/entities/Product/store/useCartStore';
-import { useFavouritesStore } from '@/entities/Product/store/useFavouritesStore';
-import { ProductInterface } from '@/entities/Product/types/ProductInterface';
-import { Button } from '@/shared/ui/button';
-import { HeartIcon, HeartIconSelected } from '@/shared/ui/icons';
+import { useCartStore } from '@/entities/Cart';
+import { useFavoritesStore } from '@/entities/Favorite';
+import { Product } from '@/entities/Product';
+import { Button } from '@/shared/ui/Button';
+import { HeartIcon, HeartIconSelected } from '@/shared/ui/Icons';
 import { BodyText, H3, SmallText, UppercaseText } from '@/shared/ui/Typography';
 
 interface ProductCardProps {
-  product: ProductInterface;
+  product: Product;
 }
 
 const cardClassname =
   'relative box-border w-full min-h-126.5 flex flex-col justify-between p-8 bg-brand-surface-1 gap-1 transition-transform duration-300 ease-in-out hover:scale-102 h-full min-[508px]:h-126.5 min-[1200px]:w-68';
-const imageContainer =
-  'w-full h-50 flex items-center justify-center m-0 overflow-hidden';
-const imageClassname = 'h-50 object-contain w-full';
 const nameClassname =
   'text-brand-white line-clamp-2 pt-4 h-14 group-hover:text-brand-accent transition-colors duration-300 ease-in-out';
-const priceContainer = 'flex items-center gap-2 mt-1';
-const colorWhite = 'text-brand-white';
-const colorSecondary = 'text-brand-secondary';
-const oldPrice = 'text-brand-secondary line-through';
-const divider = 'w-full h-px bg-brand-elements';
-const descriptionContainer = 'flex flex-col gap-2';
-const descriptionWrapper = 'flex justify-between';
-const buttonsContainer = 'flex gap-2 h-12';
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const {
@@ -48,9 +37,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const removeItem = useCartStore((state) => state.removeItem);
   const isInCart = items.some((elem) => elem.item.itemId === product.itemId);
 
-  const addFavourite = useFavouritesStore((state) => state.addItem);
-  const removeFavourite = useFavouritesStore((state) => state.removeItem);
-  const favourites = useFavouritesStore((state) => state.items);
+  const addFavourite = useFavoritesStore((state) => state.addFavorite);
+  const removeFavourite = useFavoritesStore((state) => state.removeFavorite);
+  const favourites = useFavoritesStore((state) => state.items);
   const isFavourite = favourites.some(
     (elem) => elem.item.itemId === product.itemId,
   );
@@ -62,9 +51,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         href={`/${category}/${itemId}`}
         aria-label={`View details for ${name}`}
       >
-        <div className={imageContainer}>
+        <div className="w-full h-50 flex items-center justify-center m-0 overflow-hidden">
           <Image
-            className={imageClassname}
+            className="h-50 object-contain w-full"
             src={`/${image}`}
             alt={name}
             width={200}
@@ -74,27 +63,29 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <BodyText className={nameClassname}>{name}</BodyText>
       </Link>
 
-      <div className={priceContainer}>
-        <H3 className={colorWhite}>{`${price}$`}</H3>
-        {fullPrice > price && <H3 className={oldPrice}>{`${fullPrice}$`}</H3>}
+      <div className="flex items-center gap-2 mt-1">
+        <H3 className="text-brand-white">{`${price}$`}</H3>
+        {fullPrice > price && (
+          <H3 className="text-brand-secondary line-through">{`${fullPrice}$`}</H3>
+        )}
       </div>
-      <div className={divider} />
-      <div className={descriptionContainer}>
-        <div className={descriptionWrapper}>
-          <SmallText className={colorSecondary}>Screen</SmallText>
-          <UppercaseText className={colorWhite}>{screen}</UppercaseText>
+      <div className="w-full h-px bg-brand-elements" />
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between">
+          <SmallText className="text-brand-secondary">Screen</SmallText>
+          <UppercaseText className="text-brand-white">{screen}</UppercaseText>
         </div>
-        <div className={descriptionWrapper}>
-          <SmallText className={colorSecondary}>Capacity</SmallText>
-          <UppercaseText className={colorWhite}>{capacity}</UppercaseText>
+        <div className="flex justify-between">
+          <SmallText className="text-brand-secondary">Capacity</SmallText>
+          <UppercaseText className="text-brand-white">{capacity}</UppercaseText>
         </div>
-        <div className={descriptionWrapper}>
-          <SmallText className={colorSecondary}>RAM</SmallText>
-          <UppercaseText className={colorWhite}>{ram}</UppercaseText>
+        <div className="flex justify-between">
+          <SmallText className="text-brand-secondary">RAM</SmallText>
+          <UppercaseText className="text-brand-white">{ram}</UppercaseText>
         </div>
       </div>
 
-      <div className={buttonsContainer}>
+      <div className="flex gap-2 h-12">
         <Button
           variant="primary"
           className="h-10 grow cursor-pointer"

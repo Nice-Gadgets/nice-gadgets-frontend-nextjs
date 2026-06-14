@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export function useCounterAnimation(count: number, duration = 400) {
+export const useCounterAnimation = (count: number, duration = 400) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const prevCount = useRef(count);
 
@@ -13,4 +13,4 @@ export function useCounterAnimation(count: number, duration = 400) {
   }, [count, duration]);
 
   return isAnimating;
-}
+};

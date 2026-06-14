@@ -7,13 +7,14 @@ import { useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-export const ProductGallery = ({
-  images,
-  name,
-}: {
+import { cn } from '@/shared/lib';
+
+interface ProductGalleryProps {
   images: string[];
   name: string;
-}) => {
+}
+
+export const ProductGallery = ({ images, name }: ProductGalleryProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
@@ -32,12 +33,12 @@ export const ProductGallery = ({
             key={src}
             onClick={() => handleThumbnailClick(i)}
             aria-label={`View image ${i + 1}`}
-            className={[
+            className={cn(
               'relative size-15 shrink-0 border transition-colors duration-300 cursor-pointer',
               i === activeIndex
                 ? 'border-brand-white'
                 : 'border-brand-elements hover:border-brand-secondary',
-            ].join(' ')}
+            )}
           >
             <Image
               src={`/${src}`}

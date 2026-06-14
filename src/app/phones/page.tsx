@@ -1,13 +1,7 @@
-import { Suspense } from 'react';
+import { CatalogPage } from '@/views/Catalog';
 
-import { Catalog } from '@/widgets/Catalog';
+const PhonesPage = () => {
+  return <CatalogPage categoryName="Phones" />;
+};
 
-import productsData from '../../../public/api/products.json';
-
-export default function PhonesPage() {
-  return (
-    <Suspense>
-      <Catalog products={productsData} categoryName="Phones" />
-    </Suspense>
-  );
-}
+export default PhonesPage;

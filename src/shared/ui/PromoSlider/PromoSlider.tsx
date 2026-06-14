@@ -9,8 +9,8 @@ import Link from 'next/link';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Button } from '@/shared/ui/button';
-import { ChevronLeftIcon, ChevronRightIcon } from '@/shared/ui/icons';
+import { Button } from '@/shared/ui/Button';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/shared/ui/Icons';
 
 interface Slide {
   src: string;
@@ -27,10 +27,9 @@ export const PromoSlider = ({ slides }: PromoSliderProps) => {
 
   return (
     <div className="flex items-stretch w-full gap-4 justify-center md:w-148 lg:w-284">
-      {/* Prev button */}
       <Button
         variant="control"
-        className="hidden sm:flex custom-prev h-full items-center justify-center cursor-pointer"
+        className="hidden sm:flex custom-prev w-8 h-full items-center justify-center cursor-pointer"
         aria-label="Previous slide"
       >
         <ChevronLeftIcon className="w-6 h-6 text-brand-white" />
@@ -75,7 +74,7 @@ export const PromoSlider = ({ slides }: PromoSliderProps) => {
                 src={slide.src}
                 alt={slide.alt}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
               />
             </Link>
           </SwiperSlide>

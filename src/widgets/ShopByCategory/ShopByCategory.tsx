@@ -3,18 +3,18 @@ import Link from 'next/link';
 
 import { BodyText, H2, H4 } from '@/shared/ui/Typography';
 
-type CategoryItem = {
+interface CategoryItem {
   title: string;
   href: string;
   imageSrc: string;
   modelsCount: number;
-};
+}
 
-type ShopByCategoryProps = {
+interface ShopByCategoryProps {
   categories: CategoryItem[];
-};
+}
 
-export function ShopByCategory({ categories }: ShopByCategoryProps) {
+export const ShopByCategory = ({ categories }: ShopByCategoryProps) => {
   return (
     <section className="w-full">
       <H2 className="mb-6">Shop by category</H2>
@@ -44,4 +44,4 @@ export function ShopByCategory({ categories }: ShopByCategoryProps) {
       </div>
     </section>
   );
-}
+};

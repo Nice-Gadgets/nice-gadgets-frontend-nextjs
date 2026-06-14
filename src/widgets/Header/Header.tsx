@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { useCartStore } from '@/entities/Product/store/useCartStore';
-import { useFavouritesStore } from '@/entities/Product/store/useFavouritesStore';
+import { useCartStore } from '@/entities/Cart';
+import { useFavoritesStore } from '@/entities/Favorite';
 import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
-import { CartIcon, HeartIcon } from '@/shared/ui/icons';
+import { CartIcon, HeartIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
 import { MobileMenu } from '@/widgets/Header/MobileMenu';
 import { DesktopNavLinks } from '@/widgets/Header/NavLinks';
@@ -19,9 +19,10 @@ export const Header = () => {
   const pathname = usePathname();
 
   const cartItems = useCartStore((state) => state.items);
-  const favouriteItems = useFavouritesStore((state) => state.items);
+  const favouriteItems = useFavoritesStore((state) => state.items);
 
-  const cartCount = cartItems.length;
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const formatCount = (count: number) => (count > 99 ? '99+' : count);
   const favouriteCount = favouriteItems.length;
 
   const isCartAnimating = useCounterAnimation(cartCount);
@@ -41,7 +42,7 @@ export const Header = () => {
 
         <div className="flex h-full items-center">
           <Link
-            href="/favourites"
+            href="/favorites"
             aria-label="Favorites"
             className={cn(headerIconLinkClassName, 'relative')}
           >
@@ -50,17 +51,17 @@ export const Header = () => {
               {favouriteCount > 0 && (
                 <span
                   className={cn(
-                    'absolute -top-[5px] -right-[7px] flex size-[15px] items-center justify-center rounded-full bg-brand-red border-[2px] border-solid text-[8px] font-bold text-white leading-1 transition-colors duration-300',
+                    'absolute -top-1.25 -right-1.75 flex size-3.75 items-center justify-center rounded-full bg-brand-red border-2 border-solid text-[8px] font-bold text-white leading-1 transition-colors duration-300',
                     isFavouriteAnimating
                       ? 'border-brand-white'
                       : 'border-brand-black',
                   )}
                 >
-                  {favouriteCount}
+                  {formatCount(favouriteCount)}
                 </span>
               )}
             </div>
-            {pathname?.startsWith('/favourites') && (
+            {pathname?.startsWith('/favorites') && (
               <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
             )}
           </Link>
@@ -75,13 +76,13 @@ export const Header = () => {
               {cartCount > 0 && (
                 <span
                   className={cn(
-                    'absolute -top-[5px] -right-[7px] flex size-[15px] items-center justify-center rounded-full bg-brand-red border-[2px] border-solid text-[8px] font-bold text-white leading-none transition-colors duration-300',
+                    'absolute -top-1.25 -right-1.75 flex size-3.75 items-center justify-center rounded-full bg-brand-red border-2 border-solid text-[8px] font-bold text-white leading-none transition-colors duration-300',
                     isCartAnimating
                       ? 'border-brand-white'
                       : 'border-brand-black',
                   )}
                 >
-                  {cartCount}
+                  {formatCount(cartCount)}
                 </span>
               )}
             </div>

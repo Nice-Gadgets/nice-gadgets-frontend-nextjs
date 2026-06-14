@@ -1,5 +1,3 @@
-import { Cart } from '@/widgets/Cart';
+import { CartPage } from '@/views/Cart';
 
-export default function CartPage() {
-  return <Cart />;
-}
+export default CartPage;

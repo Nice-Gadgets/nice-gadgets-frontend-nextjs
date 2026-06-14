@@ -1,13 +1,13 @@
 'use client';
 
-import { useCartStore } from '@/entities/Product/store/useCartStore';
-import { useFavouritesStore } from '@/entities/Product/store/useFavouritesStore';
-import { ProductInterface } from '@/entities/Product/types/ProductInterface';
-import { Button } from '@/shared/ui/button';
-import { HeartIcon, HeartIconSelected } from '@/shared/ui/icons';
+import { useCartStore } from '@/entities/Cart';
+import { useFavoritesStore } from '@/entities/Favorite';
+import { Product } from '@/entities/Product';
+import { Button } from '@/shared/ui/Button';
+import { HeartIcon, HeartIconSelected } from '@/shared/ui/Icons';
 
 interface ProductActionsProps {
-  product: ProductInterface;
+  product: Product;
 }
 
 export const ProductActions = ({ product }: ProductActionsProps) => {
@@ -16,9 +16,9 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
   const items = useCartStore((state) => state.items);
   const isInCart = items.some((elem) => elem.item.itemId === product.itemId);
 
-  const addFavourite = useFavouritesStore((state) => state.addItem);
-  const removeFavourite = useFavouritesStore((state) => state.removeItem);
-  const favourites = useFavouritesStore((state) => state.items);
+  const addFavourite = useFavoritesStore((state) => state.addFavorite);
+  const removeFavourite = useFavoritesStore((state) => state.removeFavorite);
+  const favourites = useFavoritesStore((state) => state.items);
   const isFavourite = favourites.some(
     (elem) => elem.item.itemId === product.itemId,
   );

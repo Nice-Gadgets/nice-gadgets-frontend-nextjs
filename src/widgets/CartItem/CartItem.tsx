@@ -1,16 +1,14 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useCartStore } from '@/entities/Product/store/useCartStore';
-import { ProductInterface } from '@/entities/Product/types/ProductInterface';
-import { Button } from '@/shared/ui/button';
-import { CloseIcon, MinusIcon, PlusIcon } from '@/shared/ui/icons';
+import { useCartStore } from '@/entities/Cart';
+import { Product } from '@/entities/Product';
+import { Button } from '@/shared/ui/Button';
+import { CloseIcon, MinusIcon, PlusIcon } from '@/shared/ui/Icons';
 import { BodyText, H3 } from '@/shared/ui/Typography';
 
 interface CartItemProps {
-  item: ProductInterface;
+  item: Product;
   quantity: number;
 }
 
