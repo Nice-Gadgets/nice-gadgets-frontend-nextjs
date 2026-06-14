@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+import { useCartStore } from '@/entities/Product/store/useCartStore';
+import { useFavouritesStore } from '@/entities/Product/store/useFavouritesStore';
+import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, MenuIcon } from '@/shared/ui/icons';
 import { Logo } from '@/shared/ui/Logo';
@@ -36,6 +39,15 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
       document.body.style.overflow = '';
     };
   }, [open]);
+
+  const cartItems = useCartStore((state) => state.items);
+  const favouriteItems = useFavouritesStore((state) => state.items);
+
+  const cartCount = cartItems.length;
+  const favouriteCount = favouriteItems.length;
+
+  const isCartAnimating = useCounterAnimation(cartCount);
+  const isFavouriteAnimating = useCounterAnimation(favouriteCount);
 
   if (!visible && !open) {
     return (
@@ -96,7 +108,21 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
                 'relative flex h-full items-center justify-center border-r border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1',
               )}
             >
-              <HeartIcon className="size-4" />
+              <div className="relative">
+                <HeartIcon className="size-4" />
+                {favouriteCount > 0 && (
+                  <span
+                    className={cn(
+                      'absolute -top-[5px] -right-[7px] flex size-[15px] items-center justify-center rounded-full bg-brand-red border-[2px] border-solid text-[8px] font-bold text-white leading-none transition-colors duration-300',
+                      isFavouriteAnimating
+                        ? 'border-brand-white'
+                        : 'border-brand-black',
+                    )}
+                  >
+                    {favouriteCount}
+                  </span>
+                )}
+              </div>
               {pathname?.startsWith('/favourites') && (
                 <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
               )}
@@ -108,7 +134,21 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
                 'relative flex h-full items-center justify-center text-brand-white transition-colors hover:bg-brand-surface-1',
               )}
             >
-              <CartIcon className="size-4" />
+              <div className="relative">
+                <CartIcon className="size-4" />
+                {cartCount > 0 && (
+                  <span
+                    className={cn(
+                      'absolute -top-[5px] -right-[7px] flex size-[15px] items-center justify-center rounded-full bg-brand-red border-[2px] border-solid text-[8px] font-bold text-white leading-none transition-colors duration-300',
+                      isCartAnimating
+                        ? 'border-brand-white'
+                        : 'border-brand-black',
+                    )}
+                  >
+                    {cartCount}
+                  </span>
+                )}
+              </div>
               {pathname?.startsWith('/cart') && (
                 <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
               )}

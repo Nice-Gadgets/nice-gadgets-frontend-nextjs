@@ -30,12 +30,12 @@ export const Cart = () => {
         <H1 className="mb-8 font-extrabold">Cart</H1>
 
         {items.length === 0 ? (
-          <div className="flex flex-col items-center justify-center p-6 text-center">
+          <div className="h-full flex flex-col items-center justify-center px-6 text-center">
             <Image
               src="/img/cart-is-empty.png"
               alt="Cart is empty"
-              width={400}
-              height={300}
+              width={300}
+              height={200}
               priority
               sizes="(max-width: 640px) 100vw, 400px"
               className="w-full h-auto object-contain max-w-[400px] mb-8"

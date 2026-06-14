@@ -11,9 +11,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={mont.variable}>
-      <body className="min-h-screen antialiased">
+      <body className="min-h-screen antialiased flex flex-col pt-[47px] lg:pt-16">
         <Header />
-        {children}
+        <div className="flex-1">{children}</div>
         <Footer />
       </body>
     </html>
