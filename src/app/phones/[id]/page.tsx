@@ -1,6 +1,12 @@
 import { notFound } from 'next/navigation';
 
-import { getProduct, getProducts } from '@/entities/Product/api';
+import { fullProductToProduct } from '@/entities/Product';
+import {
+  getProduct,
+  getProducts,
+  getStaticProducts,
+} from '@/entities/Product/api';
+import { TrackView } from '@/entities/RecentlyViewed/ui';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
 interface PageProps {
@@ -8,27 +14,42 @@ interface PageProps {
 }
 
 async function getPhoneProduct(id: string) {
-  const phones = await getProducts('phones');
-  return getProduct(phones, id);
+  const [phones, products] = await Promise.all([
+    getProducts('phones'),
+    getStaticProducts(),
+  ]);
+
+  const fullProduct = getProduct(phones, id);
+  if (!fullProduct) return null;
+
+  return {
+    fullProduct,
+    product: fullProductToProduct(fullProduct, products),
+  };
 }
 
 export default async function PhoneDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const product = await getPhoneProduct(id);
+  const data = await getPhoneProduct(id);
 
-  if (!product) notFound();
+  if (!data || !data.product) notFound();
 
-  return <ItemCardPage product={product} />;
+  return (
+    <>
+      <TrackView product={data.product} />
+      <ItemCardPage product={data.fullProduct} />
+    </>
+  );
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
-  const product = await getPhoneProduct(id);
+  const data = await getPhoneProduct(id);
 
-  if (!product) return { title: 'Product not found' };
+  if (!data) return { title: 'Product not found' };
 
   return {
-    title: product.name,
-    description: product.description?.[0]?.text?.[0] || '',
+    title: data.fullProduct.name,
+    description: data.fullProduct.description?.[0]?.text?.[0] || '',
   };
 }

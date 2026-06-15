@@ -2,6 +2,7 @@ import { getStaticProducts } from '@/entities/Product/api';
 import { PromoSlider } from '@/shared/ui/PromoSlider';
 import { H1 } from '@/shared/ui/Typography';
 import { ProductsSlider } from '@/widgets/ProductsSlider';
+import { RecentlyViewedSlider } from '@/widgets/RecentlyViewedSlider';
 import { ShopByCategory } from '@/widgets/ShopByCategory';
 
 const promoSlides = [
@@ -81,6 +82,8 @@ export const HomePage = async () => {
         </div>
 
         <ProductsSlider title="Hot prices" products={hotPriceProducts} />
+
+        <RecentlyViewedSlider />
       </div>
     </main>
   );

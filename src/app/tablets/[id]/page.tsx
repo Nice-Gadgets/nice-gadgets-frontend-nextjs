@@ -1,6 +1,12 @@
 import { notFound } from 'next/navigation';
 
-import { getProduct, getProducts } from '@/entities/Product/api';
+import { fullProductToProduct } from '@/entities/Product';
+import {
+  getProduct,
+  getProducts,
+  getStaticProducts,
+} from '@/entities/Product/api';
+import { TrackView } from '@/entities/RecentlyViewed/ui';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
 interface PageProps {
@@ -8,27 +14,42 @@ interface PageProps {
 }
 
 async function getTabletProduct(id: string) {
-  const tablets = await getProducts('tablets');
-  return getProduct(tablets, id);
+  const [tablets, products] = await Promise.all([
+    getProducts('tablets'),
+    getStaticProducts(),
+  ]);
+
+  const fullProduct = getProduct(tablets, id);
+  if (!fullProduct) return null;
+
+  return {
+    fullProduct,
+    product: fullProductToProduct(fullProduct, products),
+  };
 }
 
 export default async function TabletDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const product = await getTabletProduct(id);
+  const data = await getTabletProduct(id);
 
-  if (!product) notFound();
+  if (!data || !data.product) notFound();
 
-  return <ItemCardPage product={product} />;
+  return (
+    <>
+      <TrackView product={data.product} />
+      <ItemCardPage product={data.fullProduct} />
+    </>
+  );
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
-  const product = await getTabletProduct(id);
+  const data = await getTabletProduct(id);
 
-  if (!product) return { title: 'Product not found' };
+  if (!data || !data.product) notFound();
 
   return {
-    title: product.name,
-    description: product.description?.[0]?.text?.[0] || '',
+    title: data.fullProduct.name,
+    description: data.fullProduct.description?.[0]?.text?.[0] || '',
   };
 }

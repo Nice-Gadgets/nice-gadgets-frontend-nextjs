@@ -27,19 +27,9 @@ export const paginateProducts = (
   return products.slice(startIndex, startIndex + limit);
 };
 
-export const fullProductToProduct = (product: FullProduct): Product => {
-  return {
-    id: Number(product.id),
-    category: product.category,
-    itemId: product.id,
-    name: product.name,
-    fullPrice: product.priceRegular,
-    price: product.priceDiscount,
-    screen: product.screen,
-    capacity: product.capacity,
-    color: product.color,
-    ram: product.ram,
-    year: 0,
-    image: product.images[0],
-  };
+export const fullProductToProduct = (
+  product: FullProduct,
+  products: Product[],
+): Product | null => {
+  return products.find((p) => p.itemId === product.id) ?? null;
 };
