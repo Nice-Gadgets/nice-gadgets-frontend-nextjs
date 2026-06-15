@@ -1,11 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { fullProductToProduct } from '@/entities/Product';
-import {
-  getProduct,
-  getProducts,
-  getStaticProducts,
-} from '@/entities/Product/api';
+import { getProduct, getStaticProducts } from '@/entities/Product/api';
 import { TrackView } from '@/entities/RecentlyViewed/ui';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
@@ -14,18 +10,16 @@ interface PageProps {
 }
 
 async function getPhoneProduct(id: string) {
-  const [phones, products] = await Promise.all([
-    getProducts('phones'),
-    getStaticProducts(),
-  ]);
+  const products = await getStaticProducts();
 
-  const fullProduct = getProduct(phones, id);
+  const fullProduct = await getProduct(id);
   if (!fullProduct) return null;
 
   return {
     fullProduct,
     product: fullProductToProduct(fullProduct, products),
   };
+  return;
 }
 
 export default async function PhoneDetailPage({ params }: PageProps) {

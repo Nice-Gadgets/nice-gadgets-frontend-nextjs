@@ -1,11 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { fullProductToProduct } from '@/entities/Product';
-import {
-  getProduct,
-  getProducts,
-  getStaticProducts,
-} from '@/entities/Product/api';
+import { getProduct, getStaticProducts } from '@/entities/Product/api';
 import { TrackView } from '@/entities/RecentlyViewed/ui';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
@@ -14,18 +10,16 @@ interface PageProps {
 }
 
 async function getAccessoryProduct(id: string) {
-  const [accessories, products] = await Promise.all([
-    getProducts('accessories'),
-    getStaticProducts(),
-  ]);
+  const products = await getStaticProducts();
 
-  const fullProduct = getProduct(accessories, id);
+  const fullProduct = await getProduct(id);
   if (!fullProduct) return null;
 
   return {
     fullProduct,
     product: fullProductToProduct(fullProduct, products),
   };
+  return;
 }
 
 export default async function AccessoryDetailPage({ params }: PageProps) {
