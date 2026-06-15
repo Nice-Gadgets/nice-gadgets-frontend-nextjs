@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 
-import { getProduct } from '@/entities/Product/api';
+import { fullProductToProduct } from '@/entities/Product';
+import { getProduct, getStaticProducts } from '@/entities/Product/api';
+import { TrackView } from '@/entities/RecentlyViewed/ui';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
 interface PageProps {
@@ -8,26 +10,39 @@ interface PageProps {
 }
 
 async function getAccessoryProduct(id: string) {
-  return getProduct(id);
+  const products = await getStaticProducts();
+
+  const fullProduct = await getProduct(id);
+  if (!fullProduct) return null;
+
+  return {
+    fullProduct,
+    product: fullProductToProduct(fullProduct, products),
+  };
 }
 
 export default async function AccessoryDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const product = await getAccessoryProduct(id);
+  const data = await getAccessoryProduct(id);
 
-  if (!product) notFound();
+  if (!data || !data.product) notFound();
 
-  return <ItemCardPage product={product} />;
+  return (
+    <>
+      <TrackView product={data.product} />
+      <ItemCardPage product={data.fullProduct} />
+    </>
+  );
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
-  const product = await getAccessoryProduct(id);
+  const data = await getAccessoryProduct(id);
 
-  if (!product) return { title: 'Product not found' };
+  if (!data) return { title: 'Product not found' };
 
   return {
-    title: product.name,
-    description: product.description?.[0]?.text?.[0] || '',
+    title: data.fullProduct.name,
+    description: data.fullProduct.description?.[0]?.text?.[0] || '',
   };
 }
