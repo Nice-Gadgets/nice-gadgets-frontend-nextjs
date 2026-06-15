@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { getProduct, getProducts } from '@/entities/Product/api';
+import { getProduct } from '@/entities/Product/api';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
 interface PageProps {
@@ -8,8 +8,7 @@ interface PageProps {
 }
 
 async function getPhoneProduct(id: string) {
-  const phones = await getProducts('phones');
-  return getProduct(phones, id);
+  return getProduct(id);
 }
 
 export default async function PhoneDetailPage({ params }: PageProps) {

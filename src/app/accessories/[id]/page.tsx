@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { getProduct, getProducts } from '@/entities/Product/api';
+import { getProduct } from '@/entities/Product/api';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
 interface PageProps {
@@ -8,8 +8,7 @@ interface PageProps {
 }
 
 async function getAccessoryProduct(id: string) {
-  const accessories = await getProducts('accessories');
-  return getProduct(accessories, id);
+  return getProduct(id);
 }
 
 export default async function AccessoryDetailPage({ params }: PageProps) {
