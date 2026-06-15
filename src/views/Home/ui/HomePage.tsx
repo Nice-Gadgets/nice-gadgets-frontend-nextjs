@@ -16,7 +16,7 @@ const promoSlides = [
     href: '/tablets/apple-ipad-pro-11-2021-2tb-spacegray',
   },
   {
-    src: '/img/bannerAccessory.png',
+    src: '/img/BannerAccessory.png',
     alt: 'Apple Watch Series 5 44mm',
     href: '/accessories/apple-watch-series-5-44mm-space-gray',
   },
