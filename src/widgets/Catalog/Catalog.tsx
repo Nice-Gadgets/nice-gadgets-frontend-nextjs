@@ -1,19 +1,34 @@
 'use client';
+
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { ProductInterface } from '@/entities/Product/types/ProductInterface';
-import { paginateProducts, sortProducts } from '@/shared/lib/utils';
+import {
+  paginateProducts,
+  type Product,
+  sortProducts,
+} from '@/entities/Product';
 import { AppSelect } from '@/shared/ui/AppSelect';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { Pagination } from '@/shared/ui/Pagination';
 import { BodyText, H1 } from '@/shared/ui/Typography';
 import { ProductCard } from '@/widgets/ProductCard';
 
-const sortOptions = ['Name', 'Price_asc', 'Price_desc', 'Newest'];
-const paginationOptions = ['20', '30', '40', '50', '60'];
+const sortOptions = [
+  { label: 'Name', value: 'Name' },
+  { label: 'Price ↑', value: 'Price_asc' },
+  { label: 'Price ↓', value: 'Price_desc' },
+  { label: 'Newest', value: 'Newest' },
+];
+const paginationOptions = [
+  { label: '20', value: '20' },
+  { label: '30', value: '30' },
+  { label: '40', value: '40' },
+  { label: '50', value: '50' },
+  { label: '60', value: '60' },
+];
 
 interface CatalogProps {
-  products: ProductInterface[];
+  products: Product[];
   categoryName: string;
   withSort?: boolean;
 }
@@ -24,7 +39,7 @@ export const Catalog = ({
   withSort = true,
 }: CatalogProps) => {
   const productsByCategory =
-    categoryName.toLowerCase() === 'favourites'
+    categoryName.toLowerCase() === 'favorites'
       ? products
       : products.filter((item) => item.category === categoryName.toLowerCase());
 
@@ -32,12 +47,16 @@ export const Catalog = ({
   const router = useRouter();
   const pathname = usePathname();
 
-  const sortBy = searchParams.get('sort') || 'Name';
-  const currentPage = Number(searchParams.get('page')) || 1;
-  const itemsPerPage = Number(searchParams.get('limit')) || 20;
+  const sortBy = searchParams?.get('sort') || 'Name';
+  const currentPage = Number(searchParams?.get('page')) || 1;
+  const itemsPerPage = Number(searchParams?.get('limit')) || 20;
 
-  const updateParams = (key: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+  const updateParams = (key: string, value: string | null) => {
+    if (value === null) {
+      return;
+    }
+
+    const params = new URLSearchParams(searchParams?.toString());
     params.set(key, value);
 
     if (key !== 'page') {
@@ -92,7 +111,7 @@ export const Catalog = ({
       )}
       <div className="grid grid-cols-1 pb-10 pt-6 min-[508px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-4">
         {paginatedProducts.map((item) => (
-          <ProductCard key={item.id} product={item as ProductInterface} />
+          <ProductCard key={item.id} product={item} />
         ))}
       </div>
       {isShowPagination && (

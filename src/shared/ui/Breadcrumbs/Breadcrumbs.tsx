@@ -1,20 +1,20 @@
 import Link from 'next/link';
 import { Fragment } from 'react';
 
-import { cn } from '@/shared/lib/utils';
-import { ChevronRightIcon, HomeIcon } from '@/shared/ui/icons';
+import { cn } from '@/shared/lib';
+import { ChevronRightIcon, HomeIcon } from '@/shared/ui/Icons';
 
-export type BreadcrumbItem = {
+interface BreadcrumbItem {
   label: string;
   href?: string;
-};
+}
 
-type BreadcrumbsProps = {
+interface BreadcrumbsProps {
   items: BreadcrumbItem[];
   className?: string;
-};
+}
 
-export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
+export const Breadcrumbs = ({ items, className }: BreadcrumbsProps) => {
   return (
     <nav
       aria-label="Breadcrumbs"
@@ -67,4 +67,4 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
       </ol>
     </nav>
   );
-}
+};

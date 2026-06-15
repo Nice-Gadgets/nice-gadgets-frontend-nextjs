@@ -1,13 +1,13 @@
 'use client';
 
-import { useCartStore } from '@/entities/Product/store/useCartStore';
-import { useFavouritesStore } from '@/entities/Product/store/useFavouritesStore';
-import { ProductInterface } from '@/entities/Product/types/ProductInterface';
-import { Button } from '@/shared/ui/button';
-import { HeartIcon, HeartIconSelected } from '@/shared/ui/icons';
+import { useCartStore } from '@/entities/Cart';
+import { useFavoritesStore } from '@/entities/Favorite';
+import { Product } from '@/entities/Product';
+import { Button } from '@/shared/ui/Button';
+import { HeartIcon, HeartIconSelected } from '@/shared/ui/Icons';
 
 interface ProductActionsProps {
-  product: ProductInterface;
+  product: Product;
 }
 
 export const ProductActions = ({ product }: ProductActionsProps) => {
@@ -16,10 +16,10 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
   const items = useCartStore((state) => state.items);
   const isInCart = items.some((elem) => elem.item.itemId === product.itemId);
 
-  const addFavourite = useFavouritesStore((state) => state.addItem);
-  const removeFavourite = useFavouritesStore((state) => state.removeItem);
-  const favourites = useFavouritesStore((state) => state.items);
-  const isFavourite = favourites.some(
+  const addFavorite = useFavoritesStore((state) => state.addFavorite);
+  const removeFavorite = useFavoritesStore((state) => state.removeFavorite);
+  const favorites = useFavoritesStore((state) => state.items);
+  const isFavorite = favorites.some(
     (elem) => elem.item.itemId === product.itemId,
   );
 
@@ -40,14 +40,14 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
       <Button
         variant="favorite"
         type="button"
-        aria-pressed={isFavourite}
+        aria-pressed={isFavorite}
         aria-label="Add to favorites"
         className="flex size-12 cursor-pointer items-center justify-center border border-brand-icons bg-brand-surface-2 text-brand-secondary transition-colors duration-300 hover:border-brand-white hover:text-brand-white"
         onClick={() =>
-          isFavourite ? removeFavourite(product.itemId) : addFavourite(product)
+          isFavorite ? removeFavorite(product.itemId) : addFavorite(product)
         }
       >
-        {isFavourite ? <HeartIconSelected /> : <HeartIcon />}
+        {isFavorite ? <HeartIconSelected /> : <HeartIcon />}
       </Button>
     </div>
   );

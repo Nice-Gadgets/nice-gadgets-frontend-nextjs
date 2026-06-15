@@ -1,6 +1,7 @@
-import { Button } from '@/shared/ui/button';
+import { useMemo } from 'react';
 
-import { ChevronLeftIcon, ChevronRightIcon } from '../icons';
+import { Button } from '@/shared/ui/Button';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/shared/ui/Icons';
 
 interface PaginationProps {
   currentPage: number;
@@ -8,36 +9,46 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
+const generateRange = (
+  currentPage: number,
+  totalPages: number,
+  maxVisibleButtons: number,
+) => {
+  const siblings = Math.floor((maxVisibleButtons - 1) / 2);
+
+  let start = currentPage - siblings;
+  let end = currentPage + siblings;
+
+  if (start < 1) {
+    start = 1;
+    end = Math.min(totalPages, maxVisibleButtons);
+  }
+
+  if (end > totalPages) {
+    end = totalPages;
+    start = Math.max(1, totalPages - maxVisibleButtons + 1);
+  }
+
+  const range: number[] = [];
+  for (let i = start; i <= end; i++) {
+    range.push(i);
+  }
+  return range;
+};
+
 export const Pagination = ({
   currentPage,
   totalPages,
   onPageChange,
 }: PaginationProps) => {
-  const generateRange = (maxVisibleButtons: number) => {
-    const siblings = Math.floor((maxVisibleButtons - 1) / 2);
-
-    let start = currentPage - siblings;
-    let end = currentPage + siblings;
-
-    if (start < 1) {
-      start = 1;
-      end = Math.min(totalPages, maxVisibleButtons);
-    }
-
-    if (end > totalPages) {
-      end = totalPages;
-      start = Math.max(1, totalPages - maxVisibleButtons + 1);
-    }
-
-    const range: number[] = [];
-    for (let i = start; i <= end; i++) {
-      range.push(i);
-    }
-    return range;
-  };
-
-  const mobilePages = generateRange(3);
-  const desktopPages = generateRange(7);
+  const mobilePages = useMemo(
+    () => generateRange(currentPage, totalPages, 3),
+    [currentPage, totalPages],
+  );
+  const desktopPages = useMemo(
+    () => generateRange(currentPage, totalPages, 7),
+    [currentPage, totalPages],
+  );
 
   const renderPageButton = (page: number) => {
     const isCurrent = currentPage === page;

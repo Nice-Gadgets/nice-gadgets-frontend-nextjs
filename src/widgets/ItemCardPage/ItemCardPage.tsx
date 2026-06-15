@@ -1,44 +1,44 @@
 import Link from 'next/link';
 
-import { FullProduct } from '@/entities/Product/types/FullProduct';
-import { fullProductToProductInterface } from '@/entities/Product/utils/transformProduct';
+import { FullProduct, fullProductToProduct } from '@/entities/Product';
+import { getStaticProducts } from '@/entities/Product/api';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { ButtonColorPicker } from '@/shared/ui/ButtonColorPicker';
 import { CapacityButton } from '@/shared/ui/CapacityButton';
-import { ChevronLeftIcon } from '@/shared/ui/icons';
+import { ChevronLeftIcon } from '@/shared/ui/Icons';
 import { ProductGallery } from '@/shared/ui/ProductGallery';
-import { ProductsSlider } from '@/shared/ui/ProductsSlider';
 import { BodyText, H1, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
 import { ProductActions } from '@/widgets/ItemCardPage/ProductActions';
+import { ProductsSlider } from '@/widgets/ProductsSlider';
 
-import productsData from '../../../public/api/products.json';
-
-function buildProductUrl(
+const buildProductUrl = (
   category: string,
   namespaceId: string,
   capacity: string,
   color: string,
-): string {
+): string => {
   const cap = capacity.toLowerCase().replace(/\s+/g, '');
   const col = color.toLowerCase().replace(/\s+/g, '-');
 
   return `/${category}/${namespaceId}-${cap}-${col}`;
-}
+};
 
-function formatPrice(price: number): string {
+const formatPrice = (price: number): string => {
   return `$${price.toLocaleString('en-US')}`;
-}
+};
 
-function getCategoryLabel(category: string): string {
+const getCategoryLabel = (category: string): string => {
   return category.charAt(0).toUpperCase() + category.slice(1);
-}
+};
 
 interface ItemCardPageProps {
   product: FullProduct;
 }
 
-export const ItemCardPage = ({ product }: ItemCardPageProps) => {
-  const products = productsData.filter((p) => p.category === product.category);
+export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
+  const rawProducts = await getStaticProducts();
+
+  const products = rawProducts.filter((p) => p.category === product.category);
 
   const categoryLabel = getCategoryLabel(product.category);
 
@@ -59,7 +59,7 @@ export const ItemCardPage = ({ product }: ItemCardPageProps) => {
     { label: 'Cell', value: product.cell.join(', ') },
   ];
 
-  const productForCart = fullProductToProductInterface(product);
+  const productForCart = fullProductToProduct(product);
 
   return (
     <main className="w-full pt-6">

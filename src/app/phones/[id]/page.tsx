@@ -1,17 +1,20 @@
 import { notFound } from 'next/navigation';
 
-import { getProduct, getProducts } from '@/entities/Product/api/Products';
+import { getProduct, getProducts } from '@/entities/Product/api';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-const phones = await getProducts('phones');
+async function getPhoneProduct(id: string) {
+  const phones = await getProducts('phones');
+  return getProduct(phones, id);
+}
 
 export default async function PhoneDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const product = await getProduct(phones, id);
+  const product = await getPhoneProduct(id);
 
   if (!product) notFound();
 
@@ -20,12 +23,12 @@ export default async function PhoneDetailPage({ params }: PageProps) {
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
-  const product = await getProduct(phones, id);
+  const product = await getPhoneProduct(id);
 
   if (!product) return { title: 'Product not found' };
 
   return {
     title: product.name,
-    description: product.description[0]?.text[0],
+    description: product.description?.[0]?.text?.[0] || '',
   };
 }
