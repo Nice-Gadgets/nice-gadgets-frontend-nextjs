@@ -11,6 +11,8 @@ import { BodyText, H1, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
 import { ProductActions } from '@/widgets/ItemCardPage/ProductActions';
 import { ProductsSlider } from '@/widgets/ProductsSlider';
 
+import { RecentlyViewedSlider } from '../RecentlyViewedSlider';
+
 const buildProductUrl = (
   category: string,
   namespaceId: string,
@@ -224,6 +226,7 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
       </div>
       <div className="my-20 w-full overflow-hidden">
         <ProductsSlider products={products} title="You may also like" />
+        <RecentlyViewedSlider currentItemId={product.id} />
       </div>
     </main>
   );

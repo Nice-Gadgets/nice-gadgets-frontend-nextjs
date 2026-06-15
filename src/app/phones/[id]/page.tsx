@@ -19,7 +19,6 @@ async function getPhoneProduct(id: string) {
     fullProduct,
     product: fullProductToProduct(fullProduct, products),
   };
-  return;
 }
 
 export default async function PhoneDetailPage({ params }: PageProps) {

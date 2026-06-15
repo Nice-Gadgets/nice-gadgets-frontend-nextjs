@@ -19,7 +19,6 @@ async function getAccessoryProduct(id: string) {
     fullProduct,
     product: fullProductToProduct(fullProduct, products),
   };
-  return;
 }
 
 export default async function AccessoryDetailPage({ params }: PageProps) {

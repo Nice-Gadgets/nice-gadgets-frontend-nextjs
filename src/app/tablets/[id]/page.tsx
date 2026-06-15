@@ -19,7 +19,6 @@ async function getTabletProduct(id: string) {
     fullProduct,
     product: fullProductToProduct(fullProduct, products),
   };
-  return;
 }
 
 export default async function TabletDetailPage({ params }: PageProps) {
