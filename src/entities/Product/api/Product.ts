@@ -1,30 +1,46 @@
-import fs from 'fs/promises';
-import path from 'path';
-
 import { FullProduct, Product } from '@/entities/Product';
+import { supabase } from '@/shared/lib/supabase/client';
 
 export const getStaticProducts = async (): Promise<Product[]> => {
-  const filePath = path.join(process.cwd(), 'public', 'api', 'products.json');
-  const jsonData = await fs.readFile(filePath, 'utf-8');
-  return JSON.parse(jsonData) as Product[];
+  const { data, error } = await supabase.from('products').select('*');
+  if (error) {
+    console.error('Помилка Supabase (getStaticProducts):', error.message);
+    return [];
+  }
+
+  return data;
 };
 
 export const getProducts = async (category: string): Promise<FullProduct[]> => {
-  const filePath = path.join(
-    process.cwd(),
-    'public',
-    'api',
-    `${category}.json`,
-  );
-  const raw = await fs.readFile(filePath, 'utf-8');
-  return JSON.parse(raw);
+  const { data, error } = await supabase
+    .from('product_details')
+    .select('*')
+    .eq('category', category);
+
+  if (error) {
+    console.error(
+      `Помилка Supabase (getProducts для ${category}):`,
+      error.message,
+    );
+    return [];
+  }
+
+  return data;
 };
 
-export const getProduct = (
-  products: FullProduct[],
-  id: string,
-): FullProduct | null => {
-  return products.find((p) => p.id === id) ?? null;
+export const getProduct = async (id: string): Promise<FullProduct | null> => {
+  const { data, error } = await supabase
+    .from('product_details')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error('Товар не знайдено:', error.message);
+    return null;
+  }
+
+  return data;
 };
 
 export const generateStaticParams = async (products: FullProduct[]) => {
