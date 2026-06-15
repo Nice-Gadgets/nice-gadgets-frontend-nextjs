@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useCartStore } from '@/entities/Cart';
+import { BASE_URL } from '@/shared/constants/constant';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { Button } from '@/shared/ui/Button';
 import { BodyText, H1, SmallText } from '@/shared/ui/Typography';
@@ -32,7 +33,7 @@ export const CartPage = () => {
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center px-6 text-center">
             <Image
-              src="/img/cart-is-empty.png"
+              src={`${BASE_URL}/img/cart-is-empty.png`}
               alt="Cart is empty"
               width={300}
               height={200}

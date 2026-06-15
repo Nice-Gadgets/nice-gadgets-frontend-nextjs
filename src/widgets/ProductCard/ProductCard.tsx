@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useCartStore } from '@/entities/Cart';
 import { useFavoritesStore } from '@/entities/Favorite';
 import { Product } from '@/entities/Product';
+import { BASE_URL } from '@/shared/constants/constant';
 import { Button } from '@/shared/ui/Button';
 import { HeartIcon, HeartIconSelected } from '@/shared/ui/Icons';
 import { BodyText, H3, SmallText, UppercaseText } from '@/shared/ui/Typography';
@@ -54,7 +55,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className="w-full h-50 flex items-center justify-center m-0 overflow-hidden">
           <Image
             className="h-50 object-contain w-full"
-            src={`/${image}`}
+            src={`${BASE_URL}/${image}`}
             alt={name}
             width={200}
             height={200}

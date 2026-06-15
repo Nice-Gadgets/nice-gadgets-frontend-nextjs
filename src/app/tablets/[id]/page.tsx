@@ -1,8 +1,10 @@
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 import { fullProductToProduct } from '@/entities/Product';
 import { getProduct, getStaticProducts } from '@/entities/Product/api';
 import { TrackView } from '@/entities/RecentlyViewed/ui';
+import { H3 } from '@/shared/ui/Typography';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
 interface PageProps {
@@ -21,8 +23,7 @@ async function getTabletProduct(id: string) {
   };
 }
 
-export default async function TabletDetailPage({ params }: PageProps) {
-  const { id } = await params;
+async function TableProductsContent({ id }: { id: string }) {
   const data = await getTabletProduct(id);
 
   if (!data || !data.product) notFound();
@@ -32,6 +33,22 @@ export default async function TabletDetailPage({ params }: PageProps) {
       <TrackView product={data.product} />
       <ItemCardPage product={data.fullProduct} />
     </>
+  );
+}
+
+export default async function TabletDetailPage({ params }: PageProps) {
+  const { id } = await params;
+
+  return (
+    <Suspense
+      fallback={
+        <div>
+          <H3>Завантаження продукту</H3>
+        </div>
+      }
+    >
+      <TableProductsContent id={id} />
+    </Suspense>
   );
 }
 
