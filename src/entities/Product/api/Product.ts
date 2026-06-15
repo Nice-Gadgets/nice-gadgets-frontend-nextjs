@@ -1,5 +1,5 @@
 import { FullProduct, Product } from '@/entities/Product';
-import { supabase } from '@/shared/lib/supabase/client';
+import { supabase } from '@/shared/lib';
 
 export const getStaticProducts = async (): Promise<Product[]> => {
   const { data, error } = await supabase.from('products').select('*');
