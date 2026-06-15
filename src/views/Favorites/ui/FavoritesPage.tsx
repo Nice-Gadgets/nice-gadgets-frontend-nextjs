@@ -10,8 +10,8 @@ import { BodyText, H1 } from '@/shared/ui/Typography';
 import { Catalog } from '@/widgets/Catalog';
 
 export const FavoritesPage = () => {
-  const itemsFavourites = useFavoritesStore((state) => state.items);
-  const products = itemsFavourites.map((elem) => elem.item);
+  const itemsFavorites = useFavoritesStore((state) => state.items);
+  const products = itemsFavorites.map((elem) => elem.item);
 
   return (
     <Suspense fallback={null}>
@@ -41,7 +41,7 @@ export const FavoritesPage = () => {
       ) : (
         <Catalog
           products={products}
-          categoryName="Favourites"
+          categoryName="Favorites"
           withSort={false}
         />
       )}

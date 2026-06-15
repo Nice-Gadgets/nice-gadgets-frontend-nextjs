@@ -1,4 +1,4 @@
-import productsData from '@/../public/api/products.json';
+import { getStaticProducts } from '@/entities/Product/api';
 import { PromoSlider } from '@/shared/ui/PromoSlider';
 import { H1 } from '@/shared/ui/Typography';
 import { ProductsSlider } from '@/widgets/ProductsSlider';
@@ -22,9 +22,9 @@ const promoSlides = [
   },
 ];
 
-const products = productsData;
+export const HomePage = async () => {
+  const products = await getStaticProducts();
 
-export const HomePage = () => {
   const phonesCount = products.filter(
     (product) => product.category === 'phones',
   ).length;

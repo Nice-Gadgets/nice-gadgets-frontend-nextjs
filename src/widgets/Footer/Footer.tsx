@@ -42,7 +42,7 @@ const NavLinks = () => {
 export const Footer = () => {
   return (
     <>
-      <footer className="bg-brand-surface border-t border-brand-elements px-6 py-5">
+      <footer className="border-t border-brand-elements px-6 py-5">
         <div className="hidden md:flex items-center relative">
           <Logo />
 

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import productsData from '@/../public/api/products.json';
 import { FullProduct, fullProductToProduct } from '@/entities/Product';
+import { getStaticProducts } from '@/entities/Product/api';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { ButtonColorPicker } from '@/shared/ui/ButtonColorPicker';
 import { CapacityButton } from '@/shared/ui/CapacityButton';
@@ -35,8 +35,10 @@ interface ItemCardPageProps {
   product: FullProduct;
 }
 
-export const ItemCardPage = ({ product }: ItemCardPageProps) => {
-  const products = productsData.filter((p) => p.category === product.category);
+export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
+  const rawProducts = await getStaticProducts();
+
+  const products = rawProducts.filter((p) => p.category === product.category);
 
   const categoryLabel = getCategoryLabel(product.category);
 

@@ -20,10 +20,10 @@ export const getProducts = async (category: string): Promise<FullProduct[]> => {
   return JSON.parse(raw);
 };
 
-export const getProduct = async (
+export const getProduct = (
   products: FullProduct[],
   id: string,
-): Promise<FullProduct | null> => {
+): FullProduct | null => {
   return products.find((p) => p.id === id) ?? null;
 };
 

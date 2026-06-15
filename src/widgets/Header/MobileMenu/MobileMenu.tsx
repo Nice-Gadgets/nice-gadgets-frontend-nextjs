@@ -41,14 +41,14 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
   }, [open]);
 
   const cartItems = useCartStore((state) => state.items);
-  const favouriteItems = useFavoritesStore((state) => state.items);
+  const favoriteItems = useFavoritesStore((state) => state.items);
 
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const formatCount = (count: number) => (count > 99 ? '99+' : count);
-  const favouriteCount = favouriteItems.length;
+  const favoriteCount = favoriteItems.length;
 
   const isCartAnimating = useCounterAnimation(cartCount);
-  const isFavouriteAnimating = useCounterAnimation(favouriteCount);
+  const isFavoriteAnimating = useCounterAnimation(favoriteCount);
 
   if (!visible && !open) {
     return (
@@ -111,16 +111,16 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
             >
               <div className="relative">
                 <HeartIcon className="size-4" />
-                {favouriteCount > 0 && (
+                {favoriteCount > 0 && (
                   <span
                     className={cn(
                       'absolute -top-1.25 -right-1.75 flex size-3.75 items-center justify-center rounded-full bg-brand-red border-2 border-solid text-[8px] font-bold text-white leading-none transition-colors duration-300',
-                      isFavouriteAnimating
+                      isFavoriteAnimating
                         ? 'border-brand-white'
                         : 'border-brand-black',
                     )}
                   >
-                    {formatCount(favouriteCount)}
+                    {formatCount(favoriteCount)}
                   </span>
                 )}
               </div>

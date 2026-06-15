@@ -16,10 +16,10 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
   const items = useCartStore((state) => state.items);
   const isInCart = items.some((elem) => elem.item.itemId === product.itemId);
 
-  const addFavourite = useFavoritesStore((state) => state.addFavorite);
-  const removeFavourite = useFavoritesStore((state) => state.removeFavorite);
-  const favourites = useFavoritesStore((state) => state.items);
-  const isFavourite = favourites.some(
+  const addFavorite = useFavoritesStore((state) => state.addFavorite);
+  const removeFavorite = useFavoritesStore((state) => state.removeFavorite);
+  const favorites = useFavoritesStore((state) => state.items);
+  const isFavorite = favorites.some(
     (elem) => elem.item.itemId === product.itemId,
   );
 
@@ -40,14 +40,14 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
       <Button
         variant="favorite"
         type="button"
-        aria-pressed={isFavourite}
+        aria-pressed={isFavorite}
         aria-label="Add to favorites"
         className="flex size-12 cursor-pointer items-center justify-center border border-brand-icons bg-brand-surface-2 text-brand-secondary transition-colors duration-300 hover:border-brand-white hover:text-brand-white"
         onClick={() =>
-          isFavourite ? removeFavourite(product.itemId) : addFavourite(product)
+          isFavorite ? removeFavorite(product.itemId) : addFavorite(product)
         }
       >
-        {isFavourite ? <HeartIconSelected /> : <HeartIcon />}
+        {isFavorite ? <HeartIconSelected /> : <HeartIcon />}
       </Button>
     </div>
   );

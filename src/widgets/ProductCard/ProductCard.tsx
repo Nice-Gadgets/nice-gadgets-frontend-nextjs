@@ -37,10 +37,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const removeItem = useCartStore((state) => state.removeItem);
   const isInCart = items.some((elem) => elem.item.itemId === product.itemId);
 
-  const addFavourite = useFavoritesStore((state) => state.addFavorite);
-  const removeFavourite = useFavoritesStore((state) => state.removeFavorite);
-  const favourites = useFavoritesStore((state) => state.items);
-  const isFavourite = favourites.some(
+  const addFavorite = useFavoritesStore((state) => state.addFavorite);
+  const removeFavorite = useFavoritesStore((state) => state.removeFavorite);
+  const favorites = useFavoritesStore((state) => state.items);
+  const isFavorite = favorites.some(
     (elem) => elem.item.itemId === product.itemId,
   );
 
@@ -99,14 +99,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <Button
           variant="favorite"
           className="cursor-pointer"
-          aria-pressed={isFavourite}
+          aria-pressed={isFavorite}
           onClick={() =>
-            isFavourite
-              ? removeFavourite(product.itemId)
-              : addFavourite(product)
+            isFavorite ? removeFavorite(product.itemId) : addFavorite(product)
           }
         >
-          {isFavourite ? <HeartIconSelected /> : <HeartIcon />}
+          {isFavorite ? <HeartIconSelected /> : <HeartIcon />}
         </Button>
       </div>
     </div>

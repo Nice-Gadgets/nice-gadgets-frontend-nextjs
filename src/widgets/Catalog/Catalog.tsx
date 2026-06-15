@@ -39,7 +39,7 @@ export const Catalog = ({
   withSort = true,
 }: CatalogProps) => {
   const productsByCategory =
-    categoryName.toLowerCase() === 'favourites'
+    categoryName.toLowerCase() === 'favorites'
       ? products
       : products.filter((item) => item.category === categoryName.toLowerCase());
 
