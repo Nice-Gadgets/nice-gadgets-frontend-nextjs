@@ -18,5 +18,5 @@ export const RecentlyViewedSlider = ({
 
   if (!filtered.length) return null;
 
-  return <ProductsSlider title="Recently viewed" products={filtered} />;
+  return <ProductsSlider titleKey="recentlyViewed" products={filtered} />;
 };

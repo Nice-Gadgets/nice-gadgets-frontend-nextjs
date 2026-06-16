@@ -1,5 +1,6 @@
 import { getStaticProducts } from '@/entities/Product/api';
 import { BASE_URL } from '@/shared/constants/constant';
+import { LocalizedText } from '@/shared/ui/LocalizedText';
 import { PromoSlider } from '@/shared/ui/PromoSlider';
 import { H1 } from '@/shared/ui/Typography';
 import { ProductsSlider } from '@/widgets/ProductsSlider';
@@ -39,19 +40,19 @@ export const HomePage = async () => {
 
   const categories = [
     {
-      title: 'Mobile phones',
+      titleKey: 'mobilePhones',
       href: '/phones',
       imageSrc: '/img/category-phones.png',
       modelsCount: phonesCount,
     },
     {
-      title: 'Tablets',
+      titleKey: 'tablets',
       href: '/tablets',
       imageSrc: '/img/category-tablets.png',
       modelsCount: tabletsCount,
     },
     {
-      title: 'Accessories',
+      titleKey: 'accessories',
       href: '/accessories',
       imageSrc: '/img/category-accessories.png',
       modelsCount: accessoriesCount,
@@ -70,19 +71,21 @@ export const HomePage = async () => {
     <main className="bg-brand-black py-6">
       <div className="flex flex-col gap-14">
         <section className="mx-auto w-full max-w-300 px-4 md:px-8">
-          <H1 className="mb-6">Welcome to Nice Gadgets store!</H1>
+          <H1 className="mb-6">
+            <LocalizedText translationKey="welcomeTitle" />
+          </H1>
           <div className="flex justify-center">
             <PromoSlider slides={promoSlides} />
           </div>
         </section>
 
-        <ProductsSlider title="Brand new models" products={brandNewProducts} />
+        <ProductsSlider titleKey="brandNewModels" products={brandNewProducts} />
 
         <div className="mx-auto w-full max-w-300 px-4 md:px-8">
           <ShopByCategory categories={categories} />
         </div>
 
-        <ProductsSlider title="Hot prices" products={hotPriceProducts} />
+        <ProductsSlider titleKey="hotPrices" products={hotPriceProducts} />
 
         <RecentlyViewedSlider />
       </div>

@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 
 import { useFavoritesStore } from '@/entities/Favorite';
 import { BASE_URL } from '@/shared/constants/constant';
+import { useTranslation } from '@/shared/hooks';
 import { Button } from '@/shared/ui/Button';
 import { BodyText, H1 } from '@/shared/ui/Typography';
 import { Catalog } from '@/widgets/Catalog';
@@ -13,6 +14,7 @@ import { Catalog } from '@/widgets/Catalog';
 export const FavoritesPage = () => {
   const itemsFavorites = useFavoritesStore((state) => state.items);
   const products = itemsFavorites.map((elem) => elem.item);
+  const { t } = useTranslation();
 
   return (
     <Suspense fallback={null}>
@@ -21,16 +23,16 @@ export const FavoritesPage = () => {
           <div>
             <Image
               src={`${BASE_URL}/img/empty-favorites.png`}
-              alt="Favorites is empty"
+              alt={t('noFavoritesYet')}
               width={400}
               height={300}
               priority
               sizes="(max-width: 640px) 100vw, 400px"
               className="w-full h-auto object-contain max-w-xs mb-8"
             />
-            <H1 className="text-brand-white mb-4">No favorites yet</H1>
+            <H1 className="text-brand-white mb-4">{t('noFavoritesYet')}</H1>
             <BodyText className="text-brand-secondary max-w-xs mb-8">
-              You haven&apos;t added anything to your favorites yet.
+              {t('emptyFavoritesText')}
             </BodyText>
             <Link href="/phones">
               <Button variant="primary" className="h-12 min-w-50">

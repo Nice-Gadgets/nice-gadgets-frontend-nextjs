@@ -6,9 +6,11 @@ import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { ButtonColorPicker } from '@/shared/ui/ButtonColorPicker';
 import { CapacityButton } from '@/shared/ui/CapacityButton';
 import { ChevronLeftIcon } from '@/shared/ui/Icons';
+import { LocalizedText } from '@/shared/ui/LocalizedText';
 import { ProductGallery } from '@/shared/ui/ProductGallery';
-import { BodyText, H1, H2, H3, H4, SmallText } from '@/shared/ui/Typography';
+import { BodyText, H1, H3, H4, SmallText } from '@/shared/ui/Typography';
 import { ProductActions } from '@/widgets/ItemCardPage/ProductActions';
+import { ProductPrice } from '@/widgets/ItemCardPage/ProductPrice';
 import { ProductsSlider } from '@/widgets/ProductsSlider';
 
 import { RecentlyViewedSlider } from '../RecentlyViewedSlider';
@@ -25,14 +27,6 @@ const buildProductUrl = (
   return `/${category}/${namespaceId}-${cap}-${col}`;
 };
 
-const formatPrice = (price: number): string => {
-  return `$${price.toLocaleString('en-US')}`;
-};
-
-const getCategoryLabel = (category: string): string => {
-  return category.charAt(0).toUpperCase() + category.slice(1);
-};
-
 interface ItemCardPageProps {
   product: FullProduct;
 }
@@ -42,23 +36,21 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
 
   const products = rawProducts.filter((p) => p.category === product.category);
 
-  const categoryLabel = getCategoryLabel(product.category);
-
   const quickSpecs = [
-    { label: 'Screen', value: product.screen },
-    { label: 'Resolution', value: product.resolution },
-    { label: 'Processor', value: product.processor },
-    { label: 'RAM', value: product.ram },
+    { labelKey: 'screen', value: product.screen },
+    { labelKey: 'resolution', value: product.resolution },
+    { labelKey: 'processor', value: product.processor },
+    { labelKey: 'ram', value: product.ram },
   ];
 
   const allSpecs = [
-    { label: 'Screen', value: product.screen },
-    { label: 'Resolution', value: product.resolution },
-    { label: 'Processor', value: product.processor },
-    { label: 'RAM', value: product.ram },
-    ...(product.camera ? [{ label: 'Camera', value: product.camera }] : []),
-    ...(product.zoom ? [{ label: 'Zoom', value: product.zoom }] : []),
-    { label: 'Cell', value: product.cell.join(', ') },
+    { labelKey: 'screen', value: product.screen },
+    { labelKey: 'resolution', value: product.resolution },
+    { labelKey: 'processor', value: product.processor },
+    { labelKey: 'ram', value: product.ram },
+    ...(product.camera ? [{ labelKey: 'camera', value: product.camera }] : []),
+    ...(product.zoom ? [{ labelKey: 'zoom', value: product.zoom }] : []),
+    { labelKey: 'cell', value: product.cell.join(', ') },
   ];
 
   const data = fullProductToProduct(product, products);
@@ -72,7 +64,10 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
       <div className="mx-auto max-w-300 px-4 sm:px-6 lg:px-8">
         <Breadcrumbs
           items={[
-            { label: categoryLabel, href: `/${product.category}` },
+            {
+              label: <LocalizedText translationKey={product.category} />,
+              href: `/${product.category}`,
+            },
             { label: product.name },
           ]}
           className="mb-10 py-0"
@@ -83,7 +78,7 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
           className="group mb-4 inline-flex items-center gap-1 text-sm text-brand-white transition-colors hover:text-brand-accent"
         >
           <ChevronLeftIcon className="transition-transform" />
-          Back
+          <LocalizedText translationKey="back" />
         </Link>
 
         <H1 className="text-brand-white mb-8">{product.name}</H1>
@@ -95,7 +90,7 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
             <div>
               <div className="flex justify-between">
                 <SmallText className="mb-3 text-brand-secondary">
-                  Available colors
+                  <LocalizedText translationKey="availableColors" />
                 </SmallText>
 
                 <SmallText className="text-right text-brand-icons">
@@ -124,7 +119,7 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
 
             <div>
               <SmallText className="mb-3 block text-brand-secondary">
-                Select capacity
+                <LocalizedText translationKey="selectCapacity" />
               </SmallText>
 
               <div className="flex flex-wrap gap-2">
@@ -146,28 +141,21 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
 
             <div className="h-px bg-brand-elements" />
 
-            <div className="flex items-baseline gap-3">
-              <H2 className="text-brand-white">
-                {formatPrice(product.priceDiscount)}
-              </H2>
-
-              {product.priceRegular !== product.priceDiscount && (
-                <H3 className="text-brand-secondary line-through">
-                  {formatPrice(product.priceRegular)}
-                </H3>
-              )}
-            </div>
+            <ProductPrice
+              priceDiscount={product.priceDiscount}
+              priceRegular={product.priceRegular}
+            />
 
             <ProductActions product={data} />
 
             <div className="space-y-2">
-              {quickSpecs.map(({ label, value }) => (
+              {quickSpecs.map(({ labelKey, value }) => (
                 <div
-                  key={label}
+                  key={labelKey}
                   className="flex items-baseline justify-between gap-4"
                 >
                   <SmallText className="text-brand-secondary">
-                    {label}
+                    <LocalizedText translationKey={labelKey} />
                   </SmallText>
 
                   <SmallText className="text-right text-brand-white">
@@ -181,7 +169,9 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
           <section aria-label="About this product">
-            <H3 className="mb-4 text-brand-white">About</H3>
+            <H3 className="mb-4 text-brand-white">
+              <LocalizedText translationKey="about" />
+            </H3>
 
             <div className="mb-8 h-px bg-brand-elements" />
 
@@ -203,17 +193,21 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
           </section>
 
           <section aria-label="Technical specifications">
-            <H3 className="mb-4 text-brand-white">Tech specs</H3>
+            <H3 className="mb-4 text-brand-white">
+              <LocalizedText translationKey="techSpecs" />
+            </H3>
 
             <div className="mb-8 h-px bg-brand-elements" />
 
             <div className="space-y-3">
-              {allSpecs.map(({ label, value }) => (
+              {allSpecs.map(({ labelKey, value }) => (
                 <div
-                  key={label}
+                  key={labelKey}
                   className="flex items-baseline justify-between gap-4"
                 >
-                  <BodyText className="text-brand-secondary">{label}</BodyText>
+                  <BodyText className="text-brand-secondary">
+                    <LocalizedText translationKey={labelKey} />
+                  </BodyText>
 
                   <BodyText className="text-right text-brand-white">
                     {value}
@@ -225,7 +219,7 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
         </div>
       </div>
       <div className="my-20 w-full overflow-hidden">
-        <ProductsSlider products={products} title="You may also like" />
+        <ProductsSlider products={products} titleKey="youMayAlsoLike" />
         <RecentlyViewedSlider currentItemId={product.id} />
       </div>
     </main>

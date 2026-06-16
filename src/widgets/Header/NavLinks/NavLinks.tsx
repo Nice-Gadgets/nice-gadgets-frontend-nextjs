@@ -1,20 +1,25 @@
+'use client';
+
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
+import { useTranslation } from '@/shared/hooks';
 import { cn } from '@/shared/lib/utils';
 import { UppercaseText } from '@/shared/ui/Typography';
 
 const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Phones', href: '/phones' },
-  { label: 'Tablets', href: '/tablets' },
-  { label: 'Accessories', href: '/accessories' },
+  { labelKey: 'home', href: '/' },
+  { labelKey: 'phones', href: '/phones' },
+  { labelKey: 'tablets', href: '/tablets' },
+  { labelKey: 'accessories', href: '/accessories' },
 ];
 
 const navLinkClassName =
   'relative text-brand-secondary transition-colors hover:text-brand-white';
 
 export const DesktopNavLinks = ({ pathname }: { pathname: string | null }) => {
+  const { t, language } = useTranslation();
+
   const navRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const [indicator, setIndicator] = useState<{
@@ -30,6 +35,7 @@ export const DesktopNavLinks = ({ pathname }: { pathname: string | null }) => {
   useEffect(() => {
     const activeEl = linkRefs.current[activeIndex];
     const navEl = navRef.current;
+
     if (!activeEl || !navEl) {
       setIndicator(null);
       return;
@@ -45,7 +51,7 @@ export const DesktopNavLinks = ({ pathname }: { pathname: string | null }) => {
     });
 
     setReady(true);
-  }, [activeIndex, pathname]);
+  }, [activeIndex, pathname, language]);
 
   return (
     <div ref={navRef} className="relative flex h-full">
@@ -60,7 +66,7 @@ export const DesktopNavLinks = ({ pathname }: { pathname: string | null }) => {
         />
       )}
 
-      {navItems.map(({ label, href }, i) => {
+      {navItems.map(({ labelKey, href }, i) => {
         const isActive =
           href === '/' ? pathname === href : pathname?.startsWith(href);
 
@@ -77,7 +83,7 @@ export const DesktopNavLinks = ({ pathname }: { pathname: string | null }) => {
               isActive && 'text-brand-white',
             )}
           >
-            <UppercaseText>{label}</UppercaseText>
+            <UppercaseText>{t(labelKey)}</UppercaseText>
           </Link>
         );
       })}
@@ -92,9 +98,11 @@ export const MobileNavLinks = ({
   pathname: string | null;
   onClose: () => void;
 }) => {
+  const { t } = useTranslation();
+
   return (
     <>
-      {navItems.map(({ label, href }) => {
+      {navItems.map(({ labelKey, href }) => {
         const isActive =
           href === '/' ? pathname === href : pathname?.startsWith(href);
 
@@ -110,7 +118,7 @@ export const MobileNavLinks = ({
             )}
           >
             <span className="relative">
-              <UppercaseText>{label}</UppercaseText>
+              <UppercaseText>{t(labelKey)}</UppercaseText>
               <span
                 className={cn(
                   'absolute -bottom-2 left-0 h-0.75 bg-brand-white transition-[width] duration-300 ease-in-out',

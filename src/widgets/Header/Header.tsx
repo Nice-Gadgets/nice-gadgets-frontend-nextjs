@@ -5,10 +5,12 @@ import { usePathname } from 'next/navigation';
 
 import { useCartStore } from '@/entities/Cart';
 import { useFavoritesStore } from '@/entities/Favorite';
+import { useTranslation } from '@/shared/hooks';
 import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, HeartIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
+import { SettingsControls } from '@/shared/ui/SettingsControls';
 import { MobileMenu } from '@/widgets/Header/MobileMenu';
 import { DesktopNavLinks } from '@/widgets/Header/NavLinks';
 
@@ -17,6 +19,7 @@ const headerIconLinkClassName =
 
 export const Header = () => {
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const cartItems = useCartStore((state) => state.items);
   const favoriteItems = useFavoritesStore((state) => state.items);
@@ -41,9 +44,13 @@ export const Header = () => {
         </div>
 
         <div className="flex h-full items-center">
+          <div className="hidden h-full items-center border-l border-brand-elements px-3 md:flex">
+            <SettingsControls />
+          </div>
+
           <Link
             href="/favorites"
-            aria-label="Favorites"
+            aria-label={t('favorites')}
             className={cn(headerIconLinkClassName, 'relative')}
           >
             <div className="relative">
@@ -68,7 +75,7 @@ export const Header = () => {
 
           <Link
             href="/cart"
-            aria-label="Cart"
+            aria-label={t('cart')}
             className={cn(headerIconLinkClassName, 'relative')}
           >
             <div className="relative">

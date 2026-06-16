@@ -7,6 +7,7 @@ import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, MenuIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
+import { SettingsControls } from '@/shared/ui/SettingsControls';
 import { MobileNavLinks } from '@/widgets/Header/NavLinks';
 
 const mobileIconButtonClassName =
@@ -100,6 +101,10 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
           <nav className="flex flex-1 flex-col items-center gap-8 pt-16">
             <MobileNavLinks pathname={pathname} onClose={closeMenu} />
           </nav>
+
+          <div className="border-t border-brand-elements px-4 py-4">
+            <SettingsControls className="justify-center" />
+          </div>
 
           <div className="grid h-16 grid-cols-2 border-t border-brand-elements">
             <Link
