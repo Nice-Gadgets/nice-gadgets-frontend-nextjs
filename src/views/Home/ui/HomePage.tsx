@@ -41,19 +41,19 @@ export const HomePage = async () => {
     {
       title: 'Mobile phones',
       href: '/phones',
-      imageSrc: '/img/category-phones.png',
+      imageSrc: `/img/category-phones.png`,
       modelsCount: phonesCount,
     },
     {
       title: 'Tablets',
       href: '/tablets',
-      imageSrc: '/img/category-tablets.png',
+      imageSrc: `/img/category-tablets.png`,
       modelsCount: tabletsCount,
     },
     {
       title: 'Accessories',
       href: '/accessories',
-      imageSrc: '/img/category-accessories.png',
+      imageSrc: `/img/category-accessories.png`,
       modelsCount: accessoriesCount,
     },
   ];

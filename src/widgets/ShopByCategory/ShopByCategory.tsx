@@ -25,7 +25,7 @@ export const ShopByCategory = ({ categories }: ShopByCategoryProps) => {
           <Link key={href} href={href} className="group block">
             <div className="mb-6 flex aspect-square items-center justify-center overflow-hidden bg-brand-surface-2">
               <Image
-                src={`${BASE_URL}/${imageSrc}`}
+                src={`${BASE_URL}${imageSrc}`}
                 alt={title}
                 width={368}
                 height={368}
