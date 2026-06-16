@@ -9,6 +9,7 @@ import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, HeartIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
+import { UserAnchor } from '@/shared/ui/UserAnchor/UserAnchor';
 import { MobileMenu } from '@/widgets/Header/MobileMenu';
 import { DesktopNavLinks } from '@/widgets/Header/NavLinks';
 
@@ -90,6 +91,7 @@ export const Header = () => {
               <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
             )}
           </Link>
+          <UserAnchor className={headerIconLinkClassName} />
 
           <MobileMenu pathname={pathname} />
         </div>
