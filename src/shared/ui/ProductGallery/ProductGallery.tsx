@@ -7,6 +7,7 @@ import { useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { BASE_URL } from '@/shared/constants/constant';
 import { cn } from '@/shared/lib';
 
 interface ProductGalleryProps {
@@ -41,7 +42,7 @@ export const ProductGallery = ({ images, name }: ProductGalleryProps) => {
             )}
           >
             <Image
-              src={`/${src}`}
+              src={`${BASE_URL}/${src}`}
               alt={`${name} thumbnail ${i + 1}`}
               fill
               className="object-contain p-1"
@@ -61,7 +62,7 @@ export const ProductGallery = ({ images, name }: ProductGalleryProps) => {
           {images.map((src, i) => (
             <SwiperSlide key={src} className="relative w-full h-full">
               <Image
-                src={`/${src}`}
+                src={`${BASE_URL}/${src}`}
                 alt={`${name} - image ${i + 1}`}
                 fill
                 priority={i === 0}

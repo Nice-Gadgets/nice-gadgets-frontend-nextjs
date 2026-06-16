@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 
 import { useFavoritesStore } from '@/entities/Favorite';
+import { BASE_URL } from '@/shared/constants/constant';
 import { Button } from '@/shared/ui/Button';
 import { BodyText, H1 } from '@/shared/ui/Typography';
 import { Catalog } from '@/widgets/Catalog';
@@ -19,7 +20,7 @@ export const FavoritesPage = () => {
         <main className="h-full flex flex-col items-center justify-center px-6 pb-8 text-center">
           <div>
             <Image
-              src="/img/empty-favorites.png"
+              src={`${BASE_URL}/img/empty-favorites.png`}
               alt="Favorites is empty"
               width={400}
               height={300}

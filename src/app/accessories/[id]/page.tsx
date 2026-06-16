@@ -1,8 +1,10 @@
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 import { fullProductToProduct } from '@/entities/Product';
 import { getProduct, getStaticProducts } from '@/entities/Product/api';
 import { TrackView } from '@/entities/RecentlyViewed/ui';
+import { H3 } from '@/shared/ui/Typography';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
 interface PageProps {
@@ -21,8 +23,7 @@ async function getAccessoryProduct(id: string) {
   };
 }
 
-export default async function AccessoryDetailPage({ params }: PageProps) {
-  const { id } = await params;
+async function AccessoriesProductsContent({ id }: { id: string }) {
   const data = await getAccessoryProduct(id);
 
   if (!data || !data.product) notFound();
@@ -32,6 +33,22 @@ export default async function AccessoryDetailPage({ params }: PageProps) {
       <TrackView product={data.product} />
       <ItemCardPage product={data.fullProduct} />
     </>
+  );
+}
+
+export default async function AccessoryDetailPage({ params }: PageProps) {
+  const { id } = await params;
+
+  return (
+    <Suspense
+      fallback={
+        <div>
+          <H3>Завантаження продукту</H3>
+        </div>
+      }
+    >
+      <AccessoriesProductsContent id={id} />
+    </Suspense>
   );
 }
 
