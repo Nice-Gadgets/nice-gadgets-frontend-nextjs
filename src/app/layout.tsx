@@ -2,6 +2,7 @@ import './globals.css';
 
 import { Metadata } from 'next';
 
+import { GlobalChatWidget } from '@/features/GlobalChatWidget/ui/GlobalChatWidget';
 import { mont } from '@/shared/config';
 import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/Header';
@@ -24,6 +25,7 @@ export default function RootLayout({
         <Header />
         <div className="flex-1">{children}</div>
         <Footer />
+        <GlobalChatWidget />
       </body>
     </html>
   );
