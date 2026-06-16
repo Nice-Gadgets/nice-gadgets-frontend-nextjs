@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { fullProductToProduct } from '@/entities/Product';
 import { getProduct, getStaticProducts } from '@/entities/Product/api';
 import { TrackView } from '@/entities/RecentlyViewed/ui';
-import { H3 } from '@/shared/ui/Typography';
+import { ItemCardPageSkeleton } from '@/shared/ui/Skeleton';
 import { ItemCardPage } from '@/widgets/ItemCardPage';
 
 interface PageProps {
@@ -40,13 +40,7 @@ export default async function TabletDetailPage({ params }: PageProps) {
   const { id } = await params;
 
   return (
-    <Suspense
-      fallback={
-        <div>
-          <H3>Завантаження продукту</H3>
-        </div>
-      }
-    >
+    <Suspense fallback={<ItemCardPageSkeleton />}>
       <TableProductsContent id={id} />
     </Suspense>
   );
