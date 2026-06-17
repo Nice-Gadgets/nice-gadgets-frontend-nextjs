@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { useCartStore } from '@/entities/Cart';
 import { Product } from '@/entities/Product';
+import { BASE_URL } from '@/shared/constants/constant';
 import { Button } from '@/shared/ui/Button';
 import { CloseIcon, MinusIcon, PlusIcon } from '@/shared/ui/Icons';
 import { BodyText, H3 } from '@/shared/ui/Typography';
@@ -29,7 +30,7 @@ export const CartItem = ({ item, quantity }: CartItemProps) => {
         >
           <div className="size-20 shrink-0 flex items-center justify-center">
             <Image
-              src={`/${item.image}`}
+              src={`${BASE_URL}/${item.image}`}
               alt={item.name}
               width={66}
               height={66}

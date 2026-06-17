@@ -1,4 +1,5 @@
 import { getStaticProducts } from '@/entities/Product/api';
+import { BASE_URL } from '@/shared/constants/constant';
 import { PromoSlider } from '@/shared/ui/PromoSlider';
 import { H1 } from '@/shared/ui/Typography';
 import { ProductsSlider } from '@/widgets/ProductsSlider';
@@ -7,17 +8,17 @@ import { ShopByCategory } from '@/widgets/ShopByCategory';
 
 const promoSlides = [
   {
-    src: '/img/BannerMain.png',
+    src: `${BASE_URL}/img/BannerMain.png`,
     alt: 'Apple iPhone 14 Pro 1TB',
     href: '/phones/apple-iphone-14-pro-1tb-spaceblack',
   },
   {
-    src: '/img/BannerTablet.png',
+    src: `${BASE_URL}/img/BannerTablet.png`,
     alt: 'Apple Watch Series 5 44mm',
     href: '/tablets/apple-ipad-pro-11-2021-2tb-spacegray',
   },
   {
-    src: '/img/BannerAccessory.png',
+    src: `${BASE_URL}/img/BannerAccessory.png`,
     alt: 'Apple Watch Series 5 44mm',
     href: '/accessories/apple-watch-series-5-44mm-space-gray',
   },
@@ -40,19 +41,19 @@ export const HomePage = async () => {
     {
       title: 'Mobile phones',
       href: '/phones',
-      imageSrc: '/img/category-phones.png',
+      imageSrc: `/img/category-phones.png`,
       modelsCount: phonesCount,
     },
     {
       title: 'Tablets',
       href: '/tablets',
-      imageSrc: '/img/category-tablets.png',
+      imageSrc: `/img/category-tablets.png`,
       modelsCount: tabletsCount,
     },
     {
       title: 'Accessories',
       href: '/accessories',
-      imageSrc: '/img/category-accessories.png',
+      imageSrc: `/img/category-accessories.png`,
       modelsCount: accessoriesCount,
     },
   ];

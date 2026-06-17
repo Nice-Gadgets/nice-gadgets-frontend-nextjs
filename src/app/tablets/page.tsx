@@ -1,17 +1,11 @@
 import { Suspense } from 'react';
 
-import { H2 } from '@/shared/ui/Typography';
+import { CatalogSkeleton } from '@/shared/ui/Skeleton';
 import { CatalogPage } from '@/views/Catalog';
 
 const TabletsPage = () => {
   return (
-    <Suspense
-      fallback={
-        <div className="pt-10">
-          <H2>Завантаження Tymur Aura...</H2>
-        </div>
-      }
-    >
+    <Suspense fallback={<CatalogSkeleton />}>
       <CatalogPage categoryName="Tablets" />;
     </Suspense>
   );

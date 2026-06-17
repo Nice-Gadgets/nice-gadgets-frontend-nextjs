@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { BASE_URL } from '@/shared/constants/constant';
 import { BodyText, H2, H4 } from '@/shared/ui/Typography';
 
 interface CategoryItem {
@@ -24,7 +25,7 @@ export const ShopByCategory = ({ categories }: ShopByCategoryProps) => {
           <Link key={href} href={href} className="group block">
             <div className="mb-6 flex aspect-square items-center justify-center overflow-hidden bg-brand-surface-2">
               <Image
-                src={imageSrc}
+                src={`${BASE_URL}${imageSrc}`}
                 alt={title}
                 width={368}
                 height={368}

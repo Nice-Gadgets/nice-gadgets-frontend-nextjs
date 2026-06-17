@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { BASE_URL } from '@/shared/constants/constant';
 import { BodyText, H1 } from '@/shared/ui/Typography';
 
 export const NotFoundPage = () => {
@@ -12,7 +13,7 @@ export const NotFoundPage = () => {
         className="mb-8 w-full max-w-100 transition-all duration-500 ease-in-out hover:-translate-y-2 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-accent"
       >
         <Image
-          src="/img/page-not-found.png"
+          src={`${BASE_URL}/img/page-not-found.png`}
           alt="Page Not Found illustration"
           width={400}
           height={300}
