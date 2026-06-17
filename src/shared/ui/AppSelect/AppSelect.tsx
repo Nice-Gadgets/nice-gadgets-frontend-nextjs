@@ -9,9 +9,15 @@ import {
   SelectValue,
 } from '@/shared/ui/Select';
 
+type AppSelectOption = {
+  value: string;
+  label: string;
+};
+
 interface AppSelectProps {
   label?: string;
-  options: { value: string; label: string }[];
+  ariaLabel?: string;
+  options: readonly AppSelectOption[];
   value: string | null;
   onChange: (value: string | null) => void;
   className?: string;
@@ -20,6 +26,7 @@ interface AppSelectProps {
 
 export const AppSelect = ({
   label,
+  ariaLabel,
   options,
   value,
   onChange,
@@ -40,7 +47,11 @@ export const AppSelect = ({
       )}
 
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger id={selectId} className={cn('w-full', triggerClassName)}>
+        <SelectTrigger
+          id={selectId}
+          aria-label={ariaLabel}
+          className={cn('w-full', triggerClassName)}
+        >
           <SelectValue>
             {options.find((opt) => opt.value === value)?.label ?? ''}
           </SelectValue>

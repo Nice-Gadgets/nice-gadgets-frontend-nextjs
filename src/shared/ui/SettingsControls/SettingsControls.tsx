@@ -8,13 +8,7 @@ import {
 } from '@/shared/constants/settings';
 import { cn } from '@/shared/lib/utils';
 import { useSettingsStore } from '@/shared/store';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/shared/ui/Select';
+import { AppSelect } from '@/shared/ui/AppSelect';
 
 type SettingsControlsProps = {
   className?: string;
@@ -28,47 +22,31 @@ export function SettingsControls({ className }: SettingsControlsProps) {
 
   return (
     <div className={cn('flex items-center gap-2', className)}>
-      <Select
+      <AppSelect
+        ariaLabel="Select language"
         value={language}
-        onValueChange={(value) => setLanguage(value as Language)}
-      >
-        <SelectTrigger
-          size="sm"
-          aria-label="Select language"
-          className="w-18 border border-brand-elements bg-brand-black uppercase text-brand-white hover:border-brand-secondary"
-        >
-          <SelectValue />
-        </SelectTrigger>
+        options={LANGUAGES}
+        onChange={(value) => {
+          if (value) {
+            setLanguage(value as Language);
+          }
+        }}
+        className="w-18"
+        triggerClassName="h-8 rounded-none border border-brand-elements bg-brand-black px-2 text-xs font-semibold uppercase text-brand-white hover:border-brand-secondary"
+      />
 
-        <SelectContent>
-          {LANGUAGES.map(({ label, value }) => (
-            <SelectItem key={value} value={value}>
-              {label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      <Select
+      <AppSelect
+        ariaLabel="Select currency"
         value={currency}
-        onValueChange={(value) => setCurrency(value as Currency)}
-      >
-        <SelectTrigger
-          size="sm"
-          aria-label="Select currency"
-          className="w-20 border border-brand-elements bg-brand-black uppercase text-brand-white hover:border-brand-secondary"
-        >
-          <SelectValue />
-        </SelectTrigger>
-
-        <SelectContent>
-          {CURRENCIES.map(({ label, value }) => (
-            <SelectItem key={value} value={value}>
-              {label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+        options={CURRENCIES}
+        onChange={(value) => {
+          if (value) {
+            setCurrency(value as Currency);
+          }
+        }}
+        className="w-20"
+        triggerClassName="h-8 rounded-none border border-brand-elements bg-brand-black px-2 text-xs font-semibold uppercase text-brand-white hover:border-brand-secondary"
+      />
     </div>
   );
 }
