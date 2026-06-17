@@ -81,7 +81,7 @@ export const Catalog = ({
       <Breadcrumbs items={[{ label: categoryName }]} />
 
       <div className="flex items-center pt-6">
-        <H1>{categoryName}</H1>
+        <H1 className="capitalize">{categoryName}</H1>
       </div>
 
       <div className="flex items-center pt-2">

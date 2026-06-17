@@ -1,13 +1,17 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { useCartStore } from '@/entities/Cart';
 import { useFavoritesStore } from '@/entities/Favorite';
+import type { Product } from '@/entities/Product';
+import { getStaticProducts } from '@/entities/Product/api/Product';
 import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
-import { CartIcon, HeartIcon } from '@/shared/ui/Icons';
+import { CartIcon, CloseIcon, HeartIcon, SearchIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
 import { MobileMenu } from '@/widgets/Header/MobileMenu';
 import { DesktopNavLinks } from '@/widgets/Header/NavLinks';
@@ -17,6 +21,28 @@ const headerIconLinkClassName =
 
 export const Header = () => {
   const pathname = usePathname();
+
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    getStaticProducts().then(setAllProducts);
+  }, []);
+
+  const filteredProducts = search.trim()
+    ? allProducts
+        .filter((product) =>
+          product.name.toLowerCase().includes(search.trim().toLowerCase()),
+        )
+        .slice(0, 5)
+    : [];
+
+  const closeSearch = () => {
+    setIsSearchOpen(false);
+    setSearch('');
+  };
 
   const cartItems = useCartStore((state) => state.items);
   const favoriteItems = useFavoritesStore((state) => state.items);
@@ -35,12 +61,84 @@ export const Header = () => {
           <div className="flex h-full items-center px-4 md:px-6 lg:px-8">
             <Logo />
           </div>
-          <nav className="hidden h-full md:flex">
+          <nav
+            className={cn(
+              'hidden h-full md:flex',
+              isSearchOpen && 'md:hidden lg:flex',
+            )}
+          >
             <DesktopNavLinks pathname={pathname} />
           </nav>
         </div>
 
         <div className="flex h-full items-center">
+          {isSearchOpen ? (
+            <div className="relative flex items-center gap-2 px-4">
+              <input
+                autoFocus
+                type="text"
+                placeholder="Search here"
+                value={search}
+                onChange={(event) =>
+                  setSearch(
+                    event.target.value.trimStart().replaceAll('  ', ' '),
+                  )
+                }
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' && search.trim()) {
+                    router.push(
+                      `/search?query=${encodeURIComponent(search.trim())}`,
+                    );
+                    closeSearch();
+                  }
+                }}
+                className="h-9 pl-4 pr-8 rounded-full bg-brand-surface-2 text-brand-white text-sm outline-none w-full max-w-64 max-[430px]:max-w-40"
+                onBlur={() => setTimeout(() => closeSearch(), 150)}
+              />
+
+              {search && (
+                <button
+                  onMouseDown={(event) => {
+                    event.preventDefault();
+                    setSearch('');
+                  }}
+                  className="absolute right-6 text-brand-secondary hover:text-brand-white"
+                  aria-label="Clear search"
+                >
+                  <CloseIcon className="size-4" />
+                </button>
+              )}
+
+              {filteredProducts.length > 0 && (
+                <div className="absolute top-12 left-4 w-64 bg-brand-surface-2 rounded-lg shadow-lg overflow-hidden">
+                  {filteredProducts.map((product) => (
+                    <Link
+                      key={product.itemId}
+                      href={`/${product.category}/${product.itemId}`}
+                      className="flex items-center gap-3 px-4 py-2 text-sm text-brand-white hover:bg-brand-elements"
+                    >
+                      <Image
+                        src={`/${product.image}`}
+                        alt={product.name}
+                        width={32}
+                        height={32}
+                        className="object-contain shrink-0"
+                      />
+                      <span>{product.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              aria-label="Search"
+              className="flex h-full w-16 items-center justify-center border-l border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1 lg:w-22 cursor-pointer"
+            >
+              <SearchIcon className="size-4" />
+            </button>
+          )}
           <Link
             href="/favorites"
             aria-label="Favorites"
