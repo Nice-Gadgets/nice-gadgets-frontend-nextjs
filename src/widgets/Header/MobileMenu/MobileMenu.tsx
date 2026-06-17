@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -7,11 +9,12 @@ import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, MenuIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
+import { ThemeToggle } from '@/shared/ui/ThemeSwitcher';
 import { UserAnchor } from '@/shared/ui/UserAnchor/UserAnchor';
 import { MobileNavLinks } from '@/widgets/Header/NavLinks';
 
 const mobileIconButtonClassName =
-  'flex h-12 w-12 items-center justify-center border-l border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1';
+  'flex h-12 w-12 items-center justify-center border-l border-brand-elements text-text-primary transition-colors hover:bg-brand-surface-1';
 
 export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
   const [open, setOpen] = useState(false);
@@ -75,13 +78,13 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
 
       <div className="fixed inset-0 z-40 md:hidden">
         <div
-          className="absolute inset-0 bg-brand-black/60 transition-opacity duration-300 ease-in-out"
+          className="absolute inset-0 bg-black/60 transition-opacity duration-300 ease-in-out"
           style={{ opacity: open ? 1 : 0 }}
           onClick={closeMenu}
         />
 
         <div
-          className="absolute inset-y-0 right-0 flex w-full sm:max-w-xs flex-col bg-brand-black transition-transform duration-300 ease-in-out"
+          className="absolute inset-y-0 right-0 flex w-full sm:max-w-xs flex-col bg-bg-primary transition-transform duration-300 ease-in-out"
           style={{ transform: open ? 'translateX(0)' : 'translateX(100%)' }}
           onTransitionEnd={handleTransitionEnd}
         >
@@ -90,7 +93,7 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
               <Logo />
             </div>
             <button
-              className="flex h-12 w-12 items-center justify-center border-l border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1"
+              className="flex h-12 w-12 items-center justify-center border-l border-brand-elements text-text-primary transition-colors hover:bg-brand-surface-1"
               onClick={closeMenu}
               aria-label="Close menu"
             >
@@ -98,16 +101,18 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
             </button>
           </div>
 
-          <nav className="flex flex-1 flex-col items-center gap-8 pt-16">
+          <nav className="flex flex-1 flex-col items-center gap-8 pt-16 text-text-primary">
             <MobileNavLinks pathname={pathname} onClose={closeMenu} />
           </nav>
 
-          <div className="grid h-16 grid-cols-3 border-t border-brand-elements">
+          <div className="grid h-16 grid-cols-4 border-t border-brand-elements">
+            <ThemeToggle className="flex w-full h-full items-center justify-center border-r border-brand-elements text-text-primary transition-colors hover:bg-brand-surface-1" />
+
             <Link
               href="/favorites"
               onClick={closeMenu}
               className={cn(
-                'relative flex h-full items-center justify-center border-r border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1',
+                'relative flex h-full items-center justify-center border-r border-brand-elements text-text-primary transition-colors hover:bg-brand-surface-1',
               )}
             >
               <div className="relative">
@@ -117,8 +122,8 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
                     className={cn(
                       'absolute -top-1.25 -right-1.75 flex size-3.75 items-center justify-center rounded-full bg-brand-red border-2 border-solid text-[8px] font-bold text-white leading-none transition-colors duration-300',
                       isFavoriteAnimating
-                        ? 'border-brand-white'
-                        : 'border-brand-black',
+                        ? 'border-text-primary'
+                        : 'border-bg-primary',
                     )}
                   >
                     {formatCount(favoriteCount)}
@@ -126,14 +131,15 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
                 )}
               </div>
               {pathname?.startsWith('/favorites') && (
-                <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
+                <span className="absolute bottom-0 h-0.75 w-full bg-text-primary" />
               )}
             </Link>
+
             <Link
               href="/cart"
               onClick={closeMenu}
               className={cn(
-                'relative flex h-full items-center justify-center border-r border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1',
+                'relative flex h-full items-center justify-center border-r border-brand-elements text-text-primary transition-colors hover:bg-brand-surface-1',
               )}
             >
               <div className="relative">
@@ -143,8 +149,8 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
                     className={cn(
                       'absolute -top-1.25 -right-1.75 flex size-3.75 items-center justify-center rounded-full bg-brand-red border-2 border-solid text-[8px] font-bold text-white leading-none transition-colors duration-300',
                       isCartAnimating
-                        ? 'border-brand-white'
-                        : 'border-brand-black',
+                        ? 'border-text-primary'
+                        : 'border-bg-primary',
                     )}
                   >
                     {formatCount(cartCount)}
@@ -152,11 +158,12 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
                 )}
               </div>
               {pathname?.startsWith('/cart') && (
-                <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
+                <span className="absolute bottom-0 h-0.75 w-full bg-text-primary" />
               )}
             </Link>
+
             <UserAnchor
-              className="w-full h-full hover:bg-brand-surface-1"
+              className="w-full h-full text-text-primary hover:bg-brand-surface-1"
               onClick={closeMenu}
             />
           </div>

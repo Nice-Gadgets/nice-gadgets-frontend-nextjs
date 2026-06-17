@@ -1,14 +1,15 @@
 @import 'tailwindcss';
 
 @theme extend {
+  --color-bg-primary: var(--color-bg-main);
+  --color-text-primary: var(--color-text-main);
+
   --color-brand-accent: var(--color-accent-800);
   --color-brand-surface-1: var(--color-surface-1);
   --color-brand-surface-2: var(--color-surface-2);
   --color-brand-elements: var(--color-elements);
   --color-brand-icons: var(--color-icons);
   --color-brand-secondary: var(--color-secondary);
-  --color-brand-white: var(--color-white);
-  --color-brand-black: var(--color-design-black-700);
   --color-brand-green: var(--color-green);
   --color-brand-red: var(--color-red);
   --color-brand-accent-600: var(--color-accent-600);
@@ -17,15 +18,17 @@
 }
 
 :root {
-  --color-white: #f1f2f9;
-  --color-design-black-700: #0f1121;
-  --color-accent-800: #905bff;
-  --color-accent-600: #a378ff;
-  --color-secondary: #75767f;
-  --color-icons: #4a4d58;
-  --color-elements: #3b3e4a;
+  --color-bg-main: #0f1121;
+  --color-text-main: #f1f2f9;
+
   --color-surface-1: #161827;
   --color-surface-2: #323542;
+  --color-elements: #3b3e4a;
+  --color-icons: #4a4d58;
+  --color-secondary: #75767f;
+
+  --color-accent-800: #905bff;
+  --color-accent-600: #a378ff;
   --color-green: #27ae60;
   --color-red: #eb5757;
 
@@ -50,12 +53,31 @@
   --color-product-starlight: #faf5eb;
 }
 
+.light {
+  --color-bg-main: #ffffff;
+  --color-text-main: #0f1121;
+
+  --color-surface-1: #f7f7fa;
+  --color-surface-2: #e3e4e5;
+  --color-elements: #d1d3d6;
+  --color-icons: #75767f;
+  --color-secondary: #8e9099;
+}
+
 html,
 body {
   height: 100%;
 }
 
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+
 body {
-  background: var(--color-brand-black);
-  color: var(--color-brand-white);
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
 }
