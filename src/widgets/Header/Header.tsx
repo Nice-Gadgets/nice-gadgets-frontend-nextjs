@@ -10,6 +10,7 @@ import { cn } from '@/shared/lib/utils';
 import { CartIcon, HeartIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
 import { ThemeToggle } from '@/shared/ui/ThemeSwitcher';
+import { UserAnchor } from '@/shared/ui/UserAnchor/UserAnchor';
 import { MobileMenu } from '@/widgets/Header/MobileMenu';
 import { DesktopNavLinks } from '@/widgets/Header/NavLinks';
 
@@ -95,6 +96,7 @@ export const Header = () => {
               <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
             )}
           </Link>
+          <UserAnchor className="hidden h-full w-16 items-center justify-center border-l border-brand-elements transition-colors hover:bg-brand-surface-1 md:flex lg:w-22" />
 
           <MobileMenu pathname={pathname} />
         </div>
