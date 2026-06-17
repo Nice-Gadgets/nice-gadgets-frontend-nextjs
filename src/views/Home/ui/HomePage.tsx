@@ -1,6 +1,7 @@
 import { getStaticProducts } from '@/entities/Product/api';
 import { BASE_URL } from '@/shared/constants/constant';
 import { PromoSlider } from '@/shared/ui/PromoSlider';
+import { Reveal } from '@/shared/ui/Reveal';
 import { H1 } from '@/shared/ui/Typography';
 import { ProductsSlider } from '@/widgets/ProductsSlider';
 import { RecentlyViewedSlider } from '@/widgets/RecentlyViewedSlider';
@@ -70,24 +71,38 @@ export const HomePage = async () => {
     .slice(0, 20);
 
   return (
-    <main className="bg-brand-black py-6 transition-colors duration-300">
+    <main className="bg-brand-black py-6 transition-colors duration-300 overflow-x-hidden">
       <div className="flex flex-col gap-14">
         <section className="mx-auto w-full max-w-300 px-4 md:px-8">
           <H1 className="mb-6">Welcome to Nice Gadgets store!</H1>
-          <div className="flex justify-center">
-            <PromoSlider slides={promoSlides} />
-          </div>
+
+          <Reveal delay={0.15}>
+            <div className="flex justify-center">
+              <PromoSlider slides={promoSlides} />
+            </div>
+          </Reveal>
         </section>
 
-        <ProductsSlider title="Brand new models" products={brandNewProducts} />
+        <Reveal>
+          <ProductsSlider
+            title="Brand new models"
+            products={brandNewProducts}
+          />
+        </Reveal>
 
         <div className="mx-auto w-full max-w-300 px-4 md:px-8">
-          <ShopByCategory categories={categories} />
+          <Reveal>
+            <ShopByCategory categories={categories} />
+          </Reveal>
         </div>
 
-        <ProductsSlider title="Hot prices" products={hotPriceProducts} />
+        <Reveal>
+          <ProductsSlider title="Hot prices" products={hotPriceProducts} />
+        </Reveal>
 
-        <RecentlyViewedSlider />
+        <Reveal>
+          <RecentlyViewedSlider />
+        </Reveal>
       </div>
     </main>
   );
