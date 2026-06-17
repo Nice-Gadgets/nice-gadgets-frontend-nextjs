@@ -5,13 +5,15 @@ import { useEffect, useState } from 'react';
 
 import { createClient } from '@/shared/lib/supabase/client';
 import { Button } from '@/shared/ui/Button';
+import { ProfileSkeleton } from '@/shared/ui/Skeleton';
+import { BodyText, H2, H3 } from '@/shared/ui/Typography';
 import { RecentlyViewedSlider } from '@/widgets/RecentlyViewedSlider';
 
 const supabase = createClient();
 
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -19,7 +21,7 @@ export default function ProfilePage() {
         data: { user },
       } = await supabase.auth.getUser();
       setUser(user);
-      setLoading(false);
+      setIsLoading(false);
     };
 
     fetchUser();
@@ -27,36 +29,31 @@ export default function ProfilePage() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-
     window.location.href = '/';
   };
 
-  if (loading) {
-    return (
-      <div className="flex min-h-[50vh] items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-[var(--color-brand-elements)] border-t-[var(--color-brand-accent)]" />
-      </div>
-    );
+  if (isLoading) {
+    return <ProfileSkeleton />;
   }
 
   return (
     <>
       <div className="mx-auto max-w-4xl px-4 py-10 md:py-16">
-        <h1 className="mb-8 text-3xl font-bold tracking-tight text-[var(--color-brand-white)]">
-          Мій профіль
-        </h1>
+        <H2 className="mb-8 ">Мій профіль</H2>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <div className=" border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-1)] p-6 shadow-sm">
+          <div className="border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-1)] p-6 shadow-sm">
             <div className="flex flex-col items-center text-center">
               <div className="relative flex h-20 w-20 items-center justify-center bg-[var(--color-brand-elements)] text-2xl font-bold text-white shadow-md overflow-hidden">
                 {user?.email?.[0].toUpperCase() || 'U'}
               </div>
 
-              <h2 className="mt-4 text-xl font-semibold text-[var(--color-brand-white)]">
+              <H3 className="mt-4 text-[var(--color-brand-white)]">
                 {user?.user_metadata?.full_name || 'Користувач'}
-              </h2>
-              <p className="text-sm text-zinc-400 mt-1">{user?.email}</p>
+              </H3>
+              <BodyText className="text-brand-secondary mt-1">
+                {user?.email}
+              </BodyText>
             </div>
 
             <hr className="my-6 border-[var(--color-brand-elements)]" />
@@ -65,24 +62,22 @@ export default function ProfilePage() {
               variant="primary"
               type="button"
               onClick={handleLogout}
-              className="h-10 w-full border border-[var(--color-brand-elements)] bg-[var(--color-brand-red)] px-3 py-1.5 text-xs font-semibold text-[var(--color-brand-white)] transition-all hover:bg-[var(--color-brand-red)] hover:text-white"
+              className="h-10 w-full border border-[var(--color-brand-elements)] bg-[var(--color-brand-red)] px-3 py-1.5 text-xs font-semibold text-[var(--color-brand-white)] transition-all hover:bg-[var(--color-brand-red)] hover:opacity-75"
             >
               Вийти
             </Button>
           </div>
 
           <div className="md:col-span-2 border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-1)] p-6 shadow-sm">
-            <h3 className="text-xl font-semibold text-[var(--color-brand-white)] mb-4">
-              Історія замовлень
-            </h3>
+            <H3 className=" mb-4">Історія замовлень</H3>
 
             <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[var(--color-brand-elements)] py-12 text-center">
-              <p className="text-zinc-400 text-sm">
+              <BodyText className="text-brand-secondary">
                 У вас ще немає оформлених замовлень.
-              </p>
-              <p className="text-xs text-zinc-500 mt-1">
+              </BodyText>
+              <BodyText className="text-brand-secondary mt-1">
                 Тут відображатимуться ваші покупки гаджетів.
-              </p>
+              </BodyText>
             </div>
           </div>
         </div>
