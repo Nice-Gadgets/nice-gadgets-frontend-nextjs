@@ -4,8 +4,9 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/shared/lib/supabase/client';
 import { Button } from '@/shared/ui/Button';
 
+const supabase = createClient();
+
 export default function ProfilePage() {
-  const supabase = createClient();
   const router = useRouter();
   const handleLogout = async () => {
     await supabase.auth.signOut();

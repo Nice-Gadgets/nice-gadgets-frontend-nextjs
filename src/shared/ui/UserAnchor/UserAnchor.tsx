@@ -52,7 +52,7 @@ export function UserAnchor({ className, onClick }: UserAnchorProps) {
     });
 
     return () => subscription.unsubscribe();
-  }, []); // ✅ Масив залежностей тепер порожній, бо supabase стабільний
+  }, []);
 
   if (loading) {
     return (
