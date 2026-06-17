@@ -8,7 +8,8 @@ import { useEffect, useState } from 'react';
 import { useCartStore } from '@/entities/Cart';
 import { useFavoritesStore } from '@/entities/Favorite';
 import type { Product } from '@/entities/Product';
-import { getStaticProducts } from '@/entities/Product/api/Product';
+import { getClientProducts } from '@/entities/Product/api/getClientProducts';
+import { BASE_URL } from '@/shared/constants/constant';
 import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, SearchIcon } from '@/shared/ui/Icons';
@@ -29,7 +30,7 @@ export const Header = () => {
   const router = useRouter();
 
   useEffect(() => {
-    getStaticProducts().then(setAllProducts);
+    getClientProducts().then(setAllProducts);
   }, []);
 
   const filteredProducts = search.trim()
@@ -111,7 +112,7 @@ export const Header = () => {
               )}
 
               {filteredProducts.length > 0 && (
-                <div className="absolute top-12 left-4 w-64 bg-brand-surface-2 rounded-lg shadow-lg overflow-hidden">
+                <div className="absolute top-12 left-4 right-4 sm:left-4 sm:right-auto sm:w-64 bg-brand-surface-2 rounded-lg shadow-lg overflow-hidden">
                   {filteredProducts.map((product) => (
                     <Link
                       key={product.itemId}
@@ -119,13 +120,15 @@ export const Header = () => {
                       className="flex items-center gap-3 px-4 py-2 text-sm text-brand-white hover:bg-brand-elements"
                     >
                       <Image
-                        src={`/${product.image}`}
+                        src={`${BASE_URL}/${product.image}`}
                         alt={product.name}
                         width={32}
                         height={32}
                         className="object-contain shrink-0"
                       />
-                      <span>{product.name}</span>
+                      <span className="text-sm line-clamp-2 max-[430px]:text-xs">
+                        {product.name}
+                      </span>
                     </Link>
                   ))}
                 </div>
