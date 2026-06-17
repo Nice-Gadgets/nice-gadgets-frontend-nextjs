@@ -3,11 +3,17 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
+import { TranslationKey } from '@/shared/constants/translations';
 import { useTranslation } from '@/shared/hooks';
 import { cn } from '@/shared/lib/utils';
 import { UppercaseText } from '@/shared/ui/Typography';
 
-const navItems = [
+type NavItem = {
+  labelKey: TranslationKey;
+  href: string;
+};
+
+const navItems: NavItem[] = [
   { labelKey: 'home', href: '/' },
   { labelKey: 'phones', href: '/phones' },
   { labelKey: 'tablets', href: '/tablets' },

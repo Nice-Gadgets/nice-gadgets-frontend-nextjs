@@ -2,9 +2,11 @@ import Link from 'next/link';
 
 import { FullProduct, fullProductToProduct } from '@/entities/Product';
 import { getStaticProducts } from '@/entities/Product/api';
+import { TranslationKey } from '@/shared/constants/translations';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { ButtonColorPicker } from '@/shared/ui/ButtonColorPicker';
 import { CapacityButton } from '@/shared/ui/CapacityButton';
+import { ContentLanguageNotice } from '@/shared/ui/ContentLanguageNotice';
 import { ChevronLeftIcon } from '@/shared/ui/Icons';
 import { LocalizedText } from '@/shared/ui/LocalizedText';
 import { ProductGallery } from '@/shared/ui/ProductGallery';
@@ -36,20 +38,24 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
 
   const products = rawProducts.filter((p) => p.category === product.category);
 
-  const quickSpecs = [
+  const quickSpecs: { labelKey: TranslationKey; value: string }[] = [
     { labelKey: 'screen', value: product.screen },
     { labelKey: 'resolution', value: product.resolution },
     { labelKey: 'processor', value: product.processor },
     { labelKey: 'ram', value: product.ram },
   ];
 
-  const allSpecs = [
+  const allSpecs: { labelKey: TranslationKey; value: string }[] = [
     { labelKey: 'screen', value: product.screen },
     { labelKey: 'resolution', value: product.resolution },
     { labelKey: 'processor', value: product.processor },
     { labelKey: 'ram', value: product.ram },
-    ...(product.camera ? [{ labelKey: 'camera', value: product.camera }] : []),
-    ...(product.zoom ? [{ labelKey: 'zoom', value: product.zoom }] : []),
+    ...(product.camera
+      ? [{ labelKey: 'camera' as TranslationKey, value: product.camera }]
+      : []),
+    ...(product.zoom
+      ? [{ labelKey: 'zoom' as TranslationKey, value: product.zoom }]
+      : []),
     { labelKey: 'cell', value: product.cell.join(', ') },
   ];
 
@@ -65,7 +71,11 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
         <Breadcrumbs
           items={[
             {
-              label: <LocalizedText translationKey={product.category} />,
+              label: (
+                <LocalizedText
+                  translationKey={product.category as TranslationKey}
+                />
+              ),
               href: `/${product.category}`,
             },
             { label: product.name },
@@ -174,6 +184,8 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
             </H3>
 
             <div className="mb-8 h-px bg-brand-elements" />
+
+            <ContentLanguageNotice />
 
             <div className="space-y-8">
               {product.description.map((section) => (

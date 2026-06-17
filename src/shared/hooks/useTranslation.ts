@@ -1,12 +1,12 @@
 'use client';
 
-import { translations } from '@/shared/constants/translations';
+import { TranslationKey, translations } from '@/shared/constants/translations';
 import { useSettingsStore } from '@/shared/store';
 
 export function useTranslation() {
   const language = useSettingsStore((state) => state.language);
 
-  const t = (key: string) => {
+  const t = (key: TranslationKey) => {
     return translations[language][key] ?? key;
   };
 

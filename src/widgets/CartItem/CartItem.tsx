@@ -20,6 +20,8 @@ export const CartItem = ({ item, quantity }: CartItemProps) => {
   const increaseQuantity = useCartStore((state) => state.increaseQuantity);
   const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
   const currency = useSettingsStore((state) => state.currency);
+  const currencyRates = useSettingsStore((state) => state.currencyRates);
+  const language = useSettingsStore((state) => state.language);
 
   return (
     <div className="min-w-[288px] p-4 sm:p-6 bg-brand-surface-1 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
@@ -64,7 +66,12 @@ export const CartItem = ({ item, quantity }: CartItemProps) => {
           </Button>
         </div>
         <H3 className="font-extrabold shrink-0 w-20 text-right">
-          {formatPrice(item.price * quantity, currency)}
+          {formatPrice(
+            item.price * quantity,
+            currency,
+            currencyRates,
+            language,
+          )}
         </H3>
       </div>
     </div>

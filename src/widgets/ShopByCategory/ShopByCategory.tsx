@@ -4,11 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { BASE_URL } from '@/shared/constants/constant';
+import { TranslationKey } from '@/shared/constants/translations';
 import { useTranslation } from '@/shared/hooks';
 import { BodyText, H2, H4 } from '@/shared/ui/Typography';
 
 interface CategoryItem {
-  titleKey: string;
+  titleKey: TranslationKey;
   href: string;
   imageSrc: string;
   modelsCount: number;

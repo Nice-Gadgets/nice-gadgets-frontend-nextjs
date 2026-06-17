@@ -1,7 +1,5 @@
 'use client';
 
-import { ChangeEvent } from 'react';
-
 import {
   CURRENCIES,
   Currency,
@@ -10,13 +8,17 @@ import {
 } from '@/shared/constants/settings';
 import { cn } from '@/shared/lib/utils';
 import { useSettingsStore } from '@/shared/store';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shared/ui/Select';
 
 type SettingsControlsProps = {
   className?: string;
 };
-
-const selectClassName =
-  'h-8 bg-brand-black border border-brand-elements px-2 text-xs font-semibold uppercase text-brand-white outline-none transition-colors hover:border-brand-secondary focus:border-brand-accent';
 
 export function SettingsControls({ className }: SettingsControlsProps) {
   const language = useSettingsStore((state) => state.language);
@@ -24,41 +26,49 @@ export function SettingsControls({ className }: SettingsControlsProps) {
   const setLanguage = useSettingsStore((state) => state.setLanguage);
   const setCurrency = useSettingsStore((state) => state.setCurrency);
 
-  const handleLanguageChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setLanguage(event.target.value as Language);
-  };
-
-  const handleCurrencyChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setCurrency(event.target.value as Currency);
-  };
-
   return (
     <div className={cn('flex items-center gap-2', className)}>
-      <select
-        aria-label="Select language"
+      <Select
         value={language}
-        onChange={handleLanguageChange}
-        className={selectClassName}
+        onValueChange={(value) => setLanguage(value as Language)}
       >
-        {LANGUAGES.map(({ label, value }) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
-      </select>
+        <SelectTrigger
+          size="sm"
+          aria-label="Select language"
+          className="w-18 border border-brand-elements bg-brand-black uppercase text-brand-white hover:border-brand-secondary"
+        >
+          <SelectValue />
+        </SelectTrigger>
 
-      <select
-        aria-label="Select currency"
+        <SelectContent>
+          {LANGUAGES.map(({ label, value }) => (
+            <SelectItem key={value} value={value}>
+              {label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Select
         value={currency}
-        onChange={handleCurrencyChange}
-        className={selectClassName}
+        onValueChange={(value) => setCurrency(value as Currency)}
       >
-        {CURRENCIES.map(({ label, value }) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
-      </select>
+        <SelectTrigger
+          size="sm"
+          aria-label="Select currency"
+          className="w-20 border border-brand-elements bg-brand-black uppercase text-brand-white hover:border-brand-secondary"
+        >
+          <SelectValue />
+        </SelectTrigger>
+
+        <SelectContent>
+          {CURRENCIES.map(({ label, value }) => (
+            <SelectItem key={value} value={value}>
+              {label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 }

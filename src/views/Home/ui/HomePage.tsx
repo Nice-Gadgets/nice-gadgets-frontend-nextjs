@@ -1,5 +1,6 @@
 import { getStaticProducts } from '@/entities/Product/api';
 import { BASE_URL } from '@/shared/constants/constant';
+import { TranslationKey } from '@/shared/constants/translations';
 import { LocalizedText } from '@/shared/ui/LocalizedText';
 import { PromoSlider } from '@/shared/ui/PromoSlider';
 import { H1 } from '@/shared/ui/Typography';
@@ -25,6 +26,13 @@ const promoSlides = [
   },
 ];
 
+type CategoryItem = {
+  titleKey: TranslationKey;
+  href: string;
+  imageSrc: string;
+  modelsCount: number;
+};
+
 export const HomePage = async () => {
   const products = await getStaticProducts();
 
@@ -38,7 +46,7 @@ export const HomePage = async () => {
     (product) => product.category === 'accessories',
   ).length;
 
-  const categories = [
+  const categories: CategoryItem[] = [
     {
       titleKey: 'mobilePhones',
       href: '/phones',
@@ -74,6 +82,7 @@ export const HomePage = async () => {
           <H1 className="mb-6">
             <LocalizedText translationKey="welcomeTitle" />
           </H1>
+
           <div className="flex justify-center">
             <PromoSlider slides={promoSlides} />
           </div>

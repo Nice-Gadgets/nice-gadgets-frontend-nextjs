@@ -1,12 +1,21 @@
-import {
-  Currency,
-  CURRENCY_RATES,
-  CURRENCY_SYMBOLS,
-} from '@/shared/constants/settings';
+import { Currency, Language } from '@/shared/constants/settings';
 
-export function formatPrice(price: number, currency: Currency) {
-  const convertedPrice = price * CURRENCY_RATES[currency];
-  const roundedPrice = Math.round(convertedPrice);
+const LOCALES: Record<Language, string> = {
+  en: 'en-US',
+  ua: 'uk-UA',
+};
 
-  return `${CURRENCY_SYMBOLS[currency]}${roundedPrice}`;
+export function formatPrice(
+  price: number,
+  currency: Currency,
+  currencyRates: Record<Currency, number>,
+  language: Language,
+) {
+  const convertedPrice = price * currencyRates[currency];
+
+  return new Intl.NumberFormat(LOCALES[language], {
+    style: 'currency',
+    currency: currency.toUpperCase(),
+    maximumFractionDigits: 0,
+  }).format(convertedPrice);
 }

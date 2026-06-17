@@ -37,6 +37,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   } = product;
 
   const currency = useSettingsStore((state) => state.currency);
+  const currencyRates = useSettingsStore((state) => state.currencyRates);
+  const language = useSettingsStore((state) => state.language);
   const { t } = useTranslation();
 
   const items = useCartStore((state) => state.items);
@@ -71,26 +73,30 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </Link>
 
       <div className="flex items-center gap-2 mt-1">
-        <H3 className="text-brand-white">{formatPrice(price, currency)}</H3>
+        <H3 className="text-brand-white">
+          {formatPrice(price, currency, currencyRates, language)}
+        </H3>
 
         {fullPrice > price && (
           <H3 className="text-brand-secondary line-through">
-            {formatPrice(fullPrice, currency)}
+            {formatPrice(fullPrice, currency, currencyRates, language)}
           </H3>
         )}
       </div>
       <div className="w-full h-px bg-brand-elements" />
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
-          <SmallText className="text-brand-secondary">Screen</SmallText>
+          <SmallText className="text-brand-secondary">{t('screen')}</SmallText>
           <UppercaseText className="text-brand-white">{screen}</UppercaseText>
         </div>
         <div className="flex justify-between">
-          <SmallText className="text-brand-secondary">Capacity</SmallText>
+          <SmallText className="text-brand-secondary">
+            {t('capacity')}
+          </SmallText>
           <UppercaseText className="text-brand-white">{capacity}</UppercaseText>
         </div>
         <div className="flex justify-between">
-          <SmallText className="text-brand-secondary">RAM</SmallText>
+          <SmallText className="text-brand-secondary">{t('ram')}</SmallText>
           <UppercaseText className="text-brand-white">{ram}</UppercaseText>
         </div>
       </div>

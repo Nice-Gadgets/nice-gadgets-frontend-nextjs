@@ -1,6 +1,6 @@
 import { Language } from '@/shared/constants/settings';
 
-export const translations: Record<Language, Record<string, string>> = {
+export const translations = {
   en: {
     addToCart: 'Add to cart',
     added: 'Added',
@@ -49,6 +49,10 @@ export const translations: Record<Language, Record<string, string>> = {
     backToTop: 'Back to top',
     noFavoritesYet: 'No favorites yet',
     emptyFavoritesText: "You haven't added anything to your favorites yet.",
+    capacity: 'Capacity',
+    priceAsc: 'Price: Low to High',
+    priceDesc: 'Price: High to Low',
+    contentLanguageNotice: 'Some product content is available in English only.',
   },
 
   ua: {
@@ -89,8 +93,8 @@ export const translations: Record<Language, Record<string, string>> = {
     brandNewModels: 'Нові моделі',
     hotPrices: 'Гарячі ціни',
     recentlyViewed: 'Нещодавно переглянуті',
-    name: 'Назва',
-    newest: 'Нові',
+    name: 'Назвою',
+    newest: 'Новими',
     cheapest: 'Найдешевші',
     mostExpensive: 'Найдорожчі',
     github: 'Github',
@@ -99,5 +103,12 @@ export const translations: Record<Language, Record<string, string>> = {
     backToTop: 'Нагору',
     noFavoritesYet: 'Поки що немає обраних товарів',
     emptyFavoritesText: 'Ви ще нічого не додали до обраного.',
+    capacity: 'Місткість',
+    priceAsc: 'Спочатку дешевші',
+    priceDesc: 'Спочатку дорожчі',
+    contentLanguageNotice:
+      'Частина контенту товару доступна лише англійською мовою.',
   },
-};
+} satisfies Record<Language, Record<string, string>>;
+
+export type TranslationKey = keyof typeof translations.en;

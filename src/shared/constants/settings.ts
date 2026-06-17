@@ -18,7 +18,7 @@ export const DEFAULT_CURRENCY: Currency = 'usd';
 export const LANGUAGE_STORAGE_KEY = 'nice-gadgets-language';
 export const CURRENCY_STORAGE_KEY = 'nice-gadgets-currency';
 
-export const CURRENCY_RATES: Record<Currency, number> = {
+export const FALLBACK_CURRENCY_RATES: Record<Currency, number> = {
   usd: 1,
   eur: 0.92,
   uah: 41,

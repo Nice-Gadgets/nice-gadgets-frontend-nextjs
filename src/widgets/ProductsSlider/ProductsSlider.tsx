@@ -7,6 +7,7 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Product } from '@/entities/Product';
+import { TranslationKey } from '@/shared/constants/translations';
 import { useTranslation } from '@/shared/hooks';
 import { Button } from '@/shared/ui/Button';
 import { ChevronLeftIcon, ChevronRightIcon } from '@/shared/ui/Icons';
@@ -15,7 +16,7 @@ import { ProductCard } from '@/widgets/ProductCard';
 
 interface ProductsSliderProps {
   title?: string;
-  titleKey?: string;
+  titleKey?: TranslationKey;
   products: Product[];
 }
 

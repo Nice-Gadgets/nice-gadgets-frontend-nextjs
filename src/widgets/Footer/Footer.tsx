@@ -2,13 +2,19 @@
 
 import Link from 'next/link';
 
+import { TranslationKey } from '@/shared/constants/translations';
 import { useTranslation } from '@/shared/hooks';
 import { Logo } from '@/shared/ui/Logo';
 import { UppercaseText } from '@/shared/ui/Typography';
 
 import { BackToTop } from './BackToTop';
 
-const navLinks = [
+type FooterNavLink = {
+  href: string;
+  labelKey: TranslationKey;
+};
+
+const navLinks: FooterNavLink[] = [
   {
     href: 'https://github.com/Nice-Gadgets/nice-gadgets-frontend-nextjs',
     labelKey: 'github',

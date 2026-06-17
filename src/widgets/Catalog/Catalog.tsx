@@ -7,6 +7,7 @@ import {
   type Product,
   sortProducts,
 } from '@/entities/Product';
+import { TranslationKey } from '@/shared/constants/translations';
 import { useTranslation } from '@/shared/hooks';
 import { AppSelect } from '@/shared/ui/AppSelect';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
@@ -38,7 +39,7 @@ export const Catalog = ({
   const pathname = usePathname();
   const { t } = useTranslation();
 
-  const categoryKey = categoryName.toLowerCase();
+  const categoryKey = categoryName.toLowerCase() as TranslationKey;
   const translatedCategoryName = t(categoryKey);
 
   const sortOptions = [

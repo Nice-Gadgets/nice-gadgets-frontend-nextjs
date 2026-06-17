@@ -17,6 +17,8 @@ export const CartPage = () => {
   const items = useCartStore((state) => state.items);
   const { t } = useTranslation();
   const currency = useSettingsStore((state) => state.currency);
+  const currencyRates = useSettingsStore((state) => state.currencyRates);
+  const language = useSettingsStore((state) => state.language);
 
   const totalPrice = items.reduce(
     (acc, cartItem) => acc + cartItem.item.price * cartItem.quantity,
@@ -71,7 +73,7 @@ export const CartPage = () => {
             <div className="flex flex-col gap-4 border border-brand-elements p-6 lg:w-92 lg:shrink-0 lg:self-start lg:gap-6">
               <div className="flex flex-col items-center gap-2">
                 <H1 className="font-extrabold">
-                  {formatPrice(totalPrice, currency)}
+                  {formatPrice(totalPrice, currency, currencyRates, language)}
                 </H1>
 
                 <SmallText className="text-brand-secondary">
