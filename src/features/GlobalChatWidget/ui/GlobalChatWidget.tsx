@@ -43,7 +43,7 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed z-[500] bottom-[140px] right-6 md:bottom-[150px] md:right-6 w-[calc(100vw-3rem)] sm:w-[400px] h-[300px] sm:h-[500px] bg-brand-surface-1 border border-brand-elements shadow-2xl flex flex-col animate-in slide-in-from-bottom-5">
+        <div className="fixed z-[500] bottom-[140px] right-6 md:bottom-[150px] md:right-6 w-[calc(100vw-3rem)] sm:w-[400px] h-[300px] sm:h-[500px] bg-brand-surface-1 border border-brand-elements flex flex-col animate-in slide-in-from-bottom-5">
           <div className="relative bg-brand-surface-2 p-4 border-b border-brand-elements flex items-center h-14 shrink-0">
             <BodyText className="text-brand-white font-bold">
               Nice Gadgets AI
@@ -69,7 +69,6 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
                 'content' in m && typeof m.content === 'string'
                   ? m.content
                   : '';
-
               const textFromParts = Array.isArray(m.parts)
                 ? m.parts
                     .map((p) =>
@@ -77,13 +76,11 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
                     )
                     .join('')
                 : '';
-
               const textFromRaw =
                 'text' in m &&
                 typeof (m as Record<string, unknown>).text === 'string'
                   ? ((m as Record<string, unknown>).text as string)
                   : '';
-
               const messageText =
                 textFromContent || textFromParts || textFromRaw;
 
@@ -92,7 +89,7 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
               return (
                 <div
                   key={m.id || `fallback-id-${index}`}
-                  className={`p-3 rounded-lg max-w-[85%] ${m.role === 'user' ? 'bg-brand-accent self-end' : 'bg-brand-surface-2 self-start'}`}
+                  className={`p-3 rounded-none max-w-[85%] ${m.role === 'user' ? 'bg-brand-accent self-end' : 'bg-brand-surface-2 self-start'}`}
                 >
                   <BodyText className="text-brand-white whitespace-pre-wrap flex flex-col gap-1">
                     {messageText}
@@ -102,10 +99,10 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
             })}
 
             {isAiTyping && (
-              <div className="p-3 rounded-lg bg-brand-surface-2 self-start flex gap-1 items-center h-10">
-                <span className="w-1.5 h-1.5 bg-brand-secondary rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                <span className="w-1.5 h-1.5 bg-brand-secondary rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                <span className="w-1.5 h-1.5 bg-brand-secondary rounded-full animate-bounce"></span>
+              <div className="p-3 rounded-none bg-brand-surface-2 self-start flex gap-1 items-center h-10">
+                <span className="w-1.5 h-1.5 bg-brand-secondary animate-bounce [animation-delay:-0.3s]"></span>
+                <span className="w-1.5 h-1.5 bg-brand-secondary animate-bounce [animation-delay:-0.15s]"></span>
+                <span className="w-1.5 h-1.5 bg-brand-secondary animate-bounce"></span>
               </div>
             )}
           </div>
@@ -119,13 +116,13 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Напишіть повідомлення..."
-              className="flex-1 bg-brand-black border border-brand-elements rounded px-3 py-2 text-brand-white focus:outline-none focus:border-brand-accent"
+              className="flex-1 bg-brand-black border border-brand-elements rounded-none px-3 py-2 text-brand-white focus:outline-none focus:border-brand-accent"
               disabled={isLoading}
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="bg-brand-accent p-2 rounded text-brand-white disabled:opacity-50"
+              className="bg-brand-accent p-2 rounded-none text-brand-white disabled:opacity-50"
             >
               <Send size={18} />
             </button>
@@ -136,7 +133,7 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
       <button
         type="button"
         onClick={toggleChat}
-        className="fixed z-[500] right-6 md:right-6 bottom-20 md:bottom-24 w-[42px] h-[42px] rounded bg-brand-accent hover:bg-brand-accent-600 flex items-center justify-center text-white shadow-lg transition-transform hover:scale-105"
+        className="fixed z-[500] right-6 md:right-6 bottom-20 md:bottom-24 w-[42px] h-[42px] rounded-none bg-brand-accent hover:bg-brand-accent-600 flex items-center justify-center text-white transition-transform hover:scale-105"
       >
         {isOpen ? (
           <X size={22} className="pointer-events-none" />

@@ -1,7 +1,7 @@
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText } from 'ai';
-import { promises as fs } from 'fs';
-import path from 'path';
+
+import { supabase } from '@/shared/lib/client';
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY!,
@@ -20,9 +20,14 @@ export const POST = async (req: Request) => {
 
   let catalogData = '';
   try {
-    const filePath = path.join(process.cwd(), 'public', 'api', 'products.json');
-    catalogData = await fs.readFile(filePath, 'utf8');
-  } catch {
+    const { data: products, error } = await supabase
+      .from('products')
+      .select('*');
+
+    if (error) throw error;
+    catalogData = JSON.stringify(products);
+  } catch (err: unknown) {
+    console.error('Supabase fetch error:', err);
     catalogData = 'Каталог тимчасово недоступний.';
   }
 
@@ -35,14 +40,14 @@ export const POST = async (req: Request) => {
     Ти — професійний, ввічливий та лаконічний ШІ-консультант інтернет-магазину "Nice Gadgets".
     Твоя головна мета — допомагати клієнтам обирати техніку.
 
-    ОСЬ ПОВНИЙ КАТАЛОГ ТОВАРІВ МАГАЗИНУ:
+    ОСЬ ПОВНИЙ КАТАЛОГ ТОВАРІВ З БАЗИ ДАНИХ:
     ${catalogData}
 
     ${currentProductInfo}
 
     ПРАВИЛА:
     1. Спирайся ТІЛЬКИ на дані з каталогу вище. Не вигадуй товари чи ціни.
-    2. Якщо товару немає в JSON, скажи, що його зараз немає, та запропонуй альтернативу.
+    2. Якщо товару немає в списку, скажи, що його зараз немає, та запропонуй альтернативу.
     3. Відповідай українською мовою лаконічно.
   `;
 
