@@ -133,7 +133,7 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
       <button
         type="button"
         onClick={toggleChat}
-        className="fixed z-[500] right-6 md:right-6 bottom-20 md:bottom-24 w-[42px] h-[42px] rounded-none bg-brand-accent hover:bg-brand-accent-600 flex items-center justify-center text-white transition-transform hover:scale-105"
+        className="fixed z-[500] right-6 md:right-6 bottom-20 md:bottom-24 w-[42px] h-[42px] rounded-none bg-brand-accent hover:bg-brand-accent-600 flex items-center justify-center text-white transition-transform hover:scale-105 cursor-pointer origin-center will-change-transform"
       >
         {isOpen ? (
           <X size={22} className="pointer-events-none" />

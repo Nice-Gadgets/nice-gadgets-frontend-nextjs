@@ -1,7 +1,7 @@
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText } from 'ai';
 
-import { supabase } from '@/shared/lib/client';
+import { createClient } from '@/shared/lib/supabase/server';
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY!,
@@ -17,6 +17,8 @@ interface IncomingMessage {
 
 export const POST = async (req: Request) => {
   const { messages, productContext } = await req.json();
+
+  const supabase = await createClient();
 
   let catalogData = '';
   try {
