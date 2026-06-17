@@ -91,7 +91,7 @@ export const Header = () => {
               <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
             )}
           </Link>
-          <UserAnchor className={headerIconLinkClassName} />
+          <UserAnchor className="hidden h-full w-16 items-center justify-center border-l border-brand-elements transition-colors hover:bg-brand-surface-1 md:flex lg:w-22" />
 
           <MobileMenu pathname={pathname} />
         </div>

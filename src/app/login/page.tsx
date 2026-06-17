@@ -8,6 +8,8 @@ import { Button } from '@/shared/ui/Button';
 
 type AuthMode = 'login' | 'register';
 
+const supabase = createClient();
+
 export default function LoginPage() {
   const [mode, setMode] = useState<AuthMode>('login');
   const [email, setEmail] = useState('');
@@ -16,7 +18,6 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const supabase = createClient();
   const router = useRouter();
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -25,6 +26,9 @@ export default function LoginPage() {
     setError(null);
     setSuccessMessage(null);
 
+    const currentParams = new URLSearchParams(window.location.search);
+    const targetRedirect = currentParams.get('next') || '/';
+
     if (mode === 'login') {
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -32,9 +36,13 @@ export default function LoginPage() {
       });
       if (error) {
         setError(error.message);
+        setLoading(false);
       } else {
-        router.push('/');
         router.refresh();
+
+        setTimeout(() => {
+          window.location.assign(targetRedirect);
+        }, 100);
       }
     } else {
       const { error } = await supabase.auth.signUp({ email, password });
@@ -43,19 +51,29 @@ export default function LoginPage() {
       } else {
         setSuccessMessage('Лист для підтвердження надіслано на вашу пошту!');
       }
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleOAuthLogin = async (provider: 'google' | 'github') => {
     setError(null);
-    const supabase = createClient();
-    await supabase.auth.signInWithOAuth({
+    setLoading(true);
+
+    const currentParams = new URLSearchParams(window.location.search);
+    const targetRedirect = currentParams.get('next') || '/';
+    const encodedNext = encodeURIComponent(targetRedirect);
+
+    const { error: oAuthError } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodedNext}`,
       },
     });
+
+    if (oAuthError) {
+      setError(oAuthError.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -167,6 +185,7 @@ export default function LoginPage() {
         <div className="grid grid-cols-2 gap-3">
           <button
             type="button"
+            disabled={loading}
             onClick={() => handleOAuthLogin('google')}
             className="flex items-center justify-center gap-2 cursor-pointer border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-2)] py-2.5 text-sm font-medium transition-all hover:bg-[var(--color-brand-elements)]"
           >
@@ -181,6 +200,7 @@ export default function LoginPage() {
 
           <button
             type="button"
+            disabled={loading}
             onClick={() => handleOAuthLogin('github')}
             className="flex items-center justify-center gap-2 cursor-pointer border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-2)] py-2.5 text-sm font-medium transition-all hover:bg-[var(--color-brand-elements)]"
           >

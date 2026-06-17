@@ -12,11 +12,12 @@ interface UserAnchorProps {
   onClick?: () => void;
 }
 
+const supabase = createClient();
+
 export function UserAnchor({ className, onClick }: UserAnchorProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const supabase = createClient();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -51,17 +52,22 @@ export function UserAnchor({ className, onClick }: UserAnchorProps) {
     });
 
     return () => subscription.unsubscribe();
-  }, [supabase]);
+  }, []); // ✅ Масив залежностей тепер порожній, бо supabase стабільний
 
   if (loading) {
-    // Повертаємо просто порожній блок з тими ж класами, що передали, аби верстка не ламалася
     return (
       <div className={cn(className, 'animate-pulse bg-brand-surface-1/10')} />
     );
   }
 
-  const targetHref = isAuthenticated ? '/profile' : '/login';
-  const isActive = pathname?.startsWith(targetHref);
+  const encodedPathname = pathname ? encodeURIComponent(pathname) : '';
+  const targetHref = isAuthenticated
+    ? '/profile'
+    : `/login?next=${encodedPathname}`;
+
+  const isActive = pathname?.startsWith(
+    isAuthenticated ? '/profile' : '/login',
+  );
 
   return (
     <Link
@@ -71,7 +77,7 @@ export function UserAnchor({ className, onClick }: UserAnchorProps) {
       className={cn(
         'relative flex h-full items-center justify-center transition-colors',
         isAuthenticated ? 'text-brand-accent' : 'text-brand-white',
-        className, // Дозволяємо зовнішнім класам керувати розмірами та бордерами!
+        className,
       )}
     >
       <div className="relative">
