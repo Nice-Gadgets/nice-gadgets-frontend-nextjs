@@ -9,16 +9,19 @@ import { ShopByCategory } from '@/widgets/ShopByCategory';
 const promoSlides = [
   {
     src: `${BASE_URL}/img/BannerMain.png`,
+    srcLight: `${BASE_URL}/img/BannerMainL.png`,
     alt: 'Apple iPhone 14 Pro 1TB',
     href: '/phones/apple-iphone-14-pro-1tb-spaceblack',
   },
   {
     src: `${BASE_URL}/img/BannerTablet.png`,
+    srcLight: `${BASE_URL}/img/BannerTablet-light.png`,
     alt: 'Apple Watch Series 5 44mm',
     href: '/tablets/apple-ipad-pro-11-2021-2tb-spacegray',
   },
   {
     src: `${BASE_URL}/img/BannerAccessory.png`,
+    srcLight: `${BASE_URL}/img/BannerAccessory-light.png`,
     alt: 'Apple Watch Series 5 44mm',
     href: '/accessories/apple-watch-series-5-44mm-space-gray',
   },
@@ -67,7 +70,7 @@ export const HomePage = async () => {
     .slice(0, 20);
 
   return (
-    <main className="bg-brand-black py-6">
+    <main className="bg-brand-black py-6 transition-colors duration-300">
       <div className="flex flex-col gap-14">
         <section className="mx-auto w-full max-w-300 px-4 md:px-8">
           <H1 className="mb-6">Welcome to Nice Gadgets store!</H1>

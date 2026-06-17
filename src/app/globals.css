@@ -50,6 +50,16 @@
   --color-product-starlight: #faf5eb;
 }
 
+html.light {
+  --color-design-black-700: #ffffff;
+  --color-white: #0f1121;
+  --color-surface-1: #f7f7fa;
+  --color-surface-2: #e3e4e5;
+  --color-elements: #d1d3d6;
+  --color-icons: #75767f;
+  --color-secondary: #8e9099;
+}
+
 html,
 body {
   height: 100%;
@@ -58,4 +68,8 @@ body {
 body {
   background: var(--color-brand-black);
   color: var(--color-brand-white);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }

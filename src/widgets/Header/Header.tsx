@@ -9,6 +9,7 @@ import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, HeartIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
+import { ThemeToggle } from '@/shared/ui/ThemeSwitcher';
 import { MobileMenu } from '@/widgets/Header/MobileMenu';
 import { DesktopNavLinks } from '@/widgets/Header/NavLinks';
 
@@ -41,6 +42,10 @@ export const Header = () => {
         </div>
 
         <div className="flex h-full items-center">
+          <div className={headerIconLinkClassName}>
+            <ThemeToggle />
+          </div>
+
           <Link
             href="/favorites"
             aria-label="Favorites"

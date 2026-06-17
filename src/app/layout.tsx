@@ -3,6 +3,8 @@ import './globals.css';
 import { Metadata } from 'next';
 
 import { mont } from '@/shared/config';
+// Імпортуємо НАШ створений клієнтський провайдер
+import { ThemeProvider } from '@/shared/providers/ThemeProvider';
 import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/Header';
 
@@ -19,11 +21,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={mont.variable}>
-      <body className="min-h-screen antialiased flex flex-col pt-11.75 lg:pt-16">
-        <Header />
-        <div className="flex-1">{children}</div>
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${mont.variable} min-h-screen antialiased flex flex-col pt-11.75 lg:pt-16`}
+      >
+        {/* Ставимо темну тему за замовчуванням */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+        >
+          <Header />
+          <div className="flex-1">{children}</div>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
