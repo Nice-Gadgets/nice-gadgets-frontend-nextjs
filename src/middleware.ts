@@ -69,6 +69,7 @@ export const config = {
      * Простий та надійний регекс для Next.js 16+:
      * Пропускаємо лише системні папки Next.js, статичні файли (images) та favicon.
      */
-    '/((?!_next/static|_next/image|favicon.ico).*)',
+    '/profile/:path*',
+    '/admin/:path*',
   ],
 };
