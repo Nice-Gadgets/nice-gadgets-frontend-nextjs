@@ -26,6 +26,7 @@ export const Header = () => {
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const router = useRouter();
 
@@ -33,10 +34,20 @@ export const Header = () => {
     getClientProducts().then(setAllProducts);
   }, []);
 
-  const filteredProducts = search.trim()
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  const filteredProducts = debouncedSearch.trim()
     ? allProducts
         .filter((product) =>
-          product.name.toLowerCase().includes(search.trim().toLowerCase()),
+          product.name
+            .toLowerCase()
+            .includes(debouncedSearch.trim().toLowerCase()),
         )
         .slice(0, 5)
     : [];
