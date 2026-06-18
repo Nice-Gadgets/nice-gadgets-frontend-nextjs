@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -7,6 +9,7 @@ import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, MenuIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
+import { ThemeToggle } from '@/shared/ui/ThemeSwitcher';
 import { UserAnchor } from '@/shared/ui/UserAnchor/UserAnchor';
 import { MobileNavLinks } from '@/widgets/Header/NavLinks';
 
@@ -102,7 +105,10 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
             <MobileNavLinks pathname={pathname} onClose={closeMenu} />
           </nav>
 
-          <div className="grid h-16 grid-cols-3 border-t border-brand-elements">
+          <div className="grid h-16 grid-cols-4 border-t border-brand-elements">
+            {/* Перший елемент — Перемикач тем */}
+            <ThemeToggle className="flex h-full items-center justify-center border-r border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1" />
+
             <Link
               href="/favorites"
               onClick={closeMenu}
@@ -129,6 +135,7 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
                 <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
               )}
             </Link>
+
             <Link
               href="/cart"
               onClick={closeMenu}
@@ -155,6 +162,7 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
                 <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
               )}
             </Link>
+
             <UserAnchor
               className="w-full h-full hover:bg-brand-surface-1"
               onClick={closeMenu}

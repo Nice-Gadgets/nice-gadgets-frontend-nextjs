@@ -14,6 +14,7 @@ import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, SearchIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
+import { ThemeToggle } from '@/shared/ui/ThemeSwitcher';
 import { UserAnchor } from '@/shared/ui/UserAnchor/UserAnchor';
 import { MobileMenu } from '@/widgets/Header/MobileMenu';
 import { DesktopNavLinks } from '@/widgets/Header/NavLinks';
@@ -154,6 +155,9 @@ export const Header = () => {
               <SearchIcon className="size-4" />
             </button>
           )}
+
+          <ThemeToggle className={headerIconLinkClassName} />
+
           <Link
             href="/favorites"
             aria-label="Favorites"
