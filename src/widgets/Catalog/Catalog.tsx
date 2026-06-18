@@ -78,7 +78,7 @@ export const Catalog = ({
   const isShowPagination = totalPages > 1;
 
   return (
-    <main className="mx-auto max-w-300 pb-20 bg-bg-primary px-6 min-[508px]:px-6 lg:px-8">
+    <main className="mx-auto max-w-300 pb-20 bg-brand-black px-6 min-[508px]:px-6 lg:px-8">
       <Breadcrumbs items={[{ label: categoryName }]} />
 
       <div className="flex items-center pt-6">
