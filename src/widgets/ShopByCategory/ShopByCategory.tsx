@@ -1,11 +1,15 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { BASE_URL } from '@/shared/constants/constant';
+import { TranslationKey } from '@/shared/constants/translations';
+import { useTranslation } from '@/shared/hooks';
 import { BodyText, H2, H4 } from '@/shared/ui/Typography';
 
 interface CategoryItem {
-  title: string;
+  titleKey: TranslationKey;
   href: string;
   imageSrc: string;
   modelsCount: number;
@@ -16,17 +20,19 @@ interface ShopByCategoryProps {
 }
 
 export const ShopByCategory = ({ categories }: ShopByCategoryProps) => {
+  const { t } = useTranslation();
+
   return (
     <section className="w-full">
-      <H2 className="mb-6">Shop by category</H2>
+      <H2 className="mb-6">{t('shopByCategory')}</H2>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-4">
-        {categories.map(({ title, href, imageSrc, modelsCount }) => (
+        {categories.map(({ titleKey, href, imageSrc, modelsCount }) => (
           <Link key={href} href={href} className="group block">
             <div className="mb-6 flex aspect-square items-center justify-center overflow-hidden bg-brand-surface-2">
               <Image
                 src={`${BASE_URL}${imageSrc}`}
-                alt={title}
+                alt={t(titleKey)}
                 width={368}
                 height={368}
                 className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -34,11 +40,11 @@ export const ShopByCategory = ({ categories }: ShopByCategoryProps) => {
             </div>
 
             <H4 className="mb-1 text-brand-white transition-colors group-hover:text-brand-accent">
-              {title}
+              {t(titleKey)}
             </H4>
 
             <BodyText className="text-brand-secondary">
-              {modelsCount} models
+              {modelsCount} {t('models')}
             </BodyText>
           </Link>
         ))}

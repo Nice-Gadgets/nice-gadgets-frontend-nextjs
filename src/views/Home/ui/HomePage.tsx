@@ -1,5 +1,7 @@
 import { getStaticProducts } from '@/entities/Product/api';
 import { BASE_URL } from '@/shared/constants/constant';
+import { TranslationKey } from '@/shared/constants/translations';
+import { LocalizedText } from '@/shared/ui/LocalizedText';
 import { PromoSlider } from '@/shared/ui/PromoSlider';
 import { Reveal } from '@/shared/ui/Reveal';
 import { H1 } from '@/shared/ui/Typography';
@@ -28,6 +30,13 @@ const promoSlides = [
   },
 ];
 
+type CategoryItem = {
+  titleKey: TranslationKey;
+  href: string;
+  imageSrc: string;
+  modelsCount: number;
+};
+
 export const HomePage = async () => {
   const products = await getStaticProducts();
 
@@ -41,21 +50,21 @@ export const HomePage = async () => {
     (product) => product.category === 'accessories',
   ).length;
 
-  const categories = [
+  const categories: CategoryItem[] = [
     {
-      title: 'Mobile phones',
+      titleKey: 'mobilePhones',
       href: '/phones',
       imageSrc: `/img/category-phones.png`,
       modelsCount: phonesCount,
     },
     {
-      title: 'Tablets',
+      titleKey: 'tablets',
       href: '/tablets',
       imageSrc: `/img/category-tablets.png`,
       modelsCount: tabletsCount,
     },
     {
-      title: 'Accessories',
+      titleKey: 'accessories',
       href: '/accessories',
       imageSrc: `/img/category-accessories.png`,
       modelsCount: accessoriesCount,
@@ -74,7 +83,9 @@ export const HomePage = async () => {
     <main className="bg-brand-black py-6 transition-colors duration-300 overflow-x-hidden">
       <div className="flex flex-col gap-14">
         <section className="mx-auto w-full max-w-300 px-4 md:px-8">
-          <H1 className="mb-6">Welcome to Nice Gadgets store!</H1>
+          <H1 className="mb-6">
+            <LocalizedText translationKey="welcomeTitle" />
+          </H1>
           <Reveal delay={0.15}>
             <div className="flex justify-center">
               <PromoSlider slides={promoSlides} />
@@ -84,7 +95,7 @@ export const HomePage = async () => {
 
         <Reveal>
           <ProductsSlider
-            title="Brand new models"
+            titleKey="brandNewModels"
             products={brandNewProducts}
           />
         </Reveal>
@@ -96,7 +107,7 @@ export const HomePage = async () => {
         </div>
 
         <Reveal>
-          <ProductsSlider title="Hot prices" products={hotPriceProducts} />
+          <ProductsSlider titleKey="hotPrices" products={hotPriceProducts} />
         </Reveal>
 
         <Reveal>

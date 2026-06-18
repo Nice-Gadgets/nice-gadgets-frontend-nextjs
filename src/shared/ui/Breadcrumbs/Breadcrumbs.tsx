@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { Fragment, ReactNode } from 'react';
 
 import { cn } from '@/shared/lib';
 import { ChevronRightIcon, HomeIcon } from '@/shared/ui/Icons';
 
 interface BreadcrumbItem {
-  label: string;
+  label: ReactNode;
   href?: string;
 }
 
@@ -36,7 +36,7 @@ export const Breadcrumbs = ({ items, className }: BreadcrumbsProps) => {
           const isClickable = href && !isLastItem;
 
           return (
-            <Fragment key={`${label}-${href ?? index}`}>
+            <Fragment key={`${href ?? index}`}>
               <li
                 aria-hidden="true"
                 className="flex shrink-0 items-center text-brand-icons"

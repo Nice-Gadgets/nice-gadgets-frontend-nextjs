@@ -7,6 +7,9 @@ import { useCartStore } from '@/entities/Cart';
 import { useFavoritesStore } from '@/entities/Favorite';
 import { Product } from '@/entities/Product';
 import { BASE_URL } from '@/shared/constants/constant';
+import { useTranslation } from '@/shared/hooks';
+import { formatPrice } from '@/shared/lib';
+import { useSettingsStore } from '@/shared/store';
 import { Button } from '@/shared/ui/Button';
 import { HeartIcon, HeartIconSelected } from '@/shared/ui/Icons';
 import { BodyText, H3, SmallText, UppercaseText } from '@/shared/ui/Typography';
@@ -32,6 +35,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     capacity,
     ram,
   } = product;
+
+  const currency = useSettingsStore((state) => state.currency);
+  const currencyRates = useSettingsStore((state) => state.currencyRates);
+  const language = useSettingsStore((state) => state.language);
+  const { t } = useTranslation();
 
   const items = useCartStore((state) => state.items);
   const addItem = useCartStore((state) => state.addItem);
@@ -65,23 +73,30 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </Link>
 
       <div className="flex items-center gap-2 mt-1">
-        <H3 className="text-brand-white">{`${price}$`}</H3>
+        <H3 className="text-brand-white">
+          {formatPrice(price, currency, currencyRates, language)}
+        </H3>
+
         {fullPrice > price && (
-          <H3 className="text-brand-secondary line-through">{`${fullPrice}$`}</H3>
+          <H3 className="text-brand-secondary line-through">
+            {formatPrice(fullPrice, currency, currencyRates, language)}
+          </H3>
         )}
       </div>
       <div className="w-full h-px bg-brand-elements" />
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
-          <SmallText className="text-brand-secondary">Screen</SmallText>
+          <SmallText className="text-brand-secondary">{t('screen')}</SmallText>
           <UppercaseText className="text-brand-white">{screen}</UppercaseText>
         </div>
         <div className="flex justify-between">
-          <SmallText className="text-brand-secondary">Capacity</SmallText>
+          <SmallText className="text-brand-secondary">
+            {t('capacity')}
+          </SmallText>
           <UppercaseText className="text-brand-white">{capacity}</UppercaseText>
         </div>
         <div className="flex justify-between">
-          <SmallText className="text-brand-secondary">RAM</SmallText>
+          <SmallText className="text-brand-secondary">{t('ram')}</SmallText>
           <UppercaseText className="text-brand-white">{ram}</UppercaseText>
         </div>
       </div>
@@ -95,7 +110,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             isInCart ? removeItem(product.itemId) : addItem(product)
           }
         >
-          {isInCart ? 'Added' : 'Add to cart'}
+          {isInCart ? t('added') : t('addToCart')}
         </Button>
         <Button
           variant="favorite"

@@ -3,6 +3,7 @@
 import { useCartStore } from '@/entities/Cart';
 import { useFavoritesStore } from '@/entities/Favorite';
 import { Product } from '@/entities/Product';
+import { useTranslation } from '@/shared/hooks';
 import { Button } from '@/shared/ui/Button';
 import { HeartIcon, HeartIconSelected } from '@/shared/ui/Icons';
 
@@ -11,6 +12,8 @@ interface ProductActionsProps {
 }
 
 export const ProductActions = ({ product }: ProductActionsProps) => {
+  const { t } = useTranslation();
+
   const addItem = useCartStore((state) => state.addItem);
   const removeItem = useCartStore((state) => state.removeItem);
   const items = useCartStore((state) => state.items);
@@ -34,14 +37,14 @@ export const ProductActions = ({ product }: ProductActionsProps) => {
           isInCart ? removeItem(product.itemId) : addItem(product)
         }
       >
-        {isInCart ? 'Added' : 'Add to cart'}
+        {isInCart ? t('added') : t('addToCart')}
       </Button>
 
       <Button
         variant="favorite"
         type="button"
         aria-pressed={isFavorite}
-        aria-label="Add to favorites"
+        aria-label={t('addToFavorites')}
         className="flex size-12 cursor-pointer items-center justify-center border border-brand-icons bg-brand-surface-2 text-brand-secondary transition-colors duration-300 hover:border-brand-white hover:text-brand-white"
         onClick={() =>
           isFavorite ? removeFavorite(product.itemId) : addFavorite(product)

@@ -9,6 +9,7 @@ import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, MenuIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
+import { SettingsControls } from '@/shared/ui/SettingsControls';
 import { ThemeToggle } from '@/shared/ui/ThemeSwitcher';
 import { UserAnchor } from '@/shared/ui/UserAnchor/UserAnchor';
 import { MobileNavLinks } from '@/widgets/Header/NavLinks';
@@ -105,8 +106,11 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
             <MobileNavLinks pathname={pathname} onClose={closeMenu} />
           </nav>
 
+          <div className="border-t border-brand-elements px-4 py-4">
+            <SettingsControls className="justify-center" />
+          </div>
+
           <div className="grid h-16 grid-cols-4 border-t border-brand-elements">
-            {/* Перший елемент — Перемикач тем */}
             <ThemeToggle className="flex h-full items-center justify-center border-r border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1" />
 
             <Link

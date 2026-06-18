@@ -10,10 +10,12 @@ import { useFavoritesStore } from '@/entities/Favorite';
 import type { Product } from '@/entities/Product';
 import { getClientProducts } from '@/entities/Product/api/getClientProducts';
 import { BASE_URL } from '@/shared/constants/constant';
+import { useTranslation } from '@/shared/hooks';
 import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, SearchIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
+import { SettingsControls } from '@/shared/ui/SettingsControls';
 import { ThemeToggle } from '@/shared/ui/ThemeSwitcher';
 import { UserAnchor } from '@/shared/ui/UserAnchor/UserAnchor';
 import { MobileMenu } from '@/widgets/Header/MobileMenu';
@@ -24,6 +26,7 @@ const headerIconLinkClassName =
 
 export const Header = () => {
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -91,7 +94,7 @@ export const Header = () => {
               <input
                 autoFocus
                 type="text"
-                placeholder="Search here"
+                placeholder={t('searchHere')}
                 value={search}
                 onChange={(event) =>
                   setSearch(
@@ -117,7 +120,7 @@ export const Header = () => {
                     setSearch('');
                   }}
                   className="absolute right-6 text-brand-secondary hover:text-brand-white"
-                  aria-label="Clear search"
+                  aria-label={t('clearSearch')}
                 >
                   <CloseIcon className="size-4" />
                 </button>
@@ -149,18 +152,22 @@ export const Header = () => {
           ) : (
             <button
               onClick={() => setIsSearchOpen(true)}
-              aria-label="Search"
+              aria-label={t('search')}
               className="flex h-full w-16 items-center justify-center border-l border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1 lg:w-22 cursor-pointer"
             >
               <SearchIcon className="size-4" />
             </button>
           )}
 
+          <div className="hidden h-full items-center border-l border-brand-elements px-3 md:flex">
+            <SettingsControls />
+          </div>
+
           <ThemeToggle className={headerIconLinkClassName} />
 
           <Link
             href="/favorites"
-            aria-label="Favorites"
+            aria-label={t('favorites')}
             className={cn(headerIconLinkClassName, 'relative')}
           >
             <div className="relative">
@@ -185,7 +192,7 @@ export const Header = () => {
 
           <Link
             href="/cart"
-            aria-label="Cart"
+            aria-label={t('cart')}
             className={cn(headerIconLinkClassName, 'relative')}
           >
             <div className="relative">

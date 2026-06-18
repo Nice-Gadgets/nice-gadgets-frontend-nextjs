@@ -7,6 +7,8 @@ import {
   type Product,
   sortProducts,
 } from '@/entities/Product';
+import { TranslationKey } from '@/shared/constants/translations';
+import { useTranslation } from '@/shared/hooks';
 import { AppSelect } from '@/shared/ui/AppSelect';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { Pagination } from '@/shared/ui/Pagination';
@@ -14,12 +16,6 @@ import { Reveal } from '@/shared/ui/Reveal';
 import { BodyText, H1 } from '@/shared/ui/Typography';
 import { ProductCard } from '@/widgets/ProductCard';
 
-const sortOptions = [
-  { label: 'Name', value: 'Name' },
-  { label: 'Price ↑', value: 'Price_asc' },
-  { label: 'Price ↓', value: 'Price_desc' },
-  { label: 'Newest', value: 'Newest' },
-];
 const paginationOptions = [
   { label: '20', value: '20' },
   { label: '30', value: '30' },
@@ -39,14 +35,25 @@ export const Catalog = ({
   categoryName,
   withSort = true,
 }: CatalogProps) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const { t } = useTranslation();
+
+  const categoryKey = categoryName.toLowerCase() as TranslationKey;
+  const translatedCategoryName = t(categoryKey);
+
+  const sortOptions = [
+    { label: t('name'), value: 'Name' },
+    { label: t('priceAsc'), value: 'Price_asc' },
+    { label: t('priceDesc'), value: 'Price_desc' },
+    { label: t('newest'), value: 'Newest' },
+  ];
+
   const productsByCategory =
     categoryName.toLowerCase() === 'favorites'
       ? products
       : products.filter((item) => item.category === categoryName.toLowerCase());
-
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
 
   const sortBy = searchParams?.get('sort') || 'Name';
   const currentPage = Number(searchParams?.get('page')) || 1;
@@ -58,6 +65,7 @@ export const Catalog = ({
     }
 
     const params = new URLSearchParams(searchParams?.toString());
+
     params.set(key, value);
 
     if (key !== 'page') {
@@ -78,31 +86,31 @@ export const Catalog = ({
   const isShowPagination = totalPages > 1;
 
   return (
-    <main className="mx-auto max-w-300 pb-20 bg-brand-black px-6 min-[508px]:px-6 lg:px-8">
-      <Breadcrumbs items={[{ label: categoryName }]} className="capitalize" />
+    <main className="mx-auto max-w-300 bg-brand-black px-6 pb-20 min-[508px]:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: translatedCategoryName }]} />
 
       <div className="flex items-center pt-6">
-        <H1 className="capitalize">{categoryName}</H1>
+        <H1>{translatedCategoryName}</H1>
       </div>
 
       <div className="flex items-center pt-2">
         <BodyText className="text-brand-secondary">
-          {`${productsByCategory.length} models`}
+          {productsByCategory.length} {t('models')}
         </BodyText>
       </div>
 
       {withSort && (
         <div className="flex gap-4 pt-8">
           <AppSelect
-            label="Sort by"
+            label={t('sortBy')}
             options={sortOptions}
             value={sortBy}
             onChange={(newValue) => updateParams('sort', newValue)}
-            className="min-w-34 flex-1 max-w-47"
+            className="min-w-34 max-w-47 flex-1"
           />
 
           <AppSelect
-            label="Items on page"
+            label={t('itemsOnPage')}
             options={paginationOptions}
             value={String(itemsPerPage)}
             onChange={(newValue) => updateParams('limit', newValue)}

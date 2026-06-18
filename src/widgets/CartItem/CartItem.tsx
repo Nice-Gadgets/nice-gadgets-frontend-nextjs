@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useCartStore } from '@/entities/Cart';
 import { Product } from '@/entities/Product';
 import { BASE_URL } from '@/shared/constants/constant';
+import { formatPrice } from '@/shared/lib';
+import { useSettingsStore } from '@/shared/store';
 import { Button } from '@/shared/ui/Button';
 import { CloseIcon, MinusIcon, PlusIcon } from '@/shared/ui/Icons';
 import { BodyText, H3 } from '@/shared/ui/Typography';
@@ -17,6 +19,9 @@ export const CartItem = ({ item, quantity }: CartItemProps) => {
   const removeItem = useCartStore((state) => state.removeItem);
   const increaseQuantity = useCartStore((state) => state.increaseQuantity);
   const decreaseQuantity = useCartStore((state) => state.decreaseQuantity);
+  const currency = useSettingsStore((state) => state.currency);
+  const currencyRates = useSettingsStore((state) => state.currencyRates);
+  const language = useSettingsStore((state) => state.language);
 
   return (
     <div className="min-w-[288px] p-4 sm:p-6 bg-brand-surface-1 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
@@ -61,7 +66,12 @@ export const CartItem = ({ item, quantity }: CartItemProps) => {
           </Button>
         </div>
         <H3 className="font-extrabold shrink-0 w-20 text-right">
-          ${(item.price * quantity).toFixed()}
+          {formatPrice(
+            item.price * quantity,
+            currency,
+            currencyRates,
+            language,
+          )}
         </H3>
       </div>
     </div>
