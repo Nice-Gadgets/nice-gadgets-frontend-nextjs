@@ -42,13 +42,13 @@ export default function ProfilePage() {
         <H2 className="mb-8 ">Мій профіль</H2>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <div className="border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-1)] p-6 shadow-sm">
+          <div className="border border-brand-elements bg-brand-surface-1 p-6 shadow-sm">
             <div className="flex flex-col items-center text-center">
-              <div className="relative flex h-20 w-20 items-center justify-center bg-[var(--color-brand-elements)] text-2xl font-bold text-white shadow-md overflow-hidden">
+              <div className="relative flex h-20 w-20 items-center justify-center bg-brand-elements text-2xl font-bold text-white shadow-md overflow-hidden">
                 {user?.email?.[0].toUpperCase() || 'U'}
               </div>
 
-              <H3 className="mt-4 text-[var(--color-brand-white)]">
+              <H3 className="mt-4 text-(--color-brand-white)">
                 {user?.user_metadata?.full_name || 'Користувач'}
               </H3>
               <BodyText className="text-brand-secondary mt-1">
@@ -56,22 +56,22 @@ export default function ProfilePage() {
               </BodyText>
             </div>
 
-            <hr className="my-6 border-[var(--color-brand-elements)]" />
+            <hr className="my-6 border-brand-elements" />
 
             <Button
               variant="primary"
               type="button"
               onClick={handleLogout}
-              className="h-10 w-full border border-[var(--color-brand-elements)] bg-[var(--color-brand-red)] px-3 py-1.5 text-xs font-semibold text-[var(--color-brand-white)] transition-all hover:bg-[var(--color-brand-red)] hover:opacity-75"
+              className="h-10 w-full border border-brand-elements bg-brand-red px-3 py-1.5 text-xs font-semibold text-(--color-brand-white) transition-all hover:bg-brand-red hover:opacity-75"
             >
               Вийти
             </Button>
           </div>
 
-          <div className="md:col-span-2 border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-1)] p-6 shadow-sm">
+          <div className="md:col-span-2 border border-brand-elements bg-brand-surface-1 p-6 shadow-sm">
             <H3 className=" mb-4">Історія замовлень</H3>
 
-            <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[var(--color-brand-elements)] py-12 text-center">
+            <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-brand-elements py-12 text-center">
               <BodyText className="text-brand-secondary">
                 У вас ще немає оформлених замовлень.
               </BodyText>

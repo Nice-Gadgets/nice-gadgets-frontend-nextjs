@@ -2,6 +2,7 @@ import './globals.css';
 
 import { Metadata } from 'next';
 
+import { GlobalChatWidget } from '@/features/GlobalChatWidget/ui/GlobalChatWidget';
 import { mont } from '@/shared/config';
 import { CurrencyRatesProvider } from '@/shared/ui/CurrencyRatesProvider';
 import { Footer } from '@/widgets/Footer';
@@ -27,6 +28,7 @@ export default function RootLayout({
           <CurrencyRatesProvider>{children}</CurrencyRatesProvider>
         </div>
         <Footer />
+        <GlobalChatWidget />
       </body>
     </html>
   );

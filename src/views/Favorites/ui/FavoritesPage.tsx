@@ -20,7 +20,7 @@ export const FavoritesPage = () => {
     <Suspense fallback={null}>
       {products.length === 0 ? (
         <main className="h-full flex flex-col items-center justify-center px-6 pb-8 text-center">
-          <div>
+          <div className="flex flex-col items-center">
             <Image
               src={`${BASE_URL}/img/empty-favorites.png`}
               alt={t('noFavoritesYet')}
