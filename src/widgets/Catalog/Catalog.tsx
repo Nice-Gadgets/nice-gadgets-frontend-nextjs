@@ -78,10 +78,10 @@ export const Catalog = ({
 
   return (
     <main className="mx-auto max-w-300 pb-20 bg-brand-black px-6 min-[508px]:px-6 lg:px-8">
-      <Breadcrumbs items={[{ label: categoryName }]} />
+      <Breadcrumbs items={[{ label: categoryName }]} className="capitalize" />
 
       <div className="flex items-center pt-6">
-        <H1>{categoryName}</H1>
+        <H1 className="capitalize">{categoryName}</H1>
       </div>
 
       <div className="flex items-center pt-2">
