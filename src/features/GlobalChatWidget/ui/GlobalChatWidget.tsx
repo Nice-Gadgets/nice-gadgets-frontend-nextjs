@@ -2,7 +2,8 @@
 
 import { type UIMessage } from '@ai-sdk/react';
 import { Headset, Send, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 import { useChat } from '@/features/GlobalChatWidget/model/useChat';
 import { BodyText } from '@/shared/ui/Typography';
@@ -17,6 +18,18 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
   );
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollToBottom();
+    }
+  }, [messages, isOpen]);
 
   const toggleChat = () => {
     if (!isOpen) {
@@ -91,9 +104,28 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
                   key={m.id || `fallback-id-${index}`}
                   className={`p-3 rounded-none max-w-[85%] ${m.role === 'user' ? 'bg-brand-accent self-end' : 'bg-brand-surface-2 self-start'}`}
                 >
-                  <BodyText className="text-brand-white whitespace-pre-wrap flex flex-col gap-1">
-                    {messageText}
-                  </BodyText>
+                  <div className="text-brand-white flex flex-col gap-2">
+                    <ReactMarkdown
+                      components={{
+                        p: ({ children }) => <BodyText>{children}</BodyText>,
+                        ul: ({ children }) => (
+                          <ul className="list-disc pl-5 m-0 space-y-1">
+                            {children}
+                          </ul>
+                        ),
+                        li: ({ children }) => (
+                          <li className="text-[14px] leading-relaxed">
+                            {children}
+                          </li>
+                        ),
+                        strong: ({ children }) => (
+                          <strong className="font-bold">{children}</strong>
+                        ),
+                      }}
+                    >
+                      {messageText}
+                    </ReactMarkdown>
+                  </div>
                 </div>
               );
             })}
@@ -105,6 +137,8 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
                 <span className="w-1.5 h-1.5 bg-brand-secondary animate-bounce"></span>
               </div>
             )}
+
+            <div ref={messagesEndRef} />
           </div>
 
           <form
@@ -122,7 +156,7 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="bg-brand-accent p-2 rounded-none text-brand-white disabled:opacity-50"
+              className="bg-brand-accent p-2 rounded-none text-brand-white disabled:opacity-50 cursor-pointer"
             >
               <Send size={18} />
             </button>
@@ -130,17 +164,19 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
         </div>
       )}
 
-      <button
-        type="button"
-        onClick={toggleChat}
-        className="fixed z-[500] right-6 md:right-6 bottom-20 md:bottom-24 w-[42px] h-[42px] rounded-none bg-brand-accent hover:bg-brand-accent-600 flex items-center justify-center text-white transition-transform hover:scale-105 cursor-pointer origin-center will-change-transform"
-      >
-        {isOpen ? (
-          <X size={22} className="pointer-events-none" />
-        ) : (
-          <Headset size={22} className="pointer-events-none" />
-        )}
-      </button>
+      <div className="fixed z-[500] right-6 md:right-6 bottom-20 md:bottom-24">
+        <button
+          type="button"
+          onClick={toggleChat}
+          className="w-[42px] h-[42px] rounded-none bg-brand-accent hover:bg-brand-accent-600 flex items-center justify-center text-white transition-transform duration-200 hover:scale-105 cursor-pointer origin-center will-change-transform"
+        >
+          {isOpen ? (
+            <X size={22} className="pointer-events-none" />
+          ) : (
+            <Headset size={22} className="pointer-events-none" />
+          )}
+        </button>
+      </div>
     </>
   );
 };
