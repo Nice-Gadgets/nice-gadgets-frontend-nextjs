@@ -123,8 +123,6 @@ export const Header = () => {
                 </button>
               )}
 
-              <ThemeToggle className={headerIconLinkClassName} />
-
               {filteredProducts.length > 0 && (
                 <div className="absolute top-12 left-4 right-4 sm:left-4 sm:right-auto sm:w-64 bg-brand-surface-2 rounded-lg shadow-lg overflow-hidden">
                   {filteredProducts.map((product) => (
@@ -157,6 +155,9 @@ export const Header = () => {
               <SearchIcon className="size-4" />
             </button>
           )}
+
+          <ThemeToggle className={headerIconLinkClassName} />
+
           <Link
             href="/favorites"
             aria-label="Favorites"
