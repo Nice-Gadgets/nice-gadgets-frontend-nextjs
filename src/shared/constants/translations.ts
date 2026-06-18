@@ -53,6 +53,14 @@ export const translations = {
     priceAsc: 'Price: Low to High',
     priceDesc: 'Price: High to Low',
     contentLanguageNotice: 'Some product content is available in English only.',
+    search: 'Search',
+    searchHere: 'Search here',
+    clearSearch: 'Clear search',
+    searchResultsFor: 'Search results for',
+    noResultsFor: 'No results for',
+    trySearchAgain: 'Try checking your spelling or use more general terms.',
+    backToHome: 'Back to home',
+    clickToViewAll: 'Click to view all',
   },
 
   ua: {
@@ -108,6 +116,15 @@ export const translations = {
     priceDesc: 'Спочатку дорожчі',
     contentLanguageNotice:
       'Частина контенту товару доступна лише англійською мовою.',
+    search: 'Пошук',
+    searchHere: 'Пошук товарів',
+    clearSearch: 'Очистити пошук',
+    searchResultsFor: 'Результати пошуку за запитом',
+    noResultsFor: 'Нічого не знайдено за запитом',
+    trySearchAgain:
+      'Перевірте написання або використайте більш загальний запит.',
+    backToHome: 'На головну',
+    clickToViewAll: 'Натисніть, щоб переглянути всі',
   },
 } satisfies Record<Language, Record<string, string>>;
 

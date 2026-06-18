@@ -88,16 +88,12 @@ export const Header = () => {
         </div>
 
         <div className="flex h-full items-center">
-          <div className="hidden h-full items-center border-l border-brand-elements px-3 md:flex">
-            <SettingsControls />
-          </div>
-
           {isSearchOpen ? (
             <div className="relative flex items-center gap-2 px-4">
               <input
                 autoFocus
                 type="text"
-                placeholder="Search here"
+                placeholder={t('searchHere')}
                 value={search}
                 onChange={(event) =>
                   setSearch(
@@ -123,7 +119,7 @@ export const Header = () => {
                     setSearch('');
                   }}
                   className="absolute right-6 text-brand-secondary hover:text-brand-white"
-                  aria-label="Clear search"
+                  aria-label={t('clearSearch')}
                 >
                   <CloseIcon className="size-4" />
                 </button>
@@ -155,12 +151,17 @@ export const Header = () => {
           ) : (
             <button
               onClick={() => setIsSearchOpen(true)}
-              aria-label="Search"
+              aria-label={t('search')}
               className="flex h-full w-16 items-center justify-center border-l border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1 lg:w-22 cursor-pointer"
             >
               <SearchIcon className="size-4" />
             </button>
           )}
+
+          <div className="hidden h-full items-center border-l border-brand-elements px-3 md:flex">
+            <SettingsControls />
+          </div>
+
           <Link
             href="/favorites"
             aria-label={t('favorites')}

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 import type { Product } from '@/entities/Product';
+import { useTranslation } from '@/shared/hooks';
 import { Button } from '@/shared/ui/Button';
 import { ChevronRightIcon } from '@/shared/ui/Icons';
 import { BodyText, H1 } from '@/shared/ui/Typography';
@@ -17,6 +18,7 @@ export const SearchResults = ({ products }: SearchResultsProps) => {
   const searchParams = useSearchParams();
   const query = searchParams?.get('query') || '';
   const category = searchParams?.get('category');
+  const { t } = useTranslation();
 
   const filtered = products.filter((p) =>
     p.name.toLowerCase().includes(query.toLowerCase()),
@@ -33,7 +35,8 @@ export const SearchResults = ({ products }: SearchResultsProps) => {
     );
   }
 
-  const categories = ['phones', 'tablets', 'accessories'];
+  const categories = ['phones', 'tablets', 'accessories'] as const;
+
   const counts = categories
     .map((cat) => ({
       name: cat,
@@ -43,14 +46,18 @@ export const SearchResults = ({ products }: SearchResultsProps) => {
 
   if (counts.length === 0) {
     return (
-      <main className="pt-20 px-6 max-w-300 mx-auto text-center">
-        <H1>No results for &quot;{query}&quot;</H1>
-        <BodyText className="text-brand-secondary mt-4">
-          Try checking your spelling or use more general terms.
+      <main className="mx-auto max-w-300 px-6 pt-20 text-center">
+        <H1>
+          {t('noResultsFor')} &quot;{query}&quot;
+        </H1>
+
+        <BodyText className="mt-4 text-brand-secondary">
+          {t('trySearchAgain')}
         </BodyText>
-        <Link href="/" className="inline-block mt-8">
+
+        <Link href="/" className="mt-8 inline-block">
           <Button variant="primary" className="h-12 min-w-50">
-            Back to home
+            {t('backToHome')}
           </Button>
         </Link>
       </main>
@@ -58,22 +65,27 @@ export const SearchResults = ({ products }: SearchResultsProps) => {
   }
 
   return (
-    <main className="pt-20 px-6 max-w-300 mx-auto">
-      <H1>Search results for &quot;{query}&quot;</H1>
-      <div className="flex flex-col gap-4 mt-8">
+    <main className="mx-auto max-w-300 px-6 pt-20">
+      <H1>
+        {t('searchResultsFor')} &quot;{query}&quot;
+      </H1>
+
+      <div className="mt-8 flex flex-col gap-4">
         {counts.map((cat) => (
           <Link
             key={cat.name}
             href={`/search?query=${encodeURIComponent(query)}&category=${cat.name}`}
-            className="flex justify-between p-4 max-w-200 bg-brand-surface-1 hover:bg-brand-elements transition-colors group"
-            title="Click to view all"
+            className="group flex max-w-200 justify-between bg-brand-surface-1 p-4 transition-colors hover:bg-brand-elements"
+            title={t('clickToViewAll')}
           >
-            <BodyText className="capitalize">{cat.name}</BodyText>
+            <BodyText>{t(cat.name)}</BodyText>
+
             <div className="flex items-center gap-2">
               <BodyText className="text-brand-secondary">
-                {cat.count} items
+                {cat.count} {t('items')}
               </BodyText>
-              <ChevronRightIcon className="size-4 text-brand-secondary group-hover:text-brand-white transition-colors" />
+
+              <ChevronRightIcon className="size-4 text-brand-secondary transition-colors group-hover:text-brand-white" />
             </div>
           </Link>
         ))}

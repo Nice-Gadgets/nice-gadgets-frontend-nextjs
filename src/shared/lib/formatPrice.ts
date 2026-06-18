@@ -1,21 +1,26 @@
-import { Currency, Language } from '@/shared/constants/settings';
-
-const LOCALES: Record<Language, string> = {
-  en: 'en-US',
-  ua: 'uk-UA',
-};
+import {
+  Currency,
+  CURRENCY_SYMBOLS,
+  DEFAULT_CURRENCY,
+  FALLBACK_CURRENCY_RATES,
+  Language,
+} from '@/shared/constants/settings';
 
 export function formatPrice(
   price: number,
-  currency: Currency,
-  currencyRates: Record<Currency, number>,
-  language: Language,
-) {
-  const convertedPrice = price * currencyRates[currency];
+  currency: Currency = DEFAULT_CURRENCY,
+  currencyRates = FALLBACK_CURRENCY_RATES,
+  language: Language = 'en',
+): string {
+  const rate =
+    currencyRates[currency] ?? FALLBACK_CURRENCY_RATES[currency] ?? 1;
+  const convertedPrice = price * rate;
 
-  return new Intl.NumberFormat(LOCALES[language], {
-    style: 'currency',
-    currency: currency.toUpperCase(),
+  const locale = language === 'ua' ? 'uk-UA' : 'en-US';
+
+  const formattedNumber = new Intl.NumberFormat(locale, {
     maximumFractionDigits: 0,
   }).format(convertedPrice);
+
+  return `${CURRENCY_SYMBOLS[currency]}${formattedNumber}`;
 }
