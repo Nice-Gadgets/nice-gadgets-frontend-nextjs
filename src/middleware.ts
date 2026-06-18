@@ -33,43 +33,52 @@ export async function middleware(request: NextRequest) {
     },
   );
 
+  // 1. Отримуємо поточного користувача
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const protectedRoutes = ['/profile', '/admin'];
+  const currentPath = request.nextUrl.pathname;
+  const isProfileRoute = currentPath.startsWith('/profile');
+  const isAdminRoute = currentPath.startsWith('/admin');
 
-  const isProtectedRoute = protectedRoutes.some((route) =>
-    request.nextUrl.pathname.startsWith(route),
-  );
-
-  if (!user && isProtectedRoute) {
+  // 2. Якщо користувач НЕ авторизований, а роут захищений — редірект на /login
+  if (!user && (isProfileRoute || isAdminRoute)) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
-    url.searchParams.set(
-      'next',
-      request.nextUrl.pathname + request.nextUrl.search,
-    );
+    url.searchParams.set('next', currentPath + request.nextUrl.search);
 
     const redirectResponse = NextResponse.redirect(url);
-
     supabaseResponse.cookies.getAll().forEach((cookie) => {
       redirectResponse.cookies.set(cookie.name, cookie.value);
     });
-
     return redirectResponse;
+  }
+
+  // 3. Якщо користувач намагається зайти в /admin — перевіряємо його роль у базі
+  if (user && isAdminRoute) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+
+    // Якщо профілю немає або роль не 'admin' — закриваємо доступ
+    if (!profile || profile.role !== 'admin') {
+      const url = request.nextUrl.clone();
+      url.pathname = '/unauthorized'; // Або можна створити сторінку /403 чи /unauthorized
+
+      const noAccessResponse = NextResponse.redirect(url);
+      supabaseResponse.cookies.getAll().forEach((cookie) => {
+        noAccessResponse.cookies.set(cookie.name, cookie.value);
+      });
+      return noAccessResponse;
+    }
   }
 
   return supabaseResponse;
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Простий та надійний регекс для Next.js 16+:
-     * Пропускаємо лише системні папки Next.js, статичні файли (images) та favicon.
-     */
-    '/profile/:path*',
-    '/admin/:path*',
-  ],
+  matcher: ['/profile/:path*', '/admin/:path*'],
 };
