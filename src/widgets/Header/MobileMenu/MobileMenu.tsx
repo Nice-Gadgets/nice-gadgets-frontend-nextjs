@@ -111,7 +111,6 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
           </div>
 
           <div className="grid h-16 grid-cols-4 border-t border-brand-elements">
-            
             <ThemeToggle className="flex h-full items-center justify-center border-r border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1" />
 
             <Link

@@ -4,8 +4,8 @@ import { Metadata } from 'next';
 
 import { GlobalChatWidget } from '@/features/GlobalChatWidget/ui/GlobalChatWidget';
 import { mont } from '@/shared/config';
-import { CurrencyRatesProvider } from '@/shared/ui/CurrencyRatesProvider';
 import { ThemeProvider } from '@/shared/providers';
+import { CurrencyRatesProvider } from '@/shared/ui/CurrencyRatesProvider';
 import { Footer } from '@/widgets/Footer';
 import { Header } from '@/widgets/Header';
 
