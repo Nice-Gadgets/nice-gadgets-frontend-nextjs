@@ -12,6 +12,7 @@ import { useTranslation } from '@/shared/hooks';
 import { AppSelect } from '@/shared/ui/AppSelect';
 import { Breadcrumbs } from '@/shared/ui/Breadcrumbs';
 import { Pagination } from '@/shared/ui/Pagination';
+import { Reveal } from '@/shared/ui/Reveal';
 import { BodyText, H1 } from '@/shared/ui/Typography';
 import { ProductCard } from '@/widgets/ProductCard';
 
@@ -118,10 +119,16 @@ export const Catalog = ({
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-x-4 gap-y-10 pt-6 pb-10 min-[508px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {paginatedProducts.map((item) => (
-          <ProductCard key={item.itemId} product={item} />
-        ))}
+      <div className="grid grid-cols-1 pb-10 pt-6 min-[508px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-4">
+        {paginatedProducts.map((item, index) => {
+          const columnDelay = (index % 4) * 0.08;
+
+          return (
+            <Reveal key={item.itemId} delay={columnDelay}>
+              <ProductCard product={item} />
+            </Reveal>
+          );
+        })}
       </div>
 
       {isShowPagination && (

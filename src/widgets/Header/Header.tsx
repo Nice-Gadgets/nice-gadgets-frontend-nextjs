@@ -16,6 +16,7 @@ import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, SearchIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
 import { SettingsControls } from '@/shared/ui/SettingsControls';
+import { ThemeToggle } from '@/shared/ui/ThemeSwitcher';
 import { UserAnchor } from '@/shared/ui/UserAnchor/UserAnchor';
 import { MobileMenu } from '@/widgets/Header/MobileMenu';
 import { DesktopNavLinks } from '@/widgets/Header/NavLinks';
@@ -161,6 +162,8 @@ export const Header = () => {
           <div className="hidden h-full items-center border-l border-brand-elements px-3 md:flex">
             <SettingsControls />
           </div>
+
+          <ThemeToggle className={headerIconLinkClassName} />
 
           <Link
             href="/favorites"
