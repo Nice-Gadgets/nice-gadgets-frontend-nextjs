@@ -14,7 +14,7 @@ export default function LoginPage() {
   const [mode, setMode] = useState<AuthMode>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -22,7 +22,7 @@ export default function LoginPage() {
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setIsLoading(true);
     setError(null);
     setSuccessMessage(null);
 
@@ -36,7 +36,7 @@ export default function LoginPage() {
       });
       if (error) {
         setError(error.message);
-        setLoading(false);
+        setIsLoading(false);
       } else {
         router.refresh();
 
@@ -51,13 +51,13 @@ export default function LoginPage() {
       } else {
         setSuccessMessage('Лист для підтвердження надіслано на вашу пошту!');
       }
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   const handleOAuthLogin = async (provider: 'google' | 'github') => {
     setError(null);
-    setLoading(true);
+    setIsLoading(true);
 
     const currentParams = new URLSearchParams(window.location.search);
     const targetRedirect = currentParams.get('next') || '/';
@@ -72,7 +72,7 @@ export default function LoginPage() {
 
     if (oAuthError) {
       setError(oAuthError.message);
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -165,10 +165,10 @@ export default function LoginPage() {
           <Button
             variant="primary"
             type="submit"
-            disabled={loading}
+            disabled={isLoading}
             className="mt-2 h-10 w-full bg-[var(--color-brand-accent)] py-3 text-sm font-bold tracking-wide text-white transition-all hover:bg-[var(--color-brand-accent-600)] active:scale-[0.99] disabled:opacity-50"
           >
-            {loading
+            {isLoading
               ? 'Обробка...'
               : mode === 'login'
                 ? 'Увійти'
@@ -185,7 +185,7 @@ export default function LoginPage() {
         <div className="grid grid-cols-2 gap-3">
           <button
             type="button"
-            disabled={loading}
+            disabled={isLoading}
             onClick={() => handleOAuthLogin('google')}
             className="flex items-center justify-center gap-2 cursor-pointer border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-2)] py-2.5 text-sm font-medium transition-all hover:bg-[var(--color-brand-elements)]"
           >
@@ -200,7 +200,7 @@ export default function LoginPage() {
 
           <button
             type="button"
-            disabled={loading}
+            disabled={isLoading}
             onClick={() => handleOAuthLogin('github')}
             className="flex items-center justify-center gap-2 cursor-pointer border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-2)] py-2.5 text-sm font-medium transition-all hover:bg-[var(--color-brand-elements)]"
           >

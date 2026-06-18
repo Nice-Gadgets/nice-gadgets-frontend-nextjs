@@ -6,7 +6,7 @@ import { CatalogPage } from '@/views/Catalog';
 const AccessoriesPage = () => {
   return (
     <Suspense fallback={<CatalogSkeleton />}>
-      <CatalogPage categoryName="Accessories" />;
+      <CatalogPage categoryName="Accessories" />
     </Suspense>
   );
 };
