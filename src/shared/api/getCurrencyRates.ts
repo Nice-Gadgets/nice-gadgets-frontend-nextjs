@@ -7,7 +7,7 @@ type FrankfurterResponse = {
   };
 };
 
-export async function getCurrencyRates(): Promise<Record<Currency, number>> {
+export const getCurrencyRates = async (): Promise<Record<Currency, number>> => {
   try {
     const response = await fetch(
       'https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR,UAH',
@@ -27,4 +27,6 @@ export async function getCurrencyRates(): Promise<Record<Currency, number>> {
   } catch {
     return FALLBACK_CURRENCY_RATES;
   }
-}
+};
+
+export default getCurrencyRates;

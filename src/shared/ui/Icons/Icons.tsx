@@ -266,7 +266,7 @@ export const HomeIcon = ({ className }: IconProps) => {
   );
 };
 
-export function SearchIcon({ className }: { className?: string }) {
+export const SearchIcon = ({ className }: { className?: string }) => {
   return (
     <svg
       width="16"
@@ -284,4 +284,4 @@ export function SearchIcon({ className }: { className?: string }) {
       />
     </svg>
   );
-}
+};

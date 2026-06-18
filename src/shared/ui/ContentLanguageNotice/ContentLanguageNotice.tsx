@@ -3,7 +3,7 @@
 import { useTranslation } from '@/shared/hooks';
 import { BodyText } from '@/shared/ui/Typography';
 
-export function ContentLanguageNotice() {
+export const ContentLanguageNotice = () => {
   const { t, language } = useTranslation();
 
   if (language === 'en') {
@@ -21,4 +21,4 @@ export function ContentLanguageNotice() {
       </BodyText>
     </div>
   );
-}
+};

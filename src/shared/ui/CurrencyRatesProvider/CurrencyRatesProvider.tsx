@@ -9,9 +9,9 @@ type CurrencyRatesProviderProps = {
   children: React.ReactNode;
 };
 
-export function CurrencyRatesProvider({
+export const CurrencyRatesProvider = ({
   children,
-}: CurrencyRatesProviderProps) {
+}: CurrencyRatesProviderProps) => {
   const setCurrencyRates = useSettingsStore((state) => state.setCurrencyRates);
 
   useEffect(() => {
@@ -19,4 +19,4 @@ export function CurrencyRatesProvider({
   }, [setCurrencyRates]);
 
   return <>{children}</>;
-}
+};

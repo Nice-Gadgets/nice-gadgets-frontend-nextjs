@@ -16,11 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={mont.variable} suppressHydrationWarning>
       <body className="min-h-screen antialiased flex flex-col pt-11.75 lg:pt-16">
@@ -39,4 +35,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

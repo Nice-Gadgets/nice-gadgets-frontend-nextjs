@@ -1,6 +1,6 @@
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 
-export function SearchSkeleton() {
+export const SearchSkeleton = () => {
   return (
     <main className="pt-20 px-6 max-w-300 mx-auto">
       <Skeleton className="h-10 w-72" />
@@ -20,4 +20,4 @@ export function SearchSkeleton() {
       </div>
     </main>
   );
-}
+};

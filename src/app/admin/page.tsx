@@ -20,7 +20,7 @@ interface Product {
 
 const ITEMS_PER_PAGE = 15;
 
-export default function AdminPage() {
+export const AdminPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -194,4 +194,6 @@ export default function AdminPage() {
       </section>
     </div>
   );
-}
+};
+
+export default AdminPage;

@@ -1,6 +1,6 @@
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 
-export function ProductCardSkeleton() {
+export const ProductCardSkeleton = () => {
   return (
     <div className="relative box-border w-full min-h-126.5 flex flex-col justify-between p-8 bg-brand-surface-1 gap-1 h-full min-[508px]:h-126.5 min-[1200px]:w-68">
       <div className="w-full h-50 flex items-center justify-center overflow-hidden">
@@ -31,9 +31,9 @@ export function ProductCardSkeleton() {
       </div>
     </div>
   );
-}
+};
 
-export function CatalogSkeleton() {
+export const CatalogSkeleton = () => {
   return (
     <main className="mx-auto max-w-300 pb-20 bg-brand-black px-6 min-[508px]:px-6 lg:px-8">
       <nav className="flex items-center py-6">
@@ -70,4 +70,4 @@ export function CatalogSkeleton() {
       </div>
     </main>
   );
-}
+};

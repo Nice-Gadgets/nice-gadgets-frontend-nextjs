@@ -11,7 +11,7 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-async function getPhoneProduct(id: string) {
+const getPhoneProduct = async (id: string) => {
   const products = await getStaticProducts();
 
   const fullProduct = await getProduct(id);
@@ -21,9 +21,9 @@ async function getPhoneProduct(id: string) {
     fullProduct,
     product: fullProductToProduct(fullProduct, products),
   };
-}
+};
 
-async function PhonesProductsContent({ id }: { id: string }) {
+const PhonesProductsContent = async ({ id }: { id: string }) => {
   const data = await getPhoneProduct(id);
 
   if (!data || !data.product) notFound();
@@ -34,9 +34,9 @@ async function PhonesProductsContent({ id }: { id: string }) {
       <ItemCardPage product={data.fullProduct} />
     </>
   );
-}
+};
 
-export default async function PhoneDetailPage({ params }: PageProps) {
+const PhoneDetailPage = async ({ params }: PageProps) => {
   const { id } = await params;
 
   return (
@@ -44,9 +44,11 @@ export default async function PhoneDetailPage({ params }: PageProps) {
       <PhonesProductsContent id={id} />
     </Suspense>
   );
-}
+};
 
-export async function generateMetadata({ params }: PageProps) {
+export default PhoneDetailPage;
+
+export const generateMetadata = async ({ params }: PageProps) => {
   const { id } = await params;
   const data = await getPhoneProduct(id);
 
@@ -56,4 +58,4 @@ export async function generateMetadata({ params }: PageProps) {
     title: data.fullProduct.name,
     description: data.fullProduct.description?.[0]?.text?.[0] || '',
   };
-}
+};

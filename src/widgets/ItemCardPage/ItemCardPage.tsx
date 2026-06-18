@@ -231,7 +231,9 @@ export const ItemCardPage = async ({ product }: ItemCardPageProps) => {
         </div>
       </div>
       <div className="my-20 w-full overflow-hidden">
-        <ProductsSlider products={products} titleKey="youMayAlsoLike" />
+        <div className="mb-8">
+          <ProductsSlider products={products} titleKey="youMayAlsoLike" />
+        </div>
         <RecentlyViewedSlider currentItemId={product.id} />
       </div>
     </main>

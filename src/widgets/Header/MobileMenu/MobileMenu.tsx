@@ -9,9 +9,6 @@ import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, MenuIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
-import { SettingsControls } from '@/shared/ui/SettingsControls';
-import { ThemeToggle } from '@/shared/ui/ThemeSwitcher';
-import { UserAnchor } from '@/shared/ui/UserAnchor/UserAnchor';
 import { MobileNavLinks } from '@/widgets/Header/NavLinks';
 
 const mobileIconButtonClassName =
@@ -68,7 +65,7 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
   }
 
   return (
-    <>
+    <div className="fixed inset-0 z-1100">
       <button
         className={cn(mobileIconButtonClassName, 'md:hidden')}
         onClick={openMenu}
@@ -77,7 +74,7 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
         <MenuIcon />
       </button>
 
-      <div className="fixed inset-0 z-40 md:hidden">
+      <div className="fixed inset-0 z-1100 md:hidden">
         <div
           className="absolute inset-0 bg-brand-black/60 transition-opacity duration-300 ease-in-out"
           style={{ opacity: open ? 1 : 0 }}
@@ -106,13 +103,7 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
             <MobileNavLinks pathname={pathname} onClose={closeMenu} />
           </nav>
 
-          <div className="border-t border-brand-elements px-4 py-4">
-            <SettingsControls className="justify-center" />
-          </div>
-
-          <div className="grid h-16 grid-cols-4 border-t border-brand-elements">
-            <ThemeToggle className="flex h-full items-center justify-center border-r border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1" />
-
+          <div className="grid h-16 grid-cols-2 border-t border-brand-elements">
             <Link
               href="/favorites"
               onClick={closeMenu}
@@ -144,7 +135,7 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
               href="/cart"
               onClick={closeMenu}
               className={cn(
-                'relative flex h-full items-center justify-center border-r border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1',
+                'relative flex h-full items-center justify-center text-brand-white transition-colors hover:bg-brand-surface-1',
               )}
             >
               <div className="relative">
@@ -166,14 +157,9 @@ export const MobileMenu = ({ pathname }: { pathname: string | null }) => {
                 <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
               )}
             </Link>
-
-            <UserAnchor
-              className="w-full h-full hover:bg-brand-surface-1"
-              onClick={closeMenu}
-            />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

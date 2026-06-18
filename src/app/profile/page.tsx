@@ -3,6 +3,7 @@
 import { User } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 
+import { useTranslation } from '@/shared/hooks/useTranslation';
 import { createClient } from '@/shared/lib/supabase/client';
 import { Button } from '@/shared/ui/Button';
 import { ProfileSkeleton } from '@/shared/ui/Skeleton';
@@ -11,9 +12,11 @@ import { RecentlyViewedSlider } from '@/widgets/RecentlyViewedSlider';
 
 const supabase = createClient();
 
-export default function ProfilePage() {
+export const ProfilePage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -39,7 +42,7 @@ export default function ProfilePage() {
   return (
     <>
       <div className="mx-auto max-w-4xl px-4 py-10 md:py-16">
-        <H2 className="mb-8 ">Мій профіль</H2>
+        <H2 className="mb-8 ">{t('profileTitle')}</H2>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="border border-brand-elements bg-brand-surface-1 p-6 shadow-sm">
@@ -49,7 +52,7 @@ export default function ProfilePage() {
               </div>
 
               <H3 className="mt-4 text-(--color-brand-white)">
-                {user?.user_metadata?.full_name || 'Користувач'}
+                {user?.user_metadata?.full_name || 'User'}
               </H3>
               <BodyText className="text-brand-secondary mt-1">
                 {user?.email}
@@ -64,19 +67,19 @@ export default function ProfilePage() {
               onClick={handleLogout}
               className="h-10 w-full border border-brand-elements bg-brand-red px-3 py-1.5 text-xs font-semibold text-(--color-brand-white) transition-all hover:bg-brand-red hover:opacity-75"
             >
-              Вийти
+              {t('logout')}
             </Button>
           </div>
 
           <div className="md:col-span-2 border border-brand-elements bg-brand-surface-1 p-6 shadow-sm">
-            <H3 className=" mb-4">Історія замовлень</H3>
+            <H3 className=" mb-4">{t('orderHistory')}</H3>
 
             <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-brand-elements py-12 text-center">
               <BodyText className="text-brand-secondary">
-                У вас ще немає оформлених замовлень.
+                {t('noOrdersYet')}
               </BodyText>
               <BodyText className="text-brand-secondary mt-1">
-                Тут відображатимуться ваші покупки гаджетів.
+                {t('orderHistoryDescription')}
               </BodyText>
             </div>
           </div>
@@ -87,4 +90,6 @@ export default function ProfilePage() {
       </div>
     </>
   );
-}
+};
+
+export default ProfilePage;

@@ -2,7 +2,10 @@ import { type UIMessage, useChat as useAiChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import { useRef } from 'react';
 
+import { useTranslation } from '@/shared/hooks/useTranslation';
+
 export const useChat = (productContext?: Record<string, unknown>) => {
+  const { t } = useTranslation();
   const {
     messages,
     setMessages,
@@ -18,8 +21,8 @@ export const useChat = (productContext?: Record<string, unknown>) => {
         err.message.includes('429') || err.message.includes('RATE_LIMIT');
 
       const errorMessageText = isRateLimit
-        ? '⚠️ Вичерпано денний ліміт запитів до ШІ. Спробуйте пізніше 😔'
-        : '❌ Сталась помилка сервера. Спробуйте ще раз.';
+        ? `⚠️ ${t('rateLimitError')} 😔`
+        : `❌ ${t('serverError')}`;
 
       setMessages((prev) => [
         ...prev,

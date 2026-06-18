@@ -14,7 +14,7 @@ interface UserAnchorProps {
 
 const supabase = createClient();
 
-export function UserAnchor({ className, onClick }: UserAnchorProps) {
+export const UserAnchor = ({ className, onClick }: UserAnchorProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -102,4 +102,4 @@ export function UserAnchor({ className, onClick }: UserAnchorProps) {
       )}
     </Link>
   );
-}
+};
