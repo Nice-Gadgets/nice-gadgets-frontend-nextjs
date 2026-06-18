@@ -122,7 +122,7 @@ export const Header = () => {
                   <CloseIcon className="size-4" />
                 </button>
               )}
-              
+
               <ThemeToggle className={headerIconLinkClassName} />
 
               {filteredProducts.length > 0 && (
