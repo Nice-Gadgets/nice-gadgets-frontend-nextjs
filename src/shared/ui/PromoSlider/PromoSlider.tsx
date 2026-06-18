@@ -14,6 +14,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@/shared/ui/Icons';
 
 interface Slide {
   src: string;
+  srcLight: string;
   alt: string;
   href: string;
 }
@@ -74,7 +75,16 @@ export const PromoSlider = ({ slides }: PromoSliderProps) => {
                 src={slide.src}
                 alt={slide.alt}
                 fill
-                className="object-cover object-top"
+                className="object-cover object-top block in-[.light]:hidden"
+                priority
+              />
+
+              <Image
+                src={slide.srcLight}
+                alt={slide.alt}
+                fill
+                className="object-cover object-top hidden in-[.light]:block"
+                priority
               />
             </Link>
           </SwiperSlide>

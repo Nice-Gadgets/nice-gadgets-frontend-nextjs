@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -11,10 +13,19 @@ export const Logo = () => {
     >
       <Image
         src={`${BASE_URL}/img/Logo.png`}
-        alt="Logo"
+        alt="Logo Dark"
         width={64}
         height={22}
-        className="w-16 h-5.5 lg:w-20 lg:h-7"
+        className="w-16 h-5.5 lg:w-20 lg:h-7 block in-[.light]:hidden"
+        priority
+      />
+
+      <Image
+        src={`${BASE_URL}/img/Logo2.png`}
+        alt="Logo Light"
+        width={64}
+        height={22}
+        className="w-16 h-5.5 lg:w-20 lg:h-7 hidden in-[.light]:block"
         priority
       />
     </Link>
