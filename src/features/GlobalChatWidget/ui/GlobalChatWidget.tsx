@@ -58,7 +58,7 @@ export const GlobalChatWidget = ({ productData }: GlobalChatWidgetProps) => {
   return (
     <>
       {isOpen && (
-        <div className="fixed z-500 bottom-35 right-6 md:bottom-37.5 md:right-6 w-[calc(100vw-3rem)] sm:w-100 h-75 sm:h-125 bg-brand-surface-1 border border-brand-elements flex flex-col animate-in slide-in-from-bottom-5">
+        <div className="fixed z-2500 bottom-35 right-6 md:bottom-37.5 md:right-6 w-[calc(100vw-3rem)] sm:w-100 h-75 sm:h-125 bg-brand-surface-1 border border-brand-elements flex flex-col animate-in slide-in-from-bottom-5">
           <div className="relative bg-brand-surface-2 p-4 border-b border-brand-elements flex items-center h-14 shrink-0">
             <BodyText className="text-brand-white font-bold">
               Nice Gadgets AI
