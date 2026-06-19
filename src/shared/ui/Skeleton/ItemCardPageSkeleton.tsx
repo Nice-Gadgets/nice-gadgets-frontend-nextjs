@@ -1,6 +1,6 @@
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 
-export function ItemCardPageSkeleton() {
+export const ItemCardPageSkeleton = () => {
   return (
     <main className="w-full pt-6">
       <div className="mx-auto max-w-300 px-4 sm:px-6 lg:px-8">
@@ -20,12 +20,12 @@ export function ItemCardPageSkeleton() {
 
         <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-16">
           <div className="flex flex-col gap-4 sm:flex-row">
+            <Skeleton className="h-116 w-full sm:flex-1" />
             <div className="flex flex-row gap-2 sm:flex-col">
               {[1, 2, 3, 4].map((i) => (
                 <Skeleton key={i} className="h-20 w-20 shrink-0" />
               ))}
             </div>
-            <Skeleton className="h-116 flex-1" />
           </div>
 
           <div className="flex max-w-sm flex-col gap-6">
@@ -123,4 +123,4 @@ export function ItemCardPageSkeleton() {
       </div>
     </main>
   );
-}
+};

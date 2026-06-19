@@ -7,8 +7,8 @@ type LocalizedTextProps = {
   translationKey: TranslationKey;
 };
 
-export function LocalizedText({ translationKey }: LocalizedTextProps) {
+export const LocalizedText = ({ translationKey }: LocalizedTextProps) => {
   const { t } = useTranslation();
 
   return <>{t(translationKey)}</>;
-}
+};

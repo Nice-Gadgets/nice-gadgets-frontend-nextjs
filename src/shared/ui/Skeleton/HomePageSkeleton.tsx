@@ -1,6 +1,6 @@
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 
-function ProductsSliderSkeleton() {
+export const ProductsSliderSkeleton = () => {
   return (
     <section className="mx-auto w-full max-w-300 px-4 md:px-8">
       <div className="mb-6 flex items-end justify-between">
@@ -41,9 +41,9 @@ function ProductsSliderSkeleton() {
       </div>
     </section>
   );
-}
+};
 
-function ShopByCategorySkeleton() {
+export const ShopByCategorySkeleton = () => {
   return (
     <div className="mx-auto w-full max-w-300 px-4 md:px-8">
       <section className="w-full">
@@ -60,9 +60,9 @@ function ShopByCategorySkeleton() {
       </section>
     </div>
   );
-}
+};
 
-function PromoSliderSkeleton() {
+export const PromoSliderSkeleton = () => {
   return (
     <section className="mx-auto w-full max-w-300 px-4 md:px-8">
       <Skeleton className="h-10 w-full max-w-xl mb-6" />
@@ -74,9 +74,9 @@ function PromoSliderSkeleton() {
       </div>
     </section>
   );
-}
+};
 
-export function HomePageSkeleton() {
+export const HomePageSkeleton = () => {
   return (
     <main className="bg-brand-black py-6">
       <div className="flex flex-col gap-14">
@@ -87,4 +87,4 @@ export function HomePageSkeleton() {
       </div>
     </main>
   );
-}
+};

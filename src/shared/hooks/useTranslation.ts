@@ -3,7 +3,7 @@
 import { TranslationKey, translations } from '@/shared/constants/translations';
 import { useSettingsStore } from '@/shared/store';
 
-export function useTranslation() {
+export const useTranslation = () => {
   const language = useSettingsStore((state) => state.language);
 
   const t = (key: TranslationKey) => {
@@ -11,4 +11,4 @@ export function useTranslation() {
   };
 
   return { t, language };
-}
+};

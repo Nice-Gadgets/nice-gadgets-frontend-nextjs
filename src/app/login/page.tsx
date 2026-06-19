@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { useTranslation } from '@/shared/hooks/useTranslation';
 import { createClient } from '@/shared/lib/supabase/client';
 import { Button } from '@/shared/ui/Button';
 
@@ -10,8 +11,9 @@ type AuthMode = 'login' | 'register';
 
 const supabase = createClient();
 
-export default function LoginPage() {
+export const LoginPage = () => {
   const [mode, setMode] = useState<AuthMode>('login');
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -77,21 +79,18 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--color-brand-black)] p-4 font-[family-name:var(--font-sans)] text-[var(--color-brand-white)]">
-      <div className="w-full max-w-md overflow-hidden border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-1)] p-8 shadow-2xl transition-all">
+    <div className="flex min-h-screen items-center justify-center bg-brand-black p-4 font-sans text-(--color-brand-white)">
+      <div className="w-full max-w-md overflow-hidden border border-brand-elements bg-brand-surface-1 p-8 shadow-2xl transition-all">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-extrabold tracking-tight">
-            NICE{' '}
-            <span className="text-[var(--color-brand-accent)]">GADGETS</span>
+            NICE <span className="text-brand-accent">GADGETS</span>
           </h1>
-          <p className="mt-2 text-sm text-[var(--color-brand-secondary)]">
-            {mode === 'login'
-              ? 'Вітаємо знову! Увійдіть у свій акаунт'
-              : 'Створіть акаунт, щоб почати покупки'}
+          <p className="mt-2 text-sm text-brand-secondary">
+            {mode === 'login' ? t('welcome_back') : t('create_account')}
           </p>
         </div>
 
-        <div className="mb-6 flex bg-[var(--color-brand-black)] p-1 border border-[var(--color-brand-elements)]">
+        <div className="mb-6 flex bg-brand-black p-1 border border-brand-elements">
           <button
             type="button"
             onClick={() => {
@@ -100,11 +99,11 @@ export default function LoginPage() {
             }}
             className={`w-full py-2 text-sm font-medium transition-all cursor-pointer ${
               mode === 'login'
-                ? 'bg-[var(--color-brand-surface-2)] text-[var(--color-brand-white)] shadow-sm'
-                : 'text-[var(--color-brand-secondary)] hover:text-[var(--color-brand-white)]'
+                ? 'bg-brand-surface-2 text-(--color-brand-white) shadow-sm'
+                : 'text-brand-secondary hover:text-(--color-brand-white)'
             }`}
           >
-            Вхід
+            {t('login')}
           </button>
           <button
             type="button"
@@ -114,50 +113,50 @@ export default function LoginPage() {
             }}
             className={`w-full py-2 text-sm font-medium transition-all cursor-pointer ${
               mode === 'register'
-                ? 'bg-[var(--color-brand-surface-2)] text-[var(--color-brand-white)] shadow-sm'
-                : 'text-[var(--color-brand-secondary)] hover:text-[var(--color-brand-white)]'
+                ? 'bg-brand-surface-2 text-(--color-brand-white) shadow-sm'
+                : 'text-brand-secondary hover:text-(--color-brand-white)'
             }`}
           >
-            Реєстрація
+            {t('register')}
           </button>
         </div>
 
         {error && (
-          <div className="mb-4 border border-[var(--color-brand-red)] bg-[var(--color-brand-red)]/10 p-3 text-sm text-[var(--color-brand-red)] text-center">
+          <div className="mb-4 border border-brand-red bg-brand-red/10 p-3 text-sm text-brand-red text-center">
             {error}
           </div>
         )}
         {successMessage && (
-          <div className="mb-4 border border-[var(--color-brand-green)] bg-[var(--color-brand-green)]/10 p-3 text-sm text-[var(--color-brand-green)] text-center">
+          <div className="mb-4 border border-brand-green bg-brand-green/10 p-3 text-sm text-brand-green text-center">
             {successMessage}
           </div>
         )}
 
         <form onSubmit={handleAuth} className="space-y-4">
           <div>
-            <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-[var(--color-brand-secondary)]">
-              Електронна пошта
+            <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-brand-secondary">
+              {t('email')}
             </label>
             <input
               type="email"
               placeholder="name@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-[var(--color-brand-elements)] bg-[var(--color-brand-black)] p-3 text-sm text-[var(--color-brand-white)] placeholder-[var(--color-brand-icons)] outline-none transition-all focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)]"
+              className="w-full border border-brand-elements bg-brand-black p-3 text-sm text-brand-white placeholder:text-brand-icons outline-none transition-all focus:border-brand-accent focus:ring-1 focus:ring-brand-accent"
               required
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-[var(--color-brand-secondary)]">
-              Пароль
+            <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-brand-secondary">
+              {t('password')}
             </label>
             <input
               type="password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-[var(--color-brand-elements)] bg-[var(--color-brand-black)] p-3 text-sm text-[var(--color-brand-white)] placeholder-[var(--color-brand-icons)] outline-none transition-all focus:border-[var(--color-brand-accent)] focus:ring-1 focus:ring-[var(--color-brand-accent)]"
+              className="w-full border border-brand-elements bg-brand-black p-3 text-sm text-brand-white placeholder:text-brand-icons outline-none transition-all focus:border-brand-accent focus:ring-1 focus:ring-brand-accent"
               required
             />
           </div>
@@ -166,20 +165,20 @@ export default function LoginPage() {
             variant="primary"
             type="submit"
             disabled={isLoading}
-            className="mt-2 h-10 w-full bg-[var(--color-brand-accent)] py-3 text-sm font-bold tracking-wide text-white transition-all hover:bg-[var(--color-brand-accent-600)] active:scale-[0.99] disabled:opacity-50"
+            className="mt-2 h-10 w-full bg-brand-accent py-3 text-sm font-bold tracking-wide text-white transition-all hover:bg-brand-accent-600 active:scale-[0.99] disabled:opacity-50"
           >
             {isLoading
-              ? 'Обробка...'
+              ? t('loading')
               : mode === 'login'
-                ? 'Увійти'
-                : 'Зареєструватися'}
+                ? t('login')
+                : t('register')}
           </Button>
         </form>
 
-        <div className="my-6 flex items-center justify-between text-xs uppercase tracking-wider text-[var(--color-brand-icons)]">
-          <span className="h-[1px] w-full bg-[var(--color-brand-elements)]"></span>
-          <span className="px-3 text-[var(--color-brand-secondary)]">або</span>
-          <span className="h-[1px] w-full bg-[var(--color-brand-elements)]"></span>
+        <div className="my-6 flex items-center justify-between text-xs uppercase tracking-wider text-brand-icons">
+          <span className="h-px w-full bg-brand-elements"></span>
+          <span className="px-3 text-brand-secondary">{t('or')}</span>
+          <span className="h-px w-full bg-brand-elements"></span>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -187,7 +186,7 @@ export default function LoginPage() {
             type="button"
             disabled={isLoading}
             onClick={() => handleOAuthLogin('google')}
-            className="flex items-center justify-center gap-2 cursor-pointer border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-2)] py-2.5 text-sm font-medium transition-all hover:bg-[var(--color-brand-elements)]"
+            className="flex items-center justify-center gap-2 cursor-pointer border border-brand-elements bg-brand-surface-2 py-2.5 text-sm font-medium transition-all hover:bg-brand-elements"
           >
             <svg className="h-4 w-4" viewBox="0 0 24 24">
               <path
@@ -202,7 +201,7 @@ export default function LoginPage() {
             type="button"
             disabled={isLoading}
             onClick={() => handleOAuthLogin('github')}
-            className="flex items-center justify-center gap-2 cursor-pointer border border-[var(--color-brand-elements)] bg-[var(--color-brand-surface-2)] py-2.5 text-sm font-medium transition-all hover:bg-[var(--color-brand-elements)]"
+            className="flex items-center justify-center gap-2 cursor-pointer border border-brand-elements bg-brand-surface-2 py-2.5 text-sm font-medium transition-all hover:bg-brand-elements"
           >
             <svg className="h-4 w-4" viewBox="0 0 24 24">
               <path
@@ -216,4 +215,6 @@ export default function LoginPage() {
       </div>
     </div>
   );
-}
+};
+
+export default LoginPage;

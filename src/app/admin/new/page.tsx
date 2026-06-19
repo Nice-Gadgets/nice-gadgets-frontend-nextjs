@@ -16,7 +16,7 @@ interface SupabaseQueryError {
 
 const supabase = createClient();
 
-export default function NewProductPage() {
+export const NewProductPage = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -448,4 +448,6 @@ export default function NewProductPage() {
       </form>
     </div>
   );
-}
+};
+
+export default NewProductPage;

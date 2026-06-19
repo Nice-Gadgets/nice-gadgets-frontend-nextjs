@@ -11,7 +11,7 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-async function getAccessoryProduct(id: string) {
+const getAccessoryProduct = async (id: string) => {
   const products = await getStaticProducts();
 
   const fullProduct = await getProduct(id);
@@ -21,9 +21,9 @@ async function getAccessoryProduct(id: string) {
     fullProduct,
     product: fullProductToProduct(fullProduct, products),
   };
-}
+};
 
-async function AccessoriesProductsContent({ id }: { id: string }) {
+const AccessoriesProductsContent = async ({ id }: { id: string }) => {
   const data = await getAccessoryProduct(id);
 
   if (!data || !data.product) notFound();
@@ -34,9 +34,9 @@ async function AccessoriesProductsContent({ id }: { id: string }) {
       <ItemCardPage product={data.fullProduct} />
     </>
   );
-}
+};
 
-export default async function AccessoryDetailPage({ params }: PageProps) {
+export const AccessoryDetailPage = async ({ params }: PageProps) => {
   const { id } = await params;
 
   return (
@@ -44,9 +44,9 @@ export default async function AccessoryDetailPage({ params }: PageProps) {
       <AccessoriesProductsContent id={id} />
     </Suspense>
   );
-}
+};
 
-export async function generateMetadata({ params }: PageProps) {
+export const generateMetadata = async ({ params }: PageProps) => {
   const { id } = await params;
   const data = await getAccessoryProduct(id);
 
@@ -56,4 +56,6 @@ export async function generateMetadata({ params }: PageProps) {
     title: data.fullProduct.name,
     description: data.fullProduct.description?.[0]?.text?.[0] || '',
   };
-}
+};
+
+export default AccessoryDetailPage;

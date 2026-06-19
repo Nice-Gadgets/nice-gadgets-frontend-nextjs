@@ -9,10 +9,10 @@ type ProductPriceProps = {
   priceRegular: number;
 };
 
-export function ProductPrice({
+export const ProductPrice = ({
   priceDiscount,
   priceRegular,
-}: ProductPriceProps) {
+}: ProductPriceProps) => {
   const currency = useSettingsStore((state) => state.currency);
   const currencyRates = useSettingsStore((state) => state.currencyRates);
   const language = useSettingsStore((state) => state.language);
@@ -30,4 +30,4 @@ export function ProductPrice({
       )}
     </div>
   );
-}
+};

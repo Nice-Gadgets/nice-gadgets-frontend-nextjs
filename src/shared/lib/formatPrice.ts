@@ -6,12 +6,12 @@ import {
   Language,
 } from '@/shared/constants/settings';
 
-export function formatPrice(
+export const formatPrice = (
   price: number,
   currency: Currency = DEFAULT_CURRENCY,
   currencyRates = FALLBACK_CURRENCY_RATES,
   language: Language = 'en',
-): string {
+): string => {
   const rate =
     currencyRates[currency] ?? FALLBACK_CURRENCY_RATES[currency] ?? 1;
   const convertedPrice = price * rate;
@@ -23,4 +23,4 @@ export function formatPrice(
   }).format(convertedPrice);
 
   return `${CURRENCY_SYMBOLS[currency]}${formattedNumber}`;
-}
+};

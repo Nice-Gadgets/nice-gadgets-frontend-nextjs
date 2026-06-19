@@ -15,14 +15,9 @@ import { useCounterAnimation } from '@/shared/hooks/useCounterAnimation';
 import { cn } from '@/shared/lib/utils';
 import { CartIcon, CloseIcon, HeartIcon, SearchIcon } from '@/shared/ui/Icons';
 import { Logo } from '@/shared/ui/Logo';
-import { SettingsControls } from '@/shared/ui/SettingsControls';
-import { ThemeToggle } from '@/shared/ui/ThemeSwitcher';
-import { UserAnchor } from '@/shared/ui/UserAnchor/UserAnchor';
+import { ProfileDropdown } from '@/shared/ui/ProfileDropdown';
 import { MobileMenu } from '@/widgets/Header/MobileMenu';
 import { DesktopNavLinks } from '@/widgets/Header/NavLinks';
-
-const headerIconLinkClassName =
-  'hidden h-full w-16 items-center justify-center border-l border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1 md:flex lg:w-22';
 
 export const Header = () => {
   const pathname = usePathname();
@@ -72,7 +67,7 @@ export const Header = () => {
   const isFavoriteAnimating = useCounterAnimation(favoriteCount);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-brand-elements bg-brand-black">
+    <header className="fixed top-0 left-0 right-0 z-1100 border-b border-brand-elements bg-brand-black">
       <div className="flex h-11.75 items-center justify-between lg:h-16">
         <div className="flex h-full items-center">
           <div className="flex h-full items-center px-4 md:px-6 lg:px-8">
@@ -109,7 +104,7 @@ export const Header = () => {
                     closeSearch();
                   }
                 }}
-                className="h-9 pl-4 pr-8 rounded-full bg-brand-surface-2 text-brand-white text-sm outline-none w-full max-w-64 max-[430px]:max-w-40"
+                className="h-9 pl-4 pr-8 rounded-full bg-brand-surface-2 text-brand-white text-sm outline-none w-full max-w-64 max-[480px]:max-w-40"
                 onBlur={() => setTimeout(() => closeSearch(), 150)}
               />
 
@@ -159,16 +154,10 @@ export const Header = () => {
             </button>
           )}
 
-          <div className="hidden h-full items-center border-l border-brand-elements px-3 md:flex">
-            <SettingsControls />
-          </div>
-
-          <ThemeToggle className={headerIconLinkClassName} />
-
           <Link
             href="/favorites"
             aria-label={t('favorites')}
-            className={cn(headerIconLinkClassName, 'relative')}
+            className="hidden h-full w-16 items-center justify-center border-l border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1 md:flex lg:w-22 relative"
           >
             <div className="relative">
               <HeartIcon className="size-4 shrink-0" />
@@ -193,7 +182,7 @@ export const Header = () => {
           <Link
             href="/cart"
             aria-label={t('cart')}
-            className={cn(headerIconLinkClassName, 'relative')}
+            className="hidden h-full w-16 items-center justify-center border-l border-brand-elements text-brand-white transition-colors hover:bg-brand-surface-1 md:flex lg:w-22 relative"
           >
             <div className="relative">
               <CartIcon className="size-4 shrink-0" />
@@ -214,7 +203,8 @@ export const Header = () => {
               <span className="absolute bottom-0 h-0.75 w-full bg-brand-white" />
             )}
           </Link>
-          <UserAnchor className="hidden h-full w-16 items-center justify-center border-l border-brand-elements transition-colors hover:bg-brand-surface-1 md:flex lg:w-22" />
+
+          <ProfileDropdown className="flex" />
 
           <MobileMenu pathname={pathname} />
         </div>
